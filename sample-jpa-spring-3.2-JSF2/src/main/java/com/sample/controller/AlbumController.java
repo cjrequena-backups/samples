@@ -13,7 +13,7 @@ import com.sample.service.IAlbumService;
 
 
 @Configurable
-@ManagedBean(name = "CityController")
+@ManagedBean(name = "AlbumController")
 @SessionScoped
 public class AlbumController implements Serializable {
 private static final long serialVersionUID = 1L;
