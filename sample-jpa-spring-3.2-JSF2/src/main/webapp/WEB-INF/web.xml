@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <display-name>sample-chinook-jpa-spring-jsf</display-name>
-  <description>Roo generated sample-chinook application</description>
+  <display-name>sample-jpa-spring-3.2-jsf2</display-name>
+  <description>sample application</description>
   <context-param>
     <param-name>defaultHtmlEscape</param-name>
     <param-value>true</param-value>
@@ -12,7 +12,7 @@
   </context-param>
   <context-param>
     <param-name>primefaces.THEME</param-name>
-    <param-value>south-street</param-value>
+    <param-value>bootstrap</param-value>
   </context-param>
   <filter>
     <filter-name>PrimeFaces FileUpload Filter</filter-name>

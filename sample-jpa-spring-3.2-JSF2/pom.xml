@@ -14,7 +14,6 @@
 		<slf4j.version>1.7.2</slf4j.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
 	</properties>
-
 	<dependencies>
 		<!-- General dependencies for standard applications -->
 		<dependency>
@@ -70,6 +69,12 @@
 			<version>3.1</version>
 		</dependency>
 
+		<!-- JSR-330 -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
 		<!-- Spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -216,24 +221,10 @@
 			<version>2.1</version>
 		</dependency>
 	</dependencies>
+
 	<build>
+		<finalName>${artifactId}-${version}</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.2</version>
-				<!-- <configuration> <webXml>target/web.xml</webXml> </configuration> -->
-				<configuration>
-					<webResources>
-						<resource>
-							<excludes>
-								<exclude>dbre.xml</exclude>
-							</excludes>
-							<directory>src/main/resources</directory>
-						</resource>
-					</webResources>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -242,6 +233,54 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${basedir}</directory>
+							<includes>
+								<include>**/*.tmp</include>
+								<include>**/*.log</include>
+								<include>**/*.class</include>
+							</includes>
+							<excludes>
+								<exclude>**/important.log</exclude>
+								<exclude>**/another-important.log</exclude>
+							</excludes>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+					<webappDirectory>${basedir}/src/main/webapp</webappDirectory>
+					<warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
+					<archiveClasses>false</archiveClasses>
+					<webResources>
+						<resource>
+							<directory>src/main/resources</directory>
+							<excludes>
+								<exclude>dbre.xml</exclude>
+							</excludes>
+						</resource>
+<!-- 						<resource> -->
+<!-- 							<directory>${basedir}/src/main/webapp/WEB-INF</directory> -->
+<!-- 							<includes> -->
+<!-- 								<include>web.xml</include> -->
+<!-- 							</includes> -->
+<!-- 							<targetPath>WEB-INF</targetPath> -->
+<!-- 							<filtering>false</filtering> -->
+<!-- 						</resource> -->
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -373,18 +412,44 @@
 					</webAppConfig>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.openjpa</groupId> <artifactId>openjpa-maven-plugin</artifactId> 
-				<version>2.2.0</version> <configuration> <includes>**/*.class</includes> 
-				<addDefaultConstructor>true</addDefaultConstructor> </configuration> <executions> 
-				<execution> <id>enhancer</id> <phase>process-classes</phase> <goals> <goal>enhance</goal> 
-				</goals> </execution> </executions> <dependencies> <dependency> <groupId>org.apache.openjpa</groupId> 
-				<artifactId>openjpa</artifactId> <version>2.2.0</version> <exclusions> <exclusion> 
-				<groupId>commons-logging</groupId> <artifactId>commons-logging</artifactId> 
-				</exclusion> <exclusion> <groupId>org.apache.geronimo.specs</groupId> <artifactId>geronimo-jms_1.1_spec</artifactId> 
-				</exclusion> </exclusions> </dependency> </dependencies> </plugin> -->
+
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.openjpa</groupId> -->
+			<!-- <artifactId>openjpa-maven-plugin</artifactId> -->
+			<!-- <version>2.2.0</version> -->
+			<!-- <configuration> -->
+			<!-- <includes>**/*.class</includes> -->
+			<!-- <addDefaultConstructor>true</addDefaultConstructor> -->
+			<!-- </configuration> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>enhancer</id> -->
+			<!-- <phase>process-classes</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>enhance</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- <dependencies> -->
+			<!-- <dependency> -->
+			<!-- <groupId>org.apache.openjpa</groupId> -->
+			<!-- <artifactId>openjpa</artifactId> -->
+			<!-- <version>2.2.0</version> -->
+			<!-- <exclusions> -->
+			<!-- <exclusion> -->
+			<!-- <groupId>commons-logging</groupId> -->
+			<!-- <artifactId>commons-logging</artifactId> -->
+			<!-- </exclusion> -->
+			<!-- <exclusion> -->
+			<!-- <groupId>org.apache.geronimo.specs</groupId> -->
+			<!-- <artifactId>geronimo-jms_1.1_spec</artifactId> -->
+			<!-- </exclusion> -->
+			<!-- </exclusions> -->
+			<!-- </dependency> -->
+			<!-- </dependencies> -->
+			<!-- </plugin> -->
 		</plugins>
 	</build>
-
 	<repositories>
 		<repository>
 			<id>spring-maven-release</id>
