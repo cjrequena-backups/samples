@@ -1,23 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-      
-	<ui:composition>
-	  <title></title>
-	  <h:outputStylesheet library="css" name="standard.css" />
-	  
-	  
-	  
-	 <h:form>
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+	<title></title>
+	<h:outputStylesheet library="css" name="reset.css"  />
+	<h:outputStylesheet library="css" name="standard.css" />
+
+
+	<h:form>
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0">
 			<h:panelGrid width="600" cellspacing="0" cellpadding="0">
 				<h:panelGrid columns="5">
 					<h:outputLink value="../pages/main.jsf">#{messages.label_home}</h:outputLink>
 					<h:outputText value="#{messages.label_language}:" />
-					
+
 					<h:panelGroup>
 						<h:commandLink id="switchToEnglish"
 							action="#{localeBean.setSelectedLocale}">
@@ -31,7 +31,7 @@
 							</h:outputFormat>
 						</p:tooltip>
 					</h:panelGroup>
-					
+
 					<h:panelGroup>
 						<h:commandLink id="switchToSpanish"
 							action="#{localeBean.setSelectedLocale}">
@@ -45,11 +45,11 @@
 							</h:outputFormat>
 						</p:tooltip>
 					</h:panelGroup>
-					
+
 				</h:panelGrid>
 			</h:panelGrid>
 		</h:panelGrid>
 	</h:form>
-	  
-	</ui:composition>
+
+</ui:composition>
 </html>
