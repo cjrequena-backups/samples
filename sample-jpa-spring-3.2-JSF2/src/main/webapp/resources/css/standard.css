@@ -1,6 +1,6 @@
 body,div,td {
 	font-family: Roboto, arial, sans-serif;
-	color: #737373;
+	color: #333
 	font-size: 13px;
 	font-style: normal;
 	font-variant: normal;
@@ -41,59 +41,89 @@ a:visited {
 /*******************************************************************/
 /**********************  		LAYOUT 		************************/
 /*******************************************************************/
-#navigation {
-	float: left;
-	height: 40px;
+#wrapper {
+	margin: 0 auto;
 	width: 100%;
-	background: #F5F5F5;
+}
+
+#headerwrap {
+	width: 100%;
+	float: none;
+	margin: 0 auto;
 }
 
 #header {
-	float: left;
 	height: 75px;
+	background: #F5F5F5;
+	border-radius: 0px;
+/* 	border: 1px solid #e1e1e1; */
+	margin-botton: 0.2%;
+}
+
+#navigationwrap {
 	width: 100%;
-	background: #FFFFFF;
-}
-
-#container {
-	
-}
-
-#container .one_column {
-	
-}
-
-#container .two_column_left {
-	padding-left: 200px; /*LC width*/
-}
-
-#container .two_column_right {
-	padding-right: 200px; /*RC width*/
-}
-
-#container .three_column {
-	padding-left: 200px; /*LC width*/
-	padding-right: 200px; /*RC width*/
-}
-
-#container .column {
-	position: relative;
 	float: left;
+	margin: 0 auto;
 }
 
-#centercolumn {
-	width: 100%;
+#navigation {
+	height: 40px;
+	background: #F5F5F5;
+	border-radius: 0px;
+/* 	border: 1px solid #e1e1e1; */
+	margin-botton: 0.2%;
 }
+
+#contentwrap {
+	width: 100%;
+	float: left;
+	margin: 0 auto;
+}
+
+#contentwrap_2 {
+	width: 70%;
+	float: left;
+	margin: 0 auto;
+}
+
+#content {
+	background: #F5F5F5;
+	border-radius: 0px;
+/* 	border: 1px solid #e1e1e1; */
+	margin-botton: 0.2%;
+}
+
+#leftcolumnwrap {
+	width: 15%;
+	float: left;
+	margin: 0 auto;
+}	
 
 #leftcolumn {
-	width: 200px; /* LC width */
-	right: 200px; /* LC width */
-	margin-left: -100%;
+	background: #F5F5F5;
+	border-radius: 0px;
+	border: 1px solid #e1e1e1;
+	margin: 0%;
+}
+
+#rightcolumnwrap {
+	width: 15%;
+	float: left;
+	margin: 0 auto;
 }
 
 #rightcolumn {
-	width: 200px; /* RC width */
-	margin-right: -200px; /* RC width */
+	background: #F5F5F5;
+	border-radius: 0px;
+	border: 1px solid #e1e1e1;
+	margin: 0%;
+}
+
+#footerwrap {
+	width: 100%;
+	float: left;
+	margin: 0 auto;
+	clear: both;
 }
 
 #footer {
@@ -104,33 +134,21 @@ a:visited {
 	position: absolute;
 	bottom: 0;
 	left: 0;
+	border-radius: 0px;
+/* 	margin: 0.2%; */
 }
+
 /*******************************************************************/
 /**********************  	STYLE CLASS 	************************/
 /*******************************************************************/
-.header {
-	
-}
 
-.content {
-	
-}
-
-.footer {
-	
-}
-
-.leftcolumn {
-	top: 0;
-	bottom: 0;
-}
-
-.rightcolumn {
-	
+.column {
+	position: relative;
+	float: left;
 }
 
 .dialog {
-	width: auto;
+    width: auto;
 }
 
 .col1 {
