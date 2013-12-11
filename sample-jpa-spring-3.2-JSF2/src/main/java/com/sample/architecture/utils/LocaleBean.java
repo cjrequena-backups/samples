@@ -1,4 +1,4 @@
-package com.sample.controller;
+package com.sample.architecture.utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;

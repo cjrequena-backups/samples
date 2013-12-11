@@ -7,7 +7,7 @@
 
 <ui:composition>
 	<title></title>
-	<h:outputStylesheet library="css" name="reset.css"  />
+	<h:outputStylesheet library="css" name="reset.css" />
 	<h:outputStylesheet library="css" name="standard.css" />
 
 
@@ -15,10 +15,10 @@
 		<h:panelGrid columns="2" cellspacing="0" cellpadding="0">
 			<h:panelGrid width="600" cellspacing="0" cellpadding="0">
 				<h:panelGrid columns="5">
-					<h:outputLink value="../pages/main.jsf">#{messages.label_home}</h:outputLink>
-					<h:outputText value="#{messages.label_language}:" />
+					<h:outputLink value="../pages/main.jsf" style="margin:7%">#{messages.label_home}</h:outputLink>
+					<h:outputText value="#{messages.label_language}:" style="margin:7%"/>
 
-					<h:panelGroup>
+					<h:panelGroup style="margin:7%">
 						<h:commandLink id="switchToEnglish"
 							action="#{localeBean.setSelectedLocale}">
 							<f:param name="locale" value="en" />
@@ -32,7 +32,7 @@
 						</p:tooltip>
 					</h:panelGroup>
 
-					<h:panelGroup>
+					<h:panelGroup style="margin:7%">
 						<h:commandLink id="switchToSpanish"
 							action="#{localeBean.setSelectedLocale}">
 							<f:param name="locale" value="es" />
