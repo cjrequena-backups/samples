@@ -1,4 +1,4 @@
-package com.sample.model;
+package com.sample.model.jpa;
 
 import java.util.Calendar;
 import java.util.List;

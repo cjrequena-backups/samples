@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.service.IAlbumService;
 
 
@@ -26,6 +27,12 @@ private static final long serialVersionUID = 1L;
     }
 	public String test(){
 		//System.out.println(this.cityService.test());
+		try {
+			this.albumService.countAll();
+		} catch (BusinessExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "album";
 	}
 }

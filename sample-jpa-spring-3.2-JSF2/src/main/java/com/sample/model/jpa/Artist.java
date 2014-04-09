@@ -1,4 +1,4 @@
-package com.sample.model;
+package com.sample.model.jpa;
 
 import java.util.List;
 import java.util.Set;
@@ -16,40 +16,23 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.annotation.Transactional;
 
-@Entity
-@Table(name = "MediaType")
 @Configurable
-public class MediaType {
+@Entity
+@Table(name = "Artist")
+public class Artist {
 
-	public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-    }
-
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "MediaTypeId")
-    private Integer mediaTypeId;
-
-	public Integer getMediaTypeId() {
-        return this.mediaTypeId;
-    }
-
-	public void setMediaTypeId(Integer id) {
-        this.mediaTypeId = id;
-    }
-
-	@OneToMany(mappedBy = "mediaTypeId")
-    private Set<Track> tracks;
+	@OneToMany(mappedBy = "artistId")
+    private Set<Album> albums;
 
 	@Column(name = "Name", length = 120)
     private String name;
 
-	public Set<Track> getTracks() {
-        return tracks;
+	public Set<Album> getAlbums() {
+        return albums;
     }
 
-	public void setTracks(Set<Track> tracks) {
-        this.tracks = tracks;
+	public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
     }
 
 	public String getName() {
@@ -60,30 +43,43 @@ public class MediaType {
         this.name = name;
     }
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ArtistId")
+    private Integer artistId;
+
+	public Integer getArtistId() {
+        return this.artistId;
+    }
+
+	public void setArtistId(Integer id) {
+        this.artistId = id;
+    }
+
 	@PersistenceContext
     transient EntityManager entityManager;
 
 	public static final EntityManager entityManager() {
-        EntityManager em = new MediaType().entityManager;
+        EntityManager em = new Artist().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countMediaTypes() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM MediaType o", Long.class).getSingleResult();
+	public static long countArtists() {
+        return entityManager().createQuery("SELECT COUNT(o) FROM Artist o", Long.class).getSingleResult();
     }
 
-	public static List<MediaType> findAllMediaTypes() {
-        return entityManager().createQuery("SELECT o FROM MediaType o", MediaType.class).getResultList();
+	public static List<Artist> findAllArtists() {
+        return entityManager().createQuery("SELECT o FROM Artist o", Artist.class).getResultList();
     }
 
-	public static MediaType findMediaType(Integer mediaTypeId) {
-        if (mediaTypeId == null) return null;
-        return entityManager().find(MediaType.class, mediaTypeId);
+	public static Artist findArtist(Integer artistId) {
+        if (artistId == null) return null;
+        return entityManager().find(Artist.class, artistId);
     }
 
-	public static List<MediaType> findMediaTypeEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM MediaType o", MediaType.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+	public static List<Artist> findArtistEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM Artist o", Artist.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
 	@Transactional
@@ -98,7 +94,7 @@ public class MediaType {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            MediaType attached = MediaType.findMediaType(this.mediaTypeId);
+            Artist attached = Artist.findArtist(this.artistId);
             this.entityManager.remove(attached);
         }
     }
@@ -116,10 +112,14 @@ public class MediaType {
     }
 
 	@Transactional
-    public MediaType merge() {
+    public Artist merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        MediaType merged = this.entityManager.merge(this);
+        Artist merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
+    }
+
+	public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

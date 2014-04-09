@@ -9,7 +9,7 @@
 
 		<properties>
 			<property name="openjpa.jdbc.DBDictionary" value="org.apache.openjpa.jdbc.sql.MySQLDictionary" />
-			<property name="openjpa.jdbc.Schema" value="chinook" />
+			<property name="openjpa.jdbc.Schema" value="Chinook" />
 			<property name="openjpa.jdbc.SynchronizeMappings" value="validate" />
 			<property name="openjpa.RuntimeUnenhancedClasses" value="supported" />
 			<!-- <property name="openjpa.TransactionMode" value="managed" /> -->

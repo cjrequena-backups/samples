@@ -1,4 +1,4 @@
-package com.sample.model;
+package com.sample.model.jpa;
 
 import java.util.List;
 import java.util.Set;
@@ -8,9 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -18,68 +21,68 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Configurable
 @Entity
-@Table(name = "Artist")
-public class Artist {
+@Table(name = "Album")
+public class Album {
 
-	@OneToMany(mappedBy = "artistId")
-    private Set<Album> albums;
+	@OneToMany(mappedBy = "albumId")
+    private Set<Track> tracks;
 
-	@Column(name = "Name", length = 120)
-    private String name;
+	@ManyToOne
+    @JoinColumn(name = "ArtistId", referencedColumnName = "ArtistId", nullable = false)
+    private Artist artistId;
 
-	public Set<Album> getAlbums() {
-        return albums;
+	@Column(name = "Title", length = 160)
+    @NotNull
+    private String title;
+
+	public Set<Track> getTracks() {
+        return tracks;
     }
 
-	public void setAlbums(Set<Album> albums) {
-        this.albums = albums;
+	public void setTracks(Set<Track> tracks) {
+        this.tracks = tracks;
     }
 
-	public String getName() {
-        return name;
+	public Artist getArtistId() {
+        return artistId;
     }
 
-	public void setName(String name) {
-        this.name = name;
+	public void setArtistId(Artist artistId) {
+        this.artistId = artistId;
     }
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ArtistId")
-    private Integer artistId;
-
-	public Integer getArtistId() {
-        return this.artistId;
+	public String getTitle() {
+        return title;
     }
 
-	public void setArtistId(Integer id) {
-        this.artistId = id;
+	public void setTitle(String title) {
+        this.title = title;
     }
 
 	@PersistenceContext
     transient EntityManager entityManager;
 
 	public static final EntityManager entityManager() {
-        EntityManager em = new Artist().entityManager;
+        EntityManager em = new Album().entityManager;
         if (em == null) throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
         return em;
     }
 
-	public static long countArtists() {
-        return entityManager().createQuery("SELECT COUNT(o) FROM Artist o", Long.class).getSingleResult();
+	public static long countAlbums() {
+        return entityManager().createQuery("SELECT COUNT(o) FROM Album o", Long.class).getSingleResult();
     }
 
-	public static List<Artist> findAllArtists() {
-        return entityManager().createQuery("SELECT o FROM Artist o", Artist.class).getResultList();
+	public static List<Album> findAllAlbums() {
+        return entityManager().createQuery("SELECT o FROM Album o", Album.class).getResultList();
     }
 
-	public static Artist findArtist(Integer artistId) {
-        if (artistId == null) return null;
-        return entityManager().find(Artist.class, artistId);
+	public static Album findAlbum(Integer albumId) {
+        if (albumId == null) return null;
+        return entityManager().find(Album.class, albumId);
     }
 
-	public static List<Artist> findArtistEntries(int firstResult, int maxResults) {
-        return entityManager().createQuery("SELECT o FROM Artist o", Artist.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+	public static List<Album> findAlbumEntries(int firstResult, int maxResults) {
+        return entityManager().createQuery("SELECT o FROM Album o", Album.class).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
 	@Transactional
@@ -94,7 +97,7 @@ public class Artist {
         if (this.entityManager.contains(this)) {
             this.entityManager.remove(this);
         } else {
-            Artist attached = Artist.findArtist(this.artistId);
+            Album attached = Album.findAlbum(this.albumId);
             this.entityManager.remove(attached);
         }
     }
@@ -112,14 +115,27 @@ public class Artist {
     }
 
 	@Transactional
-    public Artist merge() {
+    public Album merge() {
         if (this.entityManager == null) this.entityManager = entityManager();
-        Artist merged = this.entityManager.merge(this);
+        Album merged = this.entityManager.merge(this);
         this.entityManager.flush();
         return merged;
     }
 
 	public String toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "AlbumId")
+    private Integer albumId;
+
+	public Integer getAlbumId() {
+        return this.albumId;
+    }
+
+	public void setAlbumId(Integer id) {
+        this.albumId = id;
     }
 }

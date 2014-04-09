@@ -4,17 +4,16 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" 
     version="2.0">
     <application>
-        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-        <resource-bundle>
-            <base-name>i18n.messages</base-name>
-            <var>messages</var>
-        </resource-bundle>
-        <locale-config>
-            <default-locale>en</default-locale>
-            <supported-locale>en</supported-locale>
-            <supported-locale>es</supported-locale>
-        </locale-config>
-    </application>
+		<resource-bundle>
+			<base-name>i18n.messages</base-name>
+			<var>i18n</var>
+		</resource-bundle>
+		<locale-config>
+			<default-locale>en_US</default-locale>
+			<supported-locale>en_US</supported-locale>
+			<supported-locale>es_ES</supported-locale>
+		</locale-config>
+	</application>
     <factory>
         <exception-handler-factory>com.sample.architecture.exceptions.ManagerExceptionHandlerFactory</exception-handler-factory>
     </factory>
