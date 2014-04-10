@@ -18,7 +18,7 @@ public class Filter implements Serializable {
 
 	private Column column;
 	private Criteria criteria;
-	private Criteria andOr;
+	private Boolean andOr = Boolean.TRUE;
 	private Boolean caseSensitive = Boolean.TRUE;
 
 	public Filter() {
@@ -57,11 +57,11 @@ public class Filter implements Serializable {
 		this.criteria = criteria;
 	}
 
-	public Criteria getAndOr() {
+	public Boolean getAndOr() {
 		return andOr;
 	}
 
-	public void setAndOr(Criteria andOr) {
+	public void setAndOr(Boolean andOr) {
 		this.andOr = andOr;
 	}
 

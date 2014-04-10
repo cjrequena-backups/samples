@@ -13,6 +13,15 @@ public class Column implements Serializable {
 	private Object value;
 	private Class<?> type;
 	private String name;
+	private String label;
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
 	public Object getValue() {
 		return value;

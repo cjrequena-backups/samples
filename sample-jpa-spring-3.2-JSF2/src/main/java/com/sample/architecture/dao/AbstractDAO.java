@@ -285,7 +285,7 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 
 				Column column = filter.getColumn();
 				Criteria criteria = filter.getCriteria();
-				Criteria andOr = filter.getAndOr();
+				Boolean andOr = filter.getAndOr();
 				Object value = column.getValue();
 				String paramName = ":" + column.getName().replace(".", "_") + "_param_" + index;
 				String field = "o." + column.getName();
@@ -384,7 +384,7 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 				}
 
 				if (index++ > 0) {
-					if (andOr.equals(Criteria.AND)) {
+					if (andOr) {
 						fullFilter += " AND (" + strFilter + ")";
 					} else {
 						fullFilter += " OR  (" + strFilter + ")";

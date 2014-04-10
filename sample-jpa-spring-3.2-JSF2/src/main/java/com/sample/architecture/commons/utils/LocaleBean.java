@@ -1,4 +1,4 @@
-package com.sample.architecture.utils;
+package com.sample.architecture.commons.utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;

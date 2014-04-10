@@ -6,13 +6,13 @@
 			<p:growl id="messages" />
 			<p:menubar autoDisplay="false">
 				<p:submenu label="#{i18n.label_menu}" icon="ui-icon-document">
-<!-- 					<p:submenu label="#{i18n.label_creditor}"> -->
-<!-- 						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact" -->
-<!-- 							action="#{CreditorControllerTx.onCreate}" ajax="false"> -->
-<!-- 						</p:menuitem> -->
-<!-- 						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact" -->
-<!-- 							action="#{CreditorControllerQry.onPaginate}" ajax="false" /> -->
-<!-- 					</p:submenu> -->
+					<p:submenu label="#{i18n.label_album}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{AlbumControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{AlbumControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
 <!-- 					<p:submenu label="#{i18n.label_debtor}"> -->
 <!-- 						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact" -->
 <!-- 							action="#{DebtorControllerTx.onCreate}" ajax="false"> -->

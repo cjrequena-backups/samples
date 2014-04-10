@@ -1,4 +1,4 @@
-package com.sample.architecture.utils;
+package com.sample.architecture.commons.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
