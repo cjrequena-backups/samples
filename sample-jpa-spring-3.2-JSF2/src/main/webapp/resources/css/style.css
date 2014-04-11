@@ -50,19 +50,19 @@ body .container #content table {
 .col1 {
 	vertical-align: top;
 	font-weight: bold;
-	width: 20%;
+	width: 40%;
 	padding: 2px;
 }
 
 .col2 {
 	vertical-align: top;
-	width: 50%;
+	width: 55%;
 	padding: 2px;
 }
 
 .col3 {
 	vertical-align: top;
-	width: 30%;
+	width: 5%;
 	padding: 2px;
 }
 

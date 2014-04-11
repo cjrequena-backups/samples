@@ -1,1 +1,71 @@
-<h1>TX</h1>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="../templates/layout.xhtml">
+
+	<ui:define name="content">
+		<h:form prependId="false" id="growlForm">
+			<p:growl id="growl" showDetail="false" />
+		</h:form>
+
+		<h:form prependId="false" id="txForm">
+
+			<!-- COMPONENTE DE BOTONES -->
+			<p:panel toggleable="true" toggleSpeed="250">
+				<f:facet name="header">
+					<h:outputText value="#{i18n.label_album}" style="margin-left:45%;margin-right:45%;" />
+				</f:facet>
+				<h:panelGrid binding="#{AlbumControllerTx.actionsButtonsComponent}" columns="19">
+				</h:panelGrid>
+				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_delete_record}"
+					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
+					<p:outputPanel id="deletePanel">
+						<p:commandButton id="deleteYesButton" value="#{i18n.label_yes}" action="#{AlbumControllerTx.delete}"
+							oncomplete="deleteDialogWidget.hide()" />
+						<p:commandButton id="deleteNoButton" value="#{i18n.label_no}" onclick="deleteDialogWidget.hide()" type="button" />
+					</p:outputPanel>
+				</p:confirmDialog>
+			</p:panel>
+
+			<!-- DATA TRANSACTION -->
+			<p:panel toggleable="true" toggleSpeed="250">
+				<f:facet name="header">
+
+				</f:facet>
+				<p:tabView>
+					<p:tab id="tab1" title="#{i18n.label_tab_1}">
+						<h:panelGrid columns="3" columnClasses="col1,col2,col3" style="width:50%">
+							<p:outputLabel id="title_label" for="title_inputtext_id" value="#{i18n.label_album_title}">
+							</p:outputLabel>
+							<p:inputText id="title_inputtext_id" value="#{AlbumControllerTx.dataObject.title}" maxlength="2" required="true"
+								disabled="#{AlbumControllerTx.dataObject.title!=null}" style="width:100%">
+							</p:inputText>
+							<p:message id="title_inputtext_message" for="title_inputtext_id" display="icon">
+							</p:message>
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab id="tab2" title="#{i18n.label_tab_2}">
+						<h:panelGrid columns="2" cellpadding="10">
+
+						</h:panelGrid>
+					</p:tab>
+
+					<p:tab id="tab3" title="#{i18n.label_tab_3}">
+						<h:panelGrid columns="2" cellpadding="10">
+
+						</h:panelGrid>
+					</p:tab>
+
+				</p:tabView>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

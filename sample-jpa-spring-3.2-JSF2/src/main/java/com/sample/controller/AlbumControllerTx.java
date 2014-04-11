@@ -218,7 +218,7 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
 			createButton.setIcon("ui-icon-plus");
-			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.iden!=null}  ", boolean.class));
+			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.albumId!=null}  ", boolean.class));
 			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
 			this.actionsButtonsComponent.getChildren().add(createButton);
 
@@ -241,7 +241,7 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			deleteCommandButton.setImmediate(true);
 			deleteCommandButton.setAjax(true);
 			deleteCommandButton.setIcon("ui-icon-disk");
-			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.iden!=null}  ", boolean.class));
+			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.albumId!=null}  ", boolean.class));
 			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
 			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
 
