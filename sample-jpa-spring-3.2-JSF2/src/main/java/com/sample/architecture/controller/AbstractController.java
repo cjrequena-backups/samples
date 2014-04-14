@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
  * 
  * @param <T>
  */
-public abstract class AbstractController<T> implements Serializable {
+public abstract class AbstractController<T> implements IController<T>, Serializable {
 
 	/**
 	 * 
@@ -29,10 +29,10 @@ public abstract class AbstractController<T> implements Serializable {
 
 	@Value("${firstResult}")
 	protected Integer firstResult;
-
 	@Value("${maxResults}")
 	protected Integer maxResults;
 
+	protected IController<?> parentController;
 	protected T dataObject;
 
 	// MAP FILTER PARAMETERS
@@ -174,6 +174,14 @@ public abstract class AbstractController<T> implements Serializable {
 
 	public void setMapParameters(Map<Object, Object> mapParameters) {
 		this.mapParameters = mapParameters;
+	}
+
+	public IController<?> getParentController() {
+		return parentController;
+	}
+
+	public void setParentController(IController<?> parentController) {
+		this.parentController = parentController;
 	}
 
 }

@@ -38,6 +38,5 @@ public interface IControllerQry<T> {
 
 	public String runFromActionsButtons(String value, String action) throws Exception;
 
-	public String returnFromChild() throws Exception;
 
 }

@@ -13,13 +13,14 @@
 						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
 							action="#{AlbumControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-<!-- 					<p:submenu label="#{i18n.label_debtor}"> -->
-<!-- 						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact" -->
-<!-- 							action="#{DebtorControllerTx.onCreate}" ajax="false"> -->
-<!-- 						</p:menuitem> -->
-<!-- 						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact" -->
-<!-- 							action="#{DebtorControllerQry.onPaginate}" ajax="false" /> -->
-<!-- 					</p:submenu> -->
+					<p:submenu label="#{i18n.label_artist}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{ArtistControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{ArtistControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
+
 				</p:submenu>
 			</p:menubar>
 		</h:form>

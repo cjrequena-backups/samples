@@ -28,29 +28,25 @@ import com.sample.architecture.controller.AbstractControllerQry;
 import com.sample.architecture.dao.Column;
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.jpa.Album;
-import com.sample.service.IAlbumService;
+import com.sample.model.jpa.Artist;
+import com.sample.service.IArtistService;
 
-@Named("AlbumControllerQry")
+@Named("ArtistControllerQry")
 @Scope("session")
-public class AlbumControllerQry extends AbstractControllerQry<Album> implements Serializable {
+public class ArtistControllerQry extends AbstractControllerQry<Artist> implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = LoggerFactory.getLogger(AlbumControllerQry.class);
+	private static Logger logger = LoggerFactory.getLogger(ArtistControllerQry.class);
 
 	// SERVICES
 	@Autowired
-	IAlbumService albumService;
-	@Autowired
-	AlbumControllerTx albumControllerTx;
+	IArtistService artistService;
 	@Autowired
 	ArtistControllerTx artistControllerTx;
-	@Autowired
-	ArtistControllerQry artistControllerQry;
 	
 	// COMPONENTS
 	private HtmlPanelGrid paginateFilterComponent;
@@ -74,7 +70,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 					filter.setColumn(column);
 					filters.add(filter);
 				}
-				this.resultObjectsFiltered = this.albumService.executeQueryFilter(filters, firstResult, maxResults);
+				this.resultObjectsFiltered = this.artistService.executeQueryFilter(filters, firstResult, maxResults);
 
 			} else {
 				findEntries(firstResult, maxResults);
@@ -83,10 +79,10 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
 			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		}
-		return "album-qry";
+		return "artist-qry";
 	}
 
 	@Override
@@ -94,24 +90,17 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 		List<Column> listColumns = new ArrayList<Column>();
 
 		Column column = new Column();
-		column.setName("title");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_album_title"));
-		column.setType(String.class);
-		listColumns.add(column);
-
-		column = new Column();
-		column.setName("artistId.name");
+		column.setName("name");
 		column.setLabel(MessageFactory.getStringMessage("i18n", "label_artist_name"));
 		column.setType(String.class);
 		listColumns.add(column);
-
 		return listColumns;
 	}
 
 	@Override
-	public List<Album> executeQueryFilter(List<Filter> listFilter, Integer firstResult, Integer maxResults) throws Exception {
+	public List<Artist> executeQueryFilter(List<Filter> listFilter, Integer firstResult, Integer maxResults) throws Exception {
 		try {
-			return this.albumService.executeQueryFilter(listFilter, firstResult, maxResults);
+			return this.artistService.executeQueryFilter(listFilter, firstResult, maxResults);
 		} catch (BusinessExceptions e) {
 			e.printStackTrace();
 			throw new Exception(e.getMessage());
@@ -119,9 +108,9 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 	}
 
 	@Override
-	public List<Album> findEntries(int firstResult, int maxResults) throws Exception {
+	public List<Artist> findEntries(int firstResult, int maxResults) throws Exception {
 		try {
-			this.resultObjectsFiltered = this.albumService.findEntries(firstResult, maxResults);
+			this.resultObjectsFiltered = this.artistService.findEntries(firstResult, maxResults);
 		} catch (BusinessExceptions e) {
 			e.printStackTrace();
 			throw new Exception(e.getMessage());
@@ -130,23 +119,31 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 	}
 
 	@Override
-	public String runFromContextMenu(Album item, String value, String action) throws Exception {
-		Album album = (Album) item;
+	public String runFromContextMenu(Artist item, String value, String action) throws Exception {
+		Artist artist = (Artist) item;
 		if (value.equalsIgnoreCase("ALBUM")) {
-			this.albumControllerTx.setDataObject(album);
-			if (action.equalsIgnoreCase("EDIT")) {
-				return this.albumControllerTx.onEdit();
-			} else if (action.equalsIgnoreCase("DELETE")) {
-				return this.albumControllerTx.delete();
-			}
-		}else if (value.equalsIgnoreCase("ARTIST")) {
-			this.artistControllerTx.setDataObject(album.getArtistId());
+			this.artistControllerTx.setDataObject(artist);
 			if (action.equalsIgnoreCase("EDIT")) {
 				return this.artistControllerTx.onEdit();
+			} else if (action.equalsIgnoreCase("DELETE")) {
+				return this.artistControllerTx.delete();
 			}
+		}else if (value.equalsIgnoreCase("ARTIST")) {
+//			this.artistControllerTx.setParentController(this);
+//			if (action.equalsIgnoreCase("CREATE")) {
+//				Artist artist = new Artist();
+//				artist.setArtistId(artist.getArtistId())
+//				this.artistControllerTx.setDataObject(ARTIST)
+//				return this.artistControllerTx.onCreate();
+//			} else if (action.equalsIgnoreCase("LIST")) {
+//				this.artistControllerQry.clearMapParamereters();
+//				this.artistControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
+//				this.artistControllerQry.addToMapParamereters(tempre.getPais(), "pais");
+//				return this.artistControllerQry.onPaginate();
+//			}
 		}
 		
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		return null;
 	}
@@ -154,16 +151,16 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 	@Override
 	public String runFromActionsButtons(String value, String action) throws Exception {
 
-		Album album = this.dataObject;
+		Artist artist = this.dataObject;
 		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
 			if (action.equalsIgnoreCase("CREATE")) {
-				this.albumControllerTx.setParentController(this);
-				this.albumControllerTx.setDataObject(new Album());
-				return this.albumControllerTx.onCreate();
+				this.artistControllerTx.setParentController(this);
+				this.artistControllerTx.setDataObject(new Artist());
+				return this.artistControllerTx.onCreate();
 			}
 		}
 
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		return null;
 	}
@@ -192,7 +189,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			Application application = facesContext.getApplication();
 			ExpressionFactory expressionFactory = application.getExpressionFactory();
 			ELContext elContext = facesContext.getELContext();
-			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), AlbumControllerTx.class.getSimpleName());
+			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), ArtistControllerTx.class.getSimpleName());
 
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
@@ -218,14 +215,14 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 
 	public MenuModel getPaginateContextMenuComponent() throws Exception {
 		if (this.paginateContextMenuComponent == null) {
-			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), AlbumControllerTx.class.getSimpleName());
+			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), ArtistControllerTx.class.getSimpleName());
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			Application application = facesContext.getApplication();
 			ExpressionFactory expressionFactory = application.getExpressionFactory();
 			ELContext elContext = facesContext.getELContext();
 
-			
+			// MENU ITEM DE EDICION
 			MenuItem menuItemEdit = new MenuItem();
 			menuItemEdit.setId("menuItemEditId");
 			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_edit"));
@@ -234,25 +231,13 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			menuItemEdit.setIcon("ui-icon-pencil");
 			menuItemEdit.setImmediate(true);
 			menuItemEdit.setAjax(false);
+			// menuItemEdit.addActionListener(new
+			// SetPropertyActionListener(expressionFactory.createValueExpression(elContext,
+			// "#{" + controllerTxName + ".dataObject}", Object.class),
+			// expressionFactory.createValueExpression(elContext, "#{item}",
+			// Object.class)));
 			menuItemEdit.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromContextMenu(item,'ALBUM','EDIT')}", String.class, new Class[] { Object.class, String.class, String.class }));
 			menuModel.addMenuItem(menuItemEdit);
-			
-			MenuItem menuItemEditArtist = new MenuItem();
-			menuItemEditArtist.setId("menuItemEditArtistId");
-			menuItemEditArtist.setTitle(MessageFactory.getStringMessage("i18n", "label_artist_edit"));
-			menuItemEditArtist.setValue(MessageFactory.getStringMessage("i18n", "label_artist_edit"));
-			menuItemEditArtist.setUpdate(":growlForm:growl");
-			menuItemEditArtist.setIcon("ui-icon-folder-open");
-			menuItemEditArtist.setImmediate(true);
-			menuItemEditArtist.setAjax(false);
-			// ValueExpression targetExpressionEditArtist = expressionFactory.createValueExpression(elContext, "#{" + TEMPLE_CONTROLLER_TX_NAME + ".dataObject.fk_tempre_2}", Tempre.class);
-			// ValueExpression valueExpressionEditArtist = expressionFactory.createValueExpression(elContext, "#{item}", Tempre.class);
-			// menuItemEditArtist.addActionListener(new SetPropertyActionListener(targetExpressionEditArtist, valueExpressionEditArtist));
-			// menuItemEditArtist.addActionListener(new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + TEMPLE_CONTROLLER_QRY_NAME + ".clearMapParamereters()}", String.class, new Class[0])));
-			// menuItemEditArtist.addActionListener(new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + TEMPLE_CONTROLLER_QRY_NAME + ".addToMapParamereters(item.empresa,'empresa')}", null, new Class[] { Object.class, String.class })));
-			// menuItemEditArtist.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + TEMPLE_CONTROLLER_QRY_NAME + ".onPaginate()}", String.class, new Class[0]));
-			menuItemEditArtist.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromContextMenu(item,'ARTIST','EDIT')}", String.class, new Class[] { Object.class, String.class, String.class }));
-			menuModel.addMenuItem(menuItemEditArtist);
 
 			return menuModel;
 		} else {
@@ -269,14 +254,14 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 	// --------------------- GETTERS AND SETTERS ----------------------
 	// ----------------------------------------------------------------
 
-	public Album getDataObject() {
+	public Artist getDataObject() {
 		if (dataObject == null) {
-			dataObject = new Album();
+			dataObject = new Artist();
 		}
 		return dataObject;
 	}
 
-	public void setDataObject(Album dataObject) {
+	public void setDataObject(Artist dataObject) {
 		this.dataObject = dataObject;
 	}
 }

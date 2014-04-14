@@ -27,25 +27,21 @@ import org.springframework.context.annotation.Scope;
 import com.sample.architecture.commons.utils.MessageFactory;
 import com.sample.architecture.controller.AbstractControllerTx;
 import com.sample.controller.converter.ArtistConverter;
-import com.sample.model.jpa.Album;
 import com.sample.model.jpa.Artist;
-import com.sample.service.IAlbumService;
 import com.sample.service.IArtistService;
 
-@Named("AlbumControllerTx")
+@Named("ArtistControllerTx")
 @Scope("session")
-public class AlbumControllerTx extends AbstractControllerTx<Album> implements Serializable {
+public class ArtistControllerTx extends AbstractControllerTx<Artist> implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger logger = LoggerFactory.getLogger(AlbumControllerTx.class);
+	private static final Logger logger = LoggerFactory.getLogger(ArtistControllerTx.class);
 
 	// SERVICES
-	@Autowired
-	private IAlbumService albumService;
 	@Autowired
 	private IArtistService artistService;
 
@@ -58,15 +54,15 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 	@Override
 	public String onCreate() throws Exception {
 		try {
-			this.dataObject = new Album();
+			this.dataObject = new Artist();
 			this.flagCreate = true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
 			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		}
-		return "album-tx";
+		return "artist-tx";
 	}
 
 	@Override
@@ -76,10 +72,10 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
 			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		}
-		return "album-tx";
+		return "artist-tx";
 	}
 
 	@Override
@@ -87,30 +83,30 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 		String message = this.validate();
 		if (message == null) {
 			try {
-				if (dataObject != null && this.albumService.findByPk(dataObject.getAlbumId()) != null) {
-					this.albumService.update(dataObject);
+				if (dataObject != null && this.artistService.findByPk(dataObject.getArtistId()) != null) {
+					this.artistService.update(dataObject);
 					message = "message_successfully_updated";
 				} else {
-					this.albumService.save(dataObject);
+					this.artistService.save(dataObject);
 					message = "message_successfully_created";
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
 				message = "message_error";
-				FacesMessage facesMessage = MessageFactory.getMessage(message, "Album");
+				FacesMessage facesMessage = MessageFactory.getMessage(message, "Artist");
 				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 				return this.onCreate();
 			}
 		}
 
-		FacesMessage facesMessage = MessageFactory.getMessage(message, "Album");
+		FacesMessage facesMessage = MessageFactory.getMessage(message, "Artist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
 		if (this.getParentController() != null) {
 			return getParentController().returnToParentController();
 		} else {
-			return "album-tx";
+			return "artist-tx";
 		}
 	}
 
@@ -119,23 +115,23 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 		String message = "message_successfully_deleted";
 		try {
 			this.flagCreate = false;
-			Integer pk = this.dataObject.getAlbumId();
-			this.albumService.deleteByPk(pk);
+			Integer pk = this.dataObject.getArtistId();
+			this.artistService.deleteByPk(pk);
 		} catch (Exception e) {
 			e.printStackTrace();
 			message = "message_error";
-			FacesMessage facesMessage = MessageFactory.getMessage(message, "Album");
+			FacesMessage facesMessage = MessageFactory.getMessage(message, "Artist");
 			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 			throw new Exception(e);
 		}
 
-		FacesMessage facesMessage = MessageFactory.getMessage(message, "Album");
+		FacesMessage facesMessage = MessageFactory.getMessage(message, "Artist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
 		if (this.getParentController() != null) {
 			return getParentController().returnToParentController();
 		} else {
-			return "album-tx";
+			return "artist-tx";
 		}
 
 	}
@@ -145,29 +141,12 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 		String message = null;
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<Album>> constraintViolations = validator.validate(this.dataObject);
+		Set<ConstraintViolation<Artist>> constraintViolations = validator.validate(this.dataObject);
 
-		for (ConstraintViolation<Album> constraintViolation : constraintViolations) {
+		for (ConstraintViolation<Artist> constraintViolation : constraintViolations) {
 			message = constraintViolation.getPropertyPath() + " -> " + constraintViolation.getMessage();
 		}
 		return message;
-	}
-
-	public List<Artist> autocompleteArtist(String query) {
-		List<Artist> suggestions = new ArrayList<Artist>();
-		try {
-			for (Artist artist : artistService.findAll()) {
-
-				String obj = String.valueOf(artist.getName());
-
-				if (obj.toLowerCase().contains(query.toLowerCase())) {
-					suggestions.add(artist);
-				}
-			}
-		} catch (Exception e) {
-			logger.error("Error executing artist autocomplete " + e.getMessage());
-		}
-		return suggestions;
 	}
 
 	public void handleAutocompleteSelect(SelectEvent event) {
@@ -191,11 +170,11 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 
 	@Override
 	public String runFromActionsButtons(String value, String action) throws Exception {
-		Album album = this.dataObject;
-		
+		Artist artist = this.dataObject;
+
 		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
 			if (action.equalsIgnoreCase("CREATE")) {
-				this.dataObject = new Album();
+				this.dataObject = new Artist();
 				return this.onCreate();
 			}
 			if (action.equalsIgnoreCase("SAVE")) {
@@ -206,21 +185,21 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			}
 		}
 
-		// else if (value.equalsIgnoreCase("P5_Album")) {
+		// else if (value.equalsIgnoreCase("P5_Artist")) {
 		// if (action.equalsIgnoreCase("LIST")) {
-		// return this.albumControllerQry.onPaginate();
+		// return this.artistControllerQry.onPaginate();
 		// }
 		// } else if (value.equalsIgnoreCase("P5_TEMPLE")) {
 		// if (action.equalsIgnoreCase("LIST")) {
 		// this.templeControllerQry.clearMapParamereters();
-		// this.templeControllerQry.addToMapParamereters(album.geAlbumsa(),
+		// this.templeControllerQry.addToMapParamereters(artist.geArtistsa(),
 		// "empresa");
-		// this.templeControllerQry.addToMapParamereters(album.getPais(),
+		// this.templeControllerQry.addToMapParamereters(artist.getPais(),
 		// "pais");
 		// return this.templeControllerQry.onPaginate();
 		// }
 		// }
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		return null;
 	}
@@ -236,7 +215,7 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			Application application = facesContext.getApplication();
 			ExpressionFactory expressionFactory = application.getExpressionFactory();
 			ELContext elContext = facesContext.getELContext();
-			this.actionsButtonsComponent = super.getActionsButtonsComponent(AlbumControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
+			this.actionsButtonsComponent = super.getActionsButtonsComponent(ArtistControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
 
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
@@ -246,7 +225,7 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
 			createButton.setIcon("ui-icon-plus");
-			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.albumId!=null}  ", boolean.class));
+			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.artistId!=null}  ", boolean.class));
 			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
 			this.actionsButtonsComponent.getChildren().add(createButton);
 
@@ -269,47 +248,47 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			deleteCommandButton.setImmediate(true);
 			deleteCommandButton.setAjax(true);
 			deleteCommandButton.setIcon("ui-icon-disk");
-			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.albumId!=null}  ", boolean.class));
+			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.artistId!=null}  ", boolean.class));
 			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
 			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
 
-			// LIST ALL Album
-			// CommandButton listAlbumButton = (CommandButton)
+			// LIST ALL Artist
+			// CommandButton listArtistButton = (CommandButton)
 			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listAlbumButton.setId("listAlbumButtonId");
-			// listAlbumButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_Album_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listAlbumButton.setUpdate(":growlForm:growl");
-			// listAlbumButton.setImmediate(true);
-			// listAlbumButton.setAjax(false);
-			// listAlbumButton.setIcon("ui-icon-document");
-			// listAlbumButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+			// listArtistButton.setId("listArtistButtonId");
+			// listArtistButton.setValue(MessageFactory.getStringMessage("messages",
+			// "P5_Artist_PROCESSTRANSACTION_DISPLAY_LABEL"));
+			// listArtistButton.setUpdate(":growlForm:growl");
+			// listArtistButton.setImmediate(true);
+			// listArtistButton.setAjax(false);
+			// listArtistButton.setIcon("ui-icon-document");
+			// listArtistButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
 			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_Album','LIST')}", String.class, new
+			// ".runFromActionsButtons('P5_Artist','LIST')}", String.class, new
 			// Class[] {
 			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listAlbumButton);
+			// htmlPanelGrid.getChildren().add(listArtistButton);
 
 			// LIST TEMPLE BY EMPRESA
-			// CommandButton listTempleByAlbumButton = (CommandButton)
+			// CommandButton listTempleByArtistButton = (CommandButton)
 			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listTempleByAlbumButton.setId("listTempleByAlbumButtonId");
-			// listTempleByAlbumButton.setValue(MessageFactory.getStringMessage("messages",
+			// listTempleByArtistButton.setId("listTempleByArtistButtonId");
+			// listTempleByArtistButton.setValue(MessageFactory.getStringMessage("messages",
 			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listTempleByAlbumButton.setUpdate(":growlForm:growl");
-			// listTempleByAlbumButton.setImmediate(true);
-			// listTempleByAlbumButton.setAjax(false);
-			// listTempleByAlbumButton.setIcon("ui-icon-document");
-			// listTempleByAlbumButton.setValueExpression("rendered",
+			// listTempleByArtistButton.setUpdate(":growlForm:growl");
+			// listTempleByArtistButton.setImmediate(true);
+			// listTempleByArtistButton.setAjax(false);
+			// listTempleByArtistButton.setIcon("ui-icon-document");
+			// listTempleByArtistButton.setValueExpression("rendered",
 			// expressionFactory.createValueExpression(elContext, "#{" +
 			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
 			// boolean.class));
-			// listTempleByAlbumButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+			// listTempleByArtistButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
 			// "#{" + this.getClass().getSimpleName() +
 			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
 			// Class[] {
 			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listTempleByAlbumButton);
+			// htmlPanelGrid.getChildren().add(listTempleByArtistButton);
 			return this.actionsButtonsComponent;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -325,14 +304,14 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 	// ----------------------------------------------------------------
 	// --------------------- GETTERS AND SETTERS ----------------------
 	// ----------------------------------------------------------------
-	public Album getDataObject() {
+	public Artist getDataObject() {
 		if (dataObject == null) {
-			dataObject = new Album();
+			dataObject = new Artist();
 		}
 		return dataObject;
 	}
 
-	public void setDataObject(Album dataObject) {
+	public void setDataObject(Artist dataObject) {
 		this.dataObject = dataObject;
 	}
 

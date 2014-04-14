@@ -100,5 +100,9 @@ public abstract class AbstractControllerTx<T> extends AbstractController<T> impl
 	public void setFlagCreate(boolean flagCreate) {
 		this.flagCreate = flagCreate;
 	}
-
+	
+	@Override
+	public String returnToParentController() throws Exception {
+		return this.onEdit();
+	}
 }

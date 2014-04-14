@@ -321,7 +321,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 	}
 
 	@Override
-	public String returnFromChild() throws Exception {
+	public String returnToParentController() throws Exception {
 		return onPaginate();
 	}
 
