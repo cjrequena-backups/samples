@@ -50,7 +50,7 @@ body .container #content table {
 .col1 {
 	vertical-align: top;
 	font-weight: bold;
-	width: 40%;
+	width: 35%;
 	padding: 2px;
 }
 
@@ -62,13 +62,17 @@ body .container #content table {
 
 .col3 {
 	vertical-align: top;
-	width: 5%;
+	width: 10%;
 	padding: 2px;
 }
 
 /*-------------------------------------*/
-/*Global							   */
+/*Primefaces						   */
 /*-------------------------------------*/
+.col2 .ui-autocomplete-input.ui-inputfield{
+    width : 88% !important;
+
+}
 
 /*-------------------------------------*/
 /*Global							   */

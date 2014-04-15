@@ -38,27 +38,28 @@
 				</f:facet>
 				<p:tabView>
 					<p:tab id="tab1" title="#{i18n.label_tab_1}">
-						<h:panelGrid columns="3" columnClasses="col1,col2,col3" style="width:50%">
-							
-							<p:outputLabel id="title_label" for="title_inputtext_id" value="#{i18n.label_album_title}">
-							</p:outputLabel>
-							<p:inputText id="title_inputtext_id" value="#{AlbumControllerTx.dataObject.title}" maxlength="160" required="true"
-								style="width:100%">
-							</p:inputText>
-							<p:message id="title_inputtext_message" for="title_inputtext_id" display="icon">
-							</p:message>
-
-							<p:outputLabel id="artist_label" for="artist_autocomplete_id" value="#{i18n.label_artist_name}">
-							</p:outputLabel>
-							<p:autoComplete id="artist_autocomplete_id" value="#{AlbumControllerTx.dataObject.artistId}"
-								completeMethod="#{AlbumControllerTx.autocompleteArtist}" var="item" itemLabel="#{item.name}"
-								itemValue="#{item}" converter="#{AlbumControllerTx.artistConverter}" forceSelection="true" required="false"
-								dropdown="true">
-								<p:ajax event="itemSelect" listener="#{AlbumControllerTx.handleAutocompleteSelect}" update="" />
-							</p:autoComplete>
-							<p:message id="artist_message_id" for="artist_autocomplete_id" display="icon">
-							</p:message>
-						
+						<h:panelGrid columns="2" >
+							<h:panelGrid columns="3" columnClasses="col1,col2,col3">
+								<p:outputLabel id="title_label" for="title_inputtext_id" value="#{i18n.label_album_title}">
+								</p:outputLabel>
+								<p:inputText id="title_inputtext_id" value="#{AlbumControllerTx.dataObject.title}" maxlength="160"
+									required="true" style="width:100%">
+								</p:inputText>
+								<p:message id="title_inputtext_message" for="title_inputtext_id" display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid columns="3" columnClasses="col1,col2,col3">
+								<p:outputLabel id="artist_label" for="artist_autocomplete_id" value="#{i18n.label_artist_name}">
+								</p:outputLabel>
+								<p:autoComplete id="artist_autocomplete_id" value="#{AlbumControllerTx.dataObject.artistId}"
+									completeMethod="#{AlbumControllerTx.autocompleteArtist}" var="item" itemLabel="#{item.name}"
+									itemValue="#{item}" converter="#{AlbumControllerTx.artistConverter}" forceSelection="true" required="false"
+									dropdown="true">
+									<p:ajax event="itemSelect" listener="#{AlbumControllerTx.handleAutocompleteSelect}" update="" />
+								</p:autoComplete>
+								<p:message id="artist_message_id" for="artist_autocomplete_id" display="icon">
+								</p:message>
+							</h:panelGrid>
 						</h:panelGrid>
 					</p:tab>
 

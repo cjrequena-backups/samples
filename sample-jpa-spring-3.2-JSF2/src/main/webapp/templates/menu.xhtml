@@ -20,6 +20,13 @@
 						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
 							action="#{ArtistControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
+					<p:submenu label="#{i18n.label_track}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{TrackControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{TrackControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
 
 				</p:submenu>
 			</p:menubar>
