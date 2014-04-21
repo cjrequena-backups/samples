@@ -27,6 +27,55 @@
 						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
 							action="#{TrackControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
+					<p:submenu label="#{i18n.label_genre}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{GenreControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{GenreControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
+					<p:submenu label="#{i18n.label_mediaType}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{MediaTypeControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{MediaTypeControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
+					<p:submenu label="#{i18n.label_playlist}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{PlaylistControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{PlaylistControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
+					<p:submenu label="#{i18n.label_invoiceLine}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{InvoiceLineControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{InvoiceLineControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
+					<p:submenu label="#{i18n.label_invoice}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{InvoiceControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{InvoiceControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
+					<p:submenu label="#{i18n.label_customer}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{CustomerControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{CustomerControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
+					<p:submenu label="#{i18n.label_employee}">
+						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+							action="#{EmployeeControllerTx.onCreate}" ajax="false">
+						</p:menuitem>
+						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+							action="#{EmployeeControllerQry.onPaginate}" ajax="false" />
+					</p:submenu>
 
 				</p:submenu>
 			</p:menubar>

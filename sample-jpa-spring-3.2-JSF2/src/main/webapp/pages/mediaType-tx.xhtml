@@ -17,14 +17,14 @@
 			<!-- COMPONENTE DE BOTONES -->
 			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText value="#{i18n.label_artist}" style="margin-left:45%;margin-right:45%;" />
+					<h:outputText value="#{i18n.label_mediaType}" style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
-				<h:panelGrid binding="#{ArtistControllerTx.actionsButtonsComponent}" columns="19">
+				<h:panelGrid binding="#{MediaTypeControllerTx.actionsButtonsComponent}" columns="19">
 				</h:panelGrid>
 				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_delete_record}"
 					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
 					<p:outputPanel id="deletePanel">
-						<p:commandButton id="deleteYesButton" value="#{i18n.label_yes}" action="#{ArtistControllerTx.delete}"
+						<p:commandButton id="deleteYesButton" value="#{i18n.label_yes}" action="#{MediaTypeControllerTx.delete}"
 							oncomplete="deleteDialogWidget.hide()" />
 						<p:commandButton id="deleteNoButton" value="#{i18n.label_no}" onclick="deleteDialogWidget.hide()" type="button" />
 					</p:outputPanel>
@@ -40,12 +40,12 @@
 					<p:tab id="tab1" title="#{i18n.label_tab_1}">
 						<h:panelGrid columns="3" columnClasses="col1, col2, col3" style="width:50%">
 							
-							<p:outputLabel for="artistNameInputtextId" value="#{i18n.label_artist_name}">
+							<p:outputLabel id="name_label" for="name_inputtext_id" value="#{i18n.label_mediaType_name}">
 							</p:outputLabel>
-							<p:inputText id="artistNameInputtextId" value="#{ArtistControllerTx.dataObject.name}" maxlength="160" required="true"
+							<p:inputText id="name_inputtext_id" value="#{MediaTypeControllerTx.dataObject.name}" maxlength="160" required="true"
 								style="width:100%">
 							</p:inputText>
-							<p:message for="artistNameInputtextId" display="icon">
+							<p:message id="name_inputtext_message" for="name_inputtext_id" display="icon">
 							</p:message>
 
 							

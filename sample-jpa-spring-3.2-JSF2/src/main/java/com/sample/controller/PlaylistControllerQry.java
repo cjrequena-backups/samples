@@ -28,25 +28,25 @@ import com.sample.architecture.controller.AbstractControllerQry;
 import com.sample.architecture.dao.Column;
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.jpa.Artist;
-import com.sample.service.IArtistService;
+import com.sample.model.jpa.Playlist;
+import com.sample.service.IPlaylistService;
 
-@Named("ArtistControllerQry")
+@Named("PlaylistControllerQry")
 @Scope("session")
-public class ArtistControllerQry extends AbstractControllerQry<Artist> implements Serializable {
+public class PlaylistControllerQry extends AbstractControllerQry<Playlist> implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = LoggerFactory.getLogger(ArtistControllerQry.class);
+	private static Logger logger = LoggerFactory.getLogger(PlaylistControllerQry.class);
 
 	// SERVICES
 	@Autowired
-	IArtistService artistService;
+	IPlaylistService playlistService;
 	@Autowired
-	ArtistControllerTx artistControllerTx;
+	PlaylistControllerTx playlistControllerTx;
 	
 	// COMPONENTS
 	private HtmlPanelGrid paginateFilterComponent;
@@ -70,7 +70,7 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 					filter.setColumn(column);
 					filters.add(filter);
 				}
-				this.resultObjectsFiltered = this.artistService.executeQueryFilter(filters, firstResult, maxResults);
+				this.resultObjectsFiltered = this.playlistService.executeQueryFilter(filters, firstResult, maxResults);
 
 			} else {
 				findEntries(firstResult, maxResults);
@@ -79,10 +79,10 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
+			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
 			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		}
-		return "artist-qry";
+		return "playlist-qry";
 	}
 
 	@Override
@@ -91,16 +91,16 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 
 		Column column = new Column();
 		column.setName("name");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_artist_name"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_playlist_name"));
 		column.setType(String.class);
 		listColumns.add(column);
 		return listColumns;
 	}
 
 	@Override
-	public List<Artist> executeQueryFilter(List<Filter> listFilter, Integer firstResult, Integer maxResults) throws Exception {
+	public List<Playlist> executeQueryFilter(List<Filter> listFilter, Integer firstResult, Integer maxResults) throws Exception {
 		try {
-			return this.artistService.executeQueryFilter(listFilter, firstResult, maxResults);
+			return this.playlistService.executeQueryFilter(listFilter, firstResult, maxResults);
 		} catch (BusinessExceptions e) {
 			e.printStackTrace();
 			throw new Exception(e.getMessage());
@@ -108,9 +108,9 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 	}
 
 	@Override
-	public List<Artist> findEntries(int firstResult, int maxResults) throws Exception {
+	public List<Playlist> findEntries(int firstResult, int maxResults) throws Exception {
 		try {
-			this.resultObjectsFiltered = this.artistService.findEntries(firstResult, maxResults);
+			this.resultObjectsFiltered = this.playlistService.findEntries(firstResult, maxResults);
 		} catch (BusinessExceptions e) {
 			e.printStackTrace();
 			throw new Exception(e.getMessage());
@@ -119,31 +119,31 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 	}
 
 	@Override
-	public String runFromContextMenu(Artist item, String value, String action) throws Exception {
-		Artist artist = (Artist) item;
+	public String runFromContextMenu(Playlist item, String value, String action) throws Exception {
+		Playlist playlist = (Playlist) item;
 		if (value.equalsIgnoreCase("ALBUM")) {
-			this.artistControllerTx.setDataObject(artist);
+			this.playlistControllerTx.setDataObject(playlist);
 			if (action.equalsIgnoreCase("EDIT")) {
-				return this.artistControllerTx.onEdit();
+				return this.playlistControllerTx.onEdit();
 			} else if (action.equalsIgnoreCase("DELETE")) {
-				return this.artistControllerTx.delete();
+				return this.playlistControllerTx.delete();
 			}
 		}else if (value.equalsIgnoreCase("ARTIST")) {
-//			this.artistControllerTx.setParentController(this);
+//			this.playlistControllerTx.setParentController(this);
 //			if (action.equalsIgnoreCase("CREATE")) {
-//				Artist artist = new Artist();
-//				artist.setArtistId(artist.getArtistId())
-//				this.artistControllerTx.setDataObject(ARTIST)
-//				return this.artistControllerTx.onCreate();
+//				Playlist playlist = new Playlist();
+//				playlist.setPlaylistId(playlist.getPlaylistId())
+//				this.playlistControllerTx.setDataObject(ARTIST)
+//				return this.playlistControllerTx.onCreate();
 //			} else if (action.equalsIgnoreCase("LIST")) {
-//				this.artistControllerQry.clearMapParamereters();
-//				this.artistControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
-//				this.artistControllerQry.addToMapParamereters(tempre.getPais(), "pais");
-//				return this.artistControllerQry.onPaginate();
+//				this.playlistControllerQry.clearMapParamereters();
+//				this.playlistControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
+//				this.playlistControllerQry.addToMapParamereters(tempre.getPais(), "pais");
+//				return this.playlistControllerQry.onPaginate();
 //			}
 		}
 		
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
+		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		return null;
 	}
@@ -151,16 +151,16 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 	@Override
 	public String runFromActionsButtons(String value, String action) throws Exception {
 
-		Artist artist = this.dataObject;
+		Playlist playlist = this.dataObject;
 		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
 			if (action.equalsIgnoreCase("CREATE")) {
-				this.artistControllerTx.setParentController(this);
-				this.artistControllerTx.setDataObject(new Artist());
-				return this.artistControllerTx.onCreate();
+				this.playlistControllerTx.setParentController(this);
+				this.playlistControllerTx.setDataObject(new Playlist());
+				return this.playlistControllerTx.onCreate();
 			}
 		}
 
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
+		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		return null;
 	}
@@ -189,7 +189,7 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 			Application application = facesContext.getApplication();
 			ExpressionFactory expressionFactory = application.getExpressionFactory();
 			ELContext elContext = facesContext.getELContext();
-			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), ArtistControllerTx.class.getSimpleName());
+			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), PlaylistControllerTx.class.getSimpleName());
 
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
@@ -215,7 +215,7 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 
 	public MenuModel getPaginateContextMenuComponent() throws Exception {
 		if (this.paginateContextMenuComponent == null) {
-			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), ArtistControllerTx.class.getSimpleName());
+			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), PlaylistControllerTx.class.getSimpleName());
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			Application application = facesContext.getApplication();
@@ -231,6 +231,11 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 			menuItemEdit.setIcon("ui-icon-pencil");
 			menuItemEdit.setImmediate(true);
 			menuItemEdit.setAjax(false);
+			// menuItemEdit.addActionListener(new
+			// SetPropertyActionListener(expressionFactory.createValueExpression(elContext,
+			// "#{" + controllerTxName + ".dataObject}", Object.class),
+			// expressionFactory.createValueExpression(elContext, "#{item}",
+			// Object.class)));
 			menuItemEdit.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromContextMenu(item,'ALBUM','EDIT')}", String.class, new Class[] { Object.class, String.class, String.class }));
 			menuModel.addMenuItem(menuItemEdit);
 
@@ -249,14 +254,14 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 	// --------------------- GETTERS AND SETTERS ----------------------
 	// ----------------------------------------------------------------
 
-	public Artist getDataObject() {
+	public Playlist getDataObject() {
 		if (dataObject == null) {
-			dataObject = new Artist();
+			dataObject = new Playlist();
 		}
 		return dataObject;
 	}
 
-	public void setDataObject(Artist dataObject) {
+	public void setDataObject(Playlist dataObject) {
 		this.dataObject = dataObject;
 	}
 }

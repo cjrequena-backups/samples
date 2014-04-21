@@ -23,9 +23,8 @@ public interface IDAO<T, PK> {
 	abstract <D> Collection<D> executeQueryResults(Query query, List<Object> params) throws Exception;
 
 	abstract <D> D executeQueryResult(Query query, List<Object> params) throws Exception;
-	
-	abstract List<Object[]> excuteNativeQuery(String select, String from, String grouping,String having,String where, String orderBy, Map<Integer, Object> params) throws Exception;
 
+	abstract List<Object[]> excuteNativeQuery(String select, String from, String grouping, String having, String where, String orderBy, Map<Integer, Object> params) throws Exception;
 
 	public int countAll() throws Exception;
 

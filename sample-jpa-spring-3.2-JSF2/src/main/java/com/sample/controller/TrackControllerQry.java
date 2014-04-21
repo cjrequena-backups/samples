@@ -49,9 +49,9 @@ public class TrackControllerQry extends AbstractControllerQry<Track> implements 
 	@Autowired
 	TrackControllerTx trackControllerTx;
 	@Autowired
-	ArtistControllerTx artistControllerTx;
+	MediaTypeControllerTx mediaTypeControllerTx;
 	@Autowired
-	ArtistControllerQry artistControllerQry;
+	MediaTypeControllerQry mediaTypeControllerQry;
 	
 	// COMPONENTS
 	private HtmlPanelGrid paginateFilterComponent;
