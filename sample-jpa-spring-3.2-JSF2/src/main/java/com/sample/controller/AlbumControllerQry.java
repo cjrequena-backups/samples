@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlPanelGrid;
@@ -29,7 +30,9 @@ import com.sample.architecture.dao.Column;
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.model.jpa.Album;
+import com.sample.model.jpa.Artist;
 import com.sample.service.IAlbumService;
+import com.sun.faces.taglib.jsf_core.SetPropertyActionListenerImpl;
 
 @Named("AlbumControllerQry")
 @Scope("session")
@@ -45,13 +48,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 	// SERVICES
 	@Autowired
 	IAlbumService albumService;
-	@Autowired
-	AlbumControllerTx albumControllerTx;
-	@Autowired
-	ArtistControllerTx artistControllerTx;
-	@Autowired
-	ArtistControllerQry artistControllerQry;
-	
+
 	// COMPONENTS
 	private HtmlPanelGrid paginateFilterComponent;
 	private HtmlPanelGrid actionsButtonsComponent;
@@ -75,7 +72,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 					filters.add(filter);
 				}
 				this.resultObjectsFiltered = this.albumService.executeQueryFilter(filters, firstResult, maxResults);
-
+				
 			} else {
 				findEntries(firstResult, maxResults);
 			}
@@ -86,6 +83,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
 			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		}
+		this.mapParameters.clear();
 		return "album-qry";
 	}
 
@@ -130,60 +128,44 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 	}
 
 	@Override
-	public String runFromContextMenu(Album item, String value, String action) throws Exception {
-		Album album = (Album) item;
-		if (value.equalsIgnoreCase("ALBUM")) {
-			this.albumControllerTx.setDataObject(album);
-			if (action.equalsIgnoreCase("EDIT")) {
-				return this.albumControllerTx.onEdit();
-			} else if (action.equalsIgnoreCase("DELETE")) {
-				return this.albumControllerTx.delete();
-			}
-		}else if (value.equalsIgnoreCase("ARTIST")) {
-			this.artistControllerTx.setDataObject(album.getArtistId());
-			if (action.equalsIgnoreCase("EDIT")) {
-				return this.artistControllerTx.onEdit();
-			}
-		}
-		
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	public String runFromActionsButtons(String value, String action) throws Exception {
+		// Album album = this.dataObject;
+		// if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+		// if (action.equalsIgnoreCase("CREATE")) {
+		// this.albumControllerTx.setParentController(this);
+		// this.albumControllerTx.setDataObject(new Album());
+		// return this.albumControllerTx.onCreate();
+		// }
+		// }
+		// FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+		// FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		return null;
 	}
 
 	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-
-		Album album = this.dataObject;
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.albumControllerTx.setParentController(this);
-				this.albumControllerTx.setDataObject(new Album());
-				return this.albumControllerTx.onCreate();
-			}
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	public String runFromContextMenu(Album item, String value, String action) throws Exception {
+		// Album album = (Album) item;
+		// if (value.equalsIgnoreCase("ALBUM")) {
+		// this.albumControllerTx.setDataObject(album);
+		// if (action.equalsIgnoreCase("EDIT")) {
+		// return this.albumControllerTx.onEdit();
+		// } else if (action.equalsIgnoreCase("DELETE")) {
+		// return this.albumControllerTx.delete();
+		// }
+		// } else if (value.equalsIgnoreCase("ARTIST")) {
+		// this.artistControllerTx.setDataObject(album.getArtistId());
+		// if (action.equalsIgnoreCase("EDIT")) {
+		// return this.artistControllerTx.onEdit();
+		// }
+		// }
+		// FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+		// FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		return null;
 	}
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
-
-	public HtmlPanelGrid getPaginateFilterComponent() throws Exception {
-		if (this.paginateFilterComponent == null) {
-			return super.getPaginateFilterComponent(this.getClass().getSimpleName());
-		} else {
-			return this.paginateFilterComponent;
-		}
-	}
-
-	public void setPaginateFilterComponent(HtmlPanelGrid paginateFilterComponent) {
-		this.paginateFilterComponent = paginateFilterComponent;
-	}
-
 	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
 
 		if (this.actionsButtonsComponent == null) {
@@ -202,7 +184,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
 			createButton.setIcon("ui-icon-plus");
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
+			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerTx.class.getSimpleName() + ".onCreate()}", String.class, new Class[0]));
 
 			htmlPanelGrid.getChildren().add(createButton);
 
@@ -218,41 +200,61 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 
 	public MenuModel getPaginateContextMenuComponent() throws Exception {
 		if (this.paginateContextMenuComponent == null) {
-			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), AlbumControllerTx.class.getSimpleName());
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			Application application = facesContext.getApplication();
 			ExpressionFactory expressionFactory = application.getExpressionFactory();
 			ELContext elContext = facesContext.getELContext();
 
-			
-			MenuItem menuItemEdit = new MenuItem();
-			menuItemEdit.setId("menuItemEditId");
-			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_edit"));
-			menuItemEdit.setValue(MessageFactory.getStringMessage("i18n", "label_edit"));
-			menuItemEdit.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
-			menuItemEdit.setIcon("ui-icon-pencil");
-			menuItemEdit.setImmediate(true);
-			menuItemEdit.setAjax(false);
-			menuItemEdit.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromContextMenu(item,'ALBUM','EDIT')}", String.class, new Class[] { Object.class, String.class, String.class }));
-			menuModel.addMenuItem(menuItemEdit);
-			
-			MenuItem menuItemEditArtist = new MenuItem();
-			menuItemEditArtist.setId("menuItemEditArtistId");
-			menuItemEditArtist.setTitle(MessageFactory.getStringMessage("i18n", "label_artist_edit"));
-			menuItemEditArtist.setValue(MessageFactory.getStringMessage("i18n", "label_artist_edit"));
-			menuItemEditArtist.setUpdate(":growlForm:growl");
-			menuItemEditArtist.setIcon("ui-icon-folder-open");
-			menuItemEditArtist.setImmediate(true);
-			menuItemEditArtist.setAjax(false);
-			// ValueExpression targetExpressionEditArtist = expressionFactory.createValueExpression(elContext, "#{" + TEMPLE_CONTROLLER_TX_NAME + ".dataObject.fk_tempre_2}", Tempre.class);
-			// ValueExpression valueExpressionEditArtist = expressionFactory.createValueExpression(elContext, "#{item}", Tempre.class);
-			// menuItemEditArtist.addActionListener(new SetPropertyActionListener(targetExpressionEditArtist, valueExpressionEditArtist));
-			// menuItemEditArtist.addActionListener(new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + TEMPLE_CONTROLLER_QRY_NAME + ".clearMapParamereters()}", String.class, new Class[0])));
-			// menuItemEditArtist.addActionListener(new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + TEMPLE_CONTROLLER_QRY_NAME + ".addToMapParamereters(item.empresa,'empresa')}", null, new Class[] { Object.class, String.class })));
-			// menuItemEditArtist.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + TEMPLE_CONTROLLER_QRY_NAME + ".onPaginate()}", String.class, new Class[0]));
-			menuItemEditArtist.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromContextMenu(item,'ARTIST','EDIT')}", String.class, new Class[] { Object.class, String.class, String.class }));
-			menuModel.addMenuItem(menuItemEditArtist);
+			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), AlbumControllerTx.class.getSimpleName());
+			MenuItem menuItem = null;
+			ValueExpression targetExpression = null;
+			ValueExpression valueExpression = null;
+
+			// EDIT
+			menuItem = new MenuItem();
+			menuItem.setId("menuItemEditId");
+			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_edit"));
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_edit"));
+			menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
+			menuItem.setIcon("ui-icon-pencil");
+			menuItem.setImmediate(true);
+			menuItem.setAjax(false);
+			targetExpression = expressionFactory.createValueExpression(elContext, "#{" + AlbumControllerTx.class.getSimpleName() + ".dataObject}", Album.class);
+			valueExpression = expressionFactory.createValueExpression(elContext, "#{item}", Album.class);
+			menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression, valueExpression));
+			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerTx.class.getSimpleName() + ".onEdit()}", String.class, new Class[0]));
+			menuModel.addMenuItem(menuItem);
+
+			// DELETE
+			menuItem = new MenuItem();
+			menuItem.setId("menuItemDeleteId");
+			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_delete"));
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_delete"));
+			menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
+			menuItem.setIcon("ui-icon-pencil");
+			menuItem.setImmediate(true);
+			menuItem.setAjax(false);
+			targetExpression = expressionFactory.createValueExpression(elContext, "#{" + AlbumControllerTx.class.getSimpleName() + ".dataObject}", Album.class);
+			valueExpression = expressionFactory.createValueExpression(elContext, "#{item}", Album.class);
+			menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression, valueExpression));
+			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerTx.class.getSimpleName() + ".delete()}", String.class, new Class[0]));
+			menuModel.addMenuItem(menuItem);
+
+			// EDIT ARTIST
+			menuItem = new MenuItem();
+			menuItem.setId("menuItemEditArtistId");
+			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_artist_edit"));
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_artist_edit"));
+			menuItem.setUpdate(":growlForm:growl");
+			menuItem.setIcon("ui-icon-folder-open");
+			menuItem.setImmediate(true);
+			menuItem.setAjax(false);
+			targetExpression = expressionFactory.createValueExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".dataObject}", Artist.class);
+			valueExpression = expressionFactory.createValueExpression(elContext, "#{item.artistId}", Artist.class);
+			menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression, valueExpression));
+			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".onEdit()}", String.class, new Class[0]));
+			menuModel.addMenuItem(menuItem);
 
 			return menuModel;
 		} else {
@@ -263,6 +265,18 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 
 	public void setPaginateContextMenuComponent(MenuModel paginateContextMenuComponent) {
 		this.paginateContextMenuComponent = paginateContextMenuComponent;
+	}
+
+	public HtmlPanelGrid getPaginateFilterComponent() throws Exception {
+		if (this.paginateFilterComponent == null) {
+			return super.getPaginateFilterComponent(this.getClass().getSimpleName());
+		} else {
+			return this.paginateFilterComponent;
+		}
+	}
+
+	public void setPaginateFilterComponent(HtmlPanelGrid paginateFilterComponent) {
+		this.paginateFilterComponent = paginateFilterComponent;
 	}
 
 	// ----------------------------------------------------------------

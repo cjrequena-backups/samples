@@ -17,7 +17,7 @@ public class Filter implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Column column;
-	private Criteria criteria;
+	private Criteria criteria = Criteria.EQUAL;
 	private Boolean andOr = Boolean.TRUE;
 	private Boolean caseSensitive = Boolean.TRUE;
 

@@ -19,7 +19,7 @@
 				<f:facet name="header">
 					<h:outputText value="#{i18n.label_artist}" style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
-				<h:panelGrid binding="#{ArtistControllerTx.actionsButtonsComponent}" columns="19">
+				<h:panelGrid binding="#{ArtistControllerTx.actionsButtonsComponent}" columns="10" style=" margin-right: auto; width:auto;">
 				</h:panelGrid>
 				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_delete_record}"
 					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
