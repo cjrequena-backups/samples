@@ -194,7 +194,7 @@ public class PlaylistControllerQry extends AbstractControllerQry<Playlist> imple
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_create_new"));
+			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
 			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
@@ -225,8 +225,8 @@ public class PlaylistControllerQry extends AbstractControllerQry<Playlist> imple
 			// MENU ITEM DE EDICION
 			MenuItem menuItemEdit = new MenuItem();
 			menuItemEdit.setId("menuItemEditId");
-			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_edit"));
-			menuItemEdit.setValue(MessageFactory.getStringMessage("i18n", "label_edit"));
+			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_Edit"));
+			menuItemEdit.setValue(MessageFactory.getStringMessage("i18n", "label_Edit"));
 			menuItemEdit.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
 			menuItemEdit.setIcon("ui-icon-pencil");
 			menuItemEdit.setImmediate(true);

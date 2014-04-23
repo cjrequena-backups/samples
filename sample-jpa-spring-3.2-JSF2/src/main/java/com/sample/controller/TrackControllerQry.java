@@ -96,31 +96,31 @@ public class TrackControllerQry extends AbstractControllerQry<Track> implements 
 
 		Column column = new Column();
 		column.setName("name");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_track_name"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Track_name"));
 		column.setType(String.class);
 		listColumns.add(column);
 		
 		column = new Column();
 		column.setName("composer");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_track_composer"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Track_composer"));
 		column.setType(String.class);
 		listColumns.add(column);
 		
 		column = new Column();
 		column.setName("milliseconds");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_track_milliseconds"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Track_milliseconds"));
 		column.setType(Integer.class);
 		listColumns.add(column);
 		
 		column = new Column();
 		column.setName("bytes");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_track_bytes"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Track_bytes"));
 		column.setType(Integer.class);
 		listColumns.add(column);
 		
 		column = new Column();
 		column.setName("unitPrice");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_track_unitPrice"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Track_unitPrice"));
 		column.setType(BigDecimal.class);
 		listColumns.add(column);
 		
@@ -217,7 +217,7 @@ public class TrackControllerQry extends AbstractControllerQry<Track> implements 
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_create_new"));
+			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
 			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
@@ -248,8 +248,8 @@ public class TrackControllerQry extends AbstractControllerQry<Track> implements 
 			
 			MenuItem menuItemEdit = new MenuItem();
 			menuItemEdit.setId("menuItemEditId");
-			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_edit"));
-			menuItemEdit.setValue(MessageFactory.getStringMessage("i18n", "label_edit"));
+			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_Edit"));
+			menuItemEdit.setValue(MessageFactory.getStringMessage("i18n", "label_Edit"));
 			menuItemEdit.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
 			menuItemEdit.setIcon("ui-icon-pencil");
 			menuItemEdit.setImmediate(true);

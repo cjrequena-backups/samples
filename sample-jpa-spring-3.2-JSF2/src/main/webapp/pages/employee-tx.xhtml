@@ -17,16 +17,16 @@
 			<!-- COMPONENTE DE BOTONES -->
 			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText value="#{i18n.label_employee}" style="margin-left:45%;margin-right:45%;" />
+					<h:outputText value="#{i18n.label_Employee}" style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
 				<h:panelGrid binding="#{EmployeeControllerTx.actionsButtonsComponent}" columns="19">
 				</h:panelGrid>
-				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_delete_record}"
+				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_Delete_record}"
 					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
 					<p:outputPanel id="deletePanel">
-						<p:commandButton id="deleteYesButton" value="#{i18n.label_yes}" action="#{EmployeeControllerTx.delete}"
+						<p:commandButton id="deleteYesButton" value="#{i18n.label_Yes}" action="#{EmployeeControllerTx.delete}"
 							oncomplete="deleteDialogWidget.hide()" />
-						<p:commandButton id="deleteNoButton" value="#{i18n.label_no}" onclick="deleteDialogWidget.hide()" type="button" />
+						<p:commandButton id="deleteNoButton" value="#{i18n.label_No}" onclick="deleteDialogWidget.hide()" type="button" />
 					</p:outputPanel>
 				</p:confirmDialog>
 			</p:panel>
@@ -37,10 +37,10 @@
 
 				</f:facet>
 				<p:tabView>
-					<p:tab id="tab1" title="#{i18n.label_tab_1}">
+					<p:tab id="tab1" title="#{i18n.label_Tab_1}">
 						<h:panelGrid columns="3" columnClasses="col1, col2, col3" style="width:50%">
 							
-							<p:outputLabel for="firstName_inputtext_id" value="#{i18n.label_employee_firstName}">
+							<p:outputLabel for="firstName_inputtext_id" value="#{i18n.label_First_name}">
 							</p:outputLabel>
 							<p:inputText id="firstName_inputtext_id" value="#{EmployeeControllerTx.dataObject.firstName}" maxlength="160" required="true"
 								style="width:100%">
@@ -53,13 +53,13 @@
 						</h:panelGrid>
 					</p:tab>
 
-					<p:tab id="tab2" title="#{i18n.label_tab_2}">
+					<p:tab id="tab2" title="#{i18n.label_Tab_2}">
 						<h:panelGrid columns="2" cellpadding="10">
 
 						</h:panelGrid>
 					</p:tab>
 
-					<p:tab id="tab3" title="#{i18n.label_tab_3}">
+					<p:tab id="tab3" title="#{i18n.label_Tab_3}">
 						<h:panelGrid columns="2" cellpadding="10">
 
 						</h:panelGrid>

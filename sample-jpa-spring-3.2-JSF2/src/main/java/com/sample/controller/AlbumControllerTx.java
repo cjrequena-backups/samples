@@ -228,7 +228,7 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			// CREATE
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("createCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_create_new"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create"));
 			commandButton.setUpdate(":txForm  :growlForm:growl");
 			commandButton.setImmediate(true);
 			commandButton.setAjax(false);
@@ -242,7 +242,7 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			// SAVE
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("saveCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_save"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
 			commandButton.setUpdate(":txForm :growlForm:growl");
 			commandButton.setImmediate(false);
 			commandButton.setAjax(false);
@@ -253,7 +253,7 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			// DELETE
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("deleteCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_delete"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
 			commandButton.setUpdate(":txForm :growlForm:growl");
 			commandButton.setImmediate(true);
 			commandButton.setAjax(false);
@@ -264,10 +264,10 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".delete()}", String.class, new Class[0]));
 			this.actionsButtonsComponent.getChildren().add(commandButton);
 
-			// LIST ALBUMS
+			// VIEW ALL ALBUMS
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("listAlbumsCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_album_list"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_View_albums"));
 			commandButton.setUpdate(":txForm :growlForm:growl");
 			commandButton.setImmediate(true);
 			commandButton.setAjax(false);

@@ -72,6 +72,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 					filters.add(filter);
 				}
 				this.resultObjectsFiltered = this.albumService.executeQueryFilter(filters, firstResult, maxResults);
+				this.mapParameters.clear();
 				
 			} else {
 				findEntries(firstResult, maxResults);
@@ -83,7 +84,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
 			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		}
-		this.mapParameters.clear();
+		
 		return "album-qry";
 	}
 
@@ -93,13 +94,13 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 
 		Column column = new Column();
 		column.setName("title");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_album_title"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Title"));
 		column.setType(String.class);
 		listColumns.add(column);
 
 		column = new Column();
 		column.setName("artistId.name");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_artist_name"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Name"));
 		column.setType(String.class);
 		listColumns.add(column);
 
@@ -179,7 +180,7 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_create_new"));
+			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create"));
 			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
@@ -214,8 +215,8 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			// EDIT
 			menuItem = new MenuItem();
 			menuItem.setId("menuItemEditId");
-			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_edit"));
-			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_edit"));
+			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_Edit"));
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_Edit"));
 			menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
 			menuItem.setIcon("ui-icon-pencil");
 			menuItem.setImmediate(true);
@@ -229,8 +230,8 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			// DELETE
 			menuItem = new MenuItem();
 			menuItem.setId("menuItemDeleteId");
-			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_delete"));
-			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_delete"));
+			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_Delete"));
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
 			menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
 			menuItem.setIcon("ui-icon-pencil");
 			menuItem.setImmediate(true);
@@ -241,11 +242,11 @@ public class AlbumControllerQry extends AbstractControllerQry<Album> implements 
 			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerTx.class.getSimpleName() + ".delete()}", String.class, new Class[0]));
 			menuModel.addMenuItem(menuItem);
 
-			// EDIT ARTIST
+			// VIEW ARTIST
 			menuItem = new MenuItem();
 			menuItem.setId("menuItemEditArtistId");
-			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_artist_edit"));
-			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_artist_edit"));
+			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_View_artist"));
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_View_artist"));
 			menuItem.setUpdate(":growlForm:growl");
 			menuItem.setIcon("ui-icon-folder-open");
 			menuItem.setImmediate(true);

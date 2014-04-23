@@ -148,7 +148,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			OutputLabel outputLabelColumn = (OutputLabel) application.createComponent(OutputLabel.COMPONENT_TYPE);
 			outputLabelColumn.setFor("autoCompleteColumnId");
 			outputLabelColumn.setId("outputLabelColumn");
-			outputLabelColumn.setValue(MessageFactory.getStringMessage("i18n", "label_column"));
+			outputLabelColumn.setValue(MessageFactory.getStringMessage("i18n", "label_Column"));
 			outputLabelColumn.setStyleClass("col1");
 			htmlPanelGrid.getChildren().add(outputLabelColumn);
 
@@ -175,7 +175,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			OutputLabel outputLabelCriteria = (OutputLabel) application.createComponent(OutputLabel.COMPONENT_TYPE);
 			outputLabelCriteria.setId("outputLabelCriteriaId");
 			outputLabelCriteria.setFor("autoCompleteCriteriaId");
-			outputLabelCriteria.setValue(MessageFactory.getStringMessage("i18n", "label_criteria"));
+			outputLabelCriteria.setValue(MessageFactory.getStringMessage("i18n", "label_Criteria"));
 			outputLabelCriteria.setStyleClass("col1");
 			htmlPanelGrid.getChildren().add(outputLabelCriteria);
 
@@ -201,7 +201,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			OutputLabel outputLabelValue = (OutputLabel) application.createComponent(OutputLabel.COMPONENT_TYPE);
 			outputLabelValue.setId("outputLabelValueId");
 			outputLabelValue.setFor("inputTextValue");
-			outputLabelValue.setValue(MessageFactory.getStringMessage("i18n", "label_value"));
+			outputLabelValue.setValue(MessageFactory.getStringMessage("i18n", "label_Value"));
 			outputLabelValue.setStyleClass("col1");
 			htmlPanelGrid.getChildren().add(outputLabelValue);
 
@@ -224,7 +224,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			OutputLabel outputLabelAndOr = (OutputLabel) application.createComponent(OutputLabel.COMPONENT_TYPE);
 			outputLabelAndOr.setId("outputLabelAndOrId");
 			outputLabelAndOr.setFor("selectBooleanCheckboxtAndOr");
-			outputLabelAndOr.setValue(MessageFactory.getStringMessage("i18n", "label_and"));
+			outputLabelAndOr.setValue(MessageFactory.getStringMessage("i18n", "label_And"));
 			outputLabelAndOr.setStyleClass("col1");
 
 			htmlPanelGrid.getChildren().add(outputLabelAndOr);
@@ -244,7 +244,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			OutputLabel outputLabelCaseSensitive = (OutputLabel) application.createComponent(OutputLabel.COMPONENT_TYPE);
 			outputLabelCaseSensitive.setId("outputLabelCaseSensitiveId");
 			outputLabelCaseSensitive.setFor("selectBooleanCheckboxtCaseSensitive");
-			outputLabelCaseSensitive.setValue(MessageFactory.getStringMessage("i18n", "label_case_sensitive"));
+			outputLabelCaseSensitive.setValue(MessageFactory.getStringMessage("i18n", "label_Case_sensitive"));
 			outputLabelCaseSensitive.setStyleClass("col1");
 			htmlPanelGrid.getChildren().add(outputLabelCaseSensitive);
 

@@ -91,7 +91,7 @@ public class GenreControllerQry extends AbstractControllerQry<Genre> implements 
 
 		Column column = new Column();
 		column.setName("name");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_genre_name"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Name"));
 		column.setType(String.class);
 		listColumns.add(column);
 		return listColumns;
@@ -194,7 +194,7 @@ public class GenreControllerQry extends AbstractControllerQry<Genre> implements 
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_create_new"));
+			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
 			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
@@ -225,8 +225,8 @@ public class GenreControllerQry extends AbstractControllerQry<Genre> implements 
 			// MENU ITEM DE EDICION
 			MenuItem menuItemEdit = new MenuItem();
 			menuItemEdit.setId("menuItemEditId");
-			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_edit"));
-			menuItemEdit.setValue(MessageFactory.getStringMessage("i18n", "label_edit"));
+			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_Edit"));
+			menuItemEdit.setValue(MessageFactory.getStringMessage("i18n", "label_Edit"));
 			menuItemEdit.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
 			menuItemEdit.setIcon("ui-icon-pencil");
 			menuItemEdit.setImmediate(true);

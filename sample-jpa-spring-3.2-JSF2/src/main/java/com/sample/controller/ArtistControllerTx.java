@@ -205,7 +205,7 @@ public class ArtistControllerTx extends AbstractControllerTx<Artist> implements 
 			// CREATE
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("createCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_create_new"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
 			commandButton.setUpdate(":txForm  :growlForm:growl");
 			commandButton.setImmediate(true);
 			commandButton.setAjax(false);
@@ -219,7 +219,7 @@ public class ArtistControllerTx extends AbstractControllerTx<Artist> implements 
 			// SAVE
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("saveCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_save"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
 			commandButton.setUpdate(":txForm :growlForm:growl");
 			commandButton.setImmediate(false);
 			commandButton.setAjax(false);
@@ -230,7 +230,7 @@ public class ArtistControllerTx extends AbstractControllerTx<Artist> implements 
 			// DELETE
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("deleteCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_delete"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
 			commandButton.setUpdate(":txForm :growlForm:growl");
 			commandButton.setImmediate(true);
 			commandButton.setAjax(false);
@@ -241,10 +241,10 @@ public class ArtistControllerTx extends AbstractControllerTx<Artist> implements 
 			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".delete()}", String.class, new Class[0]));
 			this.actionsButtonsComponent.getChildren().add(commandButton);
 
-			// LIST ARTIST
+			// VIEW ARTISTS
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("listArtistsCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_artist_list"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_View_artists"));
 			commandButton.setUpdate(":txForm :growlForm:growl");
 			commandButton.setImmediate(true);
 			commandButton.setAjax(false);
@@ -255,14 +255,16 @@ public class ArtistControllerTx extends AbstractControllerTx<Artist> implements 
 			// LIST ALBUMS
 			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			commandButton.setId("listAlbumsCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_album_list"));
+			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_View_artist_albums"));
 			commandButton.setUpdate(":txForm :growlForm:growl");
 			commandButton.setImmediate(true);
 			commandButton.setAjax(false);
 			commandButton.setIcon("ui-icon-disk");
+			commandButton.setRendered(this.dataObject != null && this.dataObject.getArtistId() != null);
 			commandButton.addActionListener(new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerQry.class.getSimpleName() + ".clearMapParamereters()}", String.class, new Class[0])));
 			commandButton.addActionListener(super.addToMapParameretersListener(facesContext, AlbumControllerQry.class.getSimpleName(), dataObject.getArtistId(), "artistId.artistId"));
-			//commandButton.addActionListener(super.addToMapParameretersListenerByElExpression(facesContext,  AlbumControllerQry.class.getSimpleName(), "ArtistControllerTx.dataObject.artistId", "artistId.artistId"));
+			// commandButton.addActionListener(super.addToMapParameretersListenerByElExpression(facesContext, AlbumControllerQry.class.getSimpleName(), "ArtistControllerTx.dataObject.artistId",
+			// "artistId.artistId"));
 			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerQry.class.getSimpleName() + ".onPaginate()}", String.class, new Class[0]));
 			this.actionsButtonsComponent.getChildren().add(commandButton);
 

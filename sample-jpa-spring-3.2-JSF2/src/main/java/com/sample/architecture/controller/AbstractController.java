@@ -46,20 +46,19 @@ public abstract class AbstractController<T> implements IController<T>, Serializa
 	 * @param parameterValue
 	 *            -- El valor u objeto u parametro a insertar.
 	 * @param parameterKey
-	 *            -- El nombre del campo en la entidad JPA del dataObject
-	 *            (Represanta el objeto JPA contra quien se ejecuta la query).
+	 *            -- El nombre del campo en la entidad JPA del dataObject (Represanta el objeto JPA contra quien se ejecuta la query).
 	 * @return
 	 */
-	public MethodExpressionActionListener addToMapParameretersListener(FacesContext facesContext, String controllerQryName, Object parameterValue, Object parameterKey) throws Exception {
+	public MethodExpressionActionListener addToMapParameretersListener(FacesContext facesContext, String controllerQryName, Object value, Object targetField) throws Exception {
 		try {
 			Application application = facesContext.getApplication();
 			ExpressionFactory expressionFactory = application.getExpressionFactory();
 			ELContext elContext = facesContext.getELContext();
 			MethodExpressionActionListener methodExpressionActionListener;
-			if (parameterValue instanceof String) {
-				methodExpressionActionListener = new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + controllerQryName + ".addToMapParamereters('" + parameterValue + "','" + parameterKey + "')}", null, new Class[] { Object.class, String.class }));
+			if (value instanceof String) {
+				methodExpressionActionListener = new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + controllerQryName + ".addToMapParamereters('" + value + "','" + targetField + "')}", null, new Class[] { Object.class, String.class }));
 			} else {
-				methodExpressionActionListener = new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + controllerQryName + ".addToMapParamereters(" + parameterValue + ",'" + parameterKey + "')}", null, new Class[] { Object.class, String.class }));
+				methodExpressionActionListener = new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + controllerQryName + ".addToMapParamereters(" + value + ",'" + targetField + "')}", null, new Class[] { Object.class, String.class }));
 			}
 			return methodExpressionActionListener;
 		} catch (Exception e) {
@@ -69,14 +68,20 @@ public abstract class AbstractController<T> implements IController<T>, Serializa
 		}
 	}
 
-	public MethodExpressionActionListener addToMapParameretersListenerByElExpression(FacesContext facesContext, String controllerQryName, Object parameterValue, Object parameterKey) throws Exception {
+	public MethodExpressionActionListener addToMapParameretersListenerByElExpression(FacesContext facesContext, String controllerQryName, Object value, Object targetField) throws Exception {
 		try {
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			MethodExpressionActionListener methodExpressionActionListener;
-			methodExpressionActionListener = new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + controllerQryName + ".addToMapParamereters(" + parameterValue + ",'" + parameterKey + "')}", null, new Class[] { Object.class, String.class }));
-			return methodExpressionActionListener;
+			try {
+				Application application = facesContext.getApplication();
+				ExpressionFactory expressionFactory = application.getExpressionFactory();
+				ELContext elContext = facesContext.getELContext();
+				MethodExpressionActionListener methodExpressionActionListener;
+				methodExpressionActionListener = new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + controllerQryName + ".addToMapParamereters(" + value + ",'" + targetField + "')}", null, new Class[] { Object.class, String.class }));
+				return methodExpressionActionListener;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new Exception();
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,10 +89,10 @@ public abstract class AbstractController<T> implements IController<T>, Serializa
 		}
 	}
 
-	public void addToMapParamereters(Object obj) throws Exception {
+	public void addToMapParamereters(Object value) throws Exception {
 		try {
 			String keyParameter = "P" + (this.mapParameters.size() + 1);
-			this.mapParameters.put(keyParameter, obj);
+			this.mapParameters.put(keyParameter, value);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,10 +100,10 @@ public abstract class AbstractController<T> implements IController<T>, Serializa
 		}
 	}
 
-	public void addToMapParamereters(String obj) throws Exception {
+	public void addToMapParamereters(String value) throws Exception {
 		try {
 			String keyParameter = "P" + (this.mapParameters.size() + 1);
-			this.mapParameters.put(keyParameter, obj);
+			this.mapParameters.put(keyParameter, value);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,9 +111,9 @@ public abstract class AbstractController<T> implements IController<T>, Serializa
 		}
 	}
 
-	public void addToMapParamereters(Object obj, String key) throws Exception {
+	public void addToMapParamereters(Object value, String key) throws Exception {
 		try {
-			this.mapParameters.put(key, obj);
+			this.mapParameters.put(key, value);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,9 +121,9 @@ public abstract class AbstractController<T> implements IController<T>, Serializa
 		}
 	}
 
-	public void addToMapParamereters(Object obj, String key, Class<?> type) throws Exception {
+	public void addToMapParamereters(Object value, String key, Class<?> type) throws Exception {
 		try {
-			this.mapParameters.put(key, type.cast(obj));
+			this.mapParameters.put(key, type.cast(value));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

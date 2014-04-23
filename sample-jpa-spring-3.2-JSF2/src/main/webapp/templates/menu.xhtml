@@ -5,75 +5,75 @@
 		<h:form>
 			<p:growl id="messages" />
 			<p:menubar autoDisplay="false">
-				<p:submenu label="#{i18n.label_menu}" icon="ui-icon-document">
-					<p:submenu label="#{i18n.label_album}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+				<p:submenu label="#{i18n.label_Menu}" icon="ui-icon-document">
+					<p:submenu label="#{i18n.label_Album}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{AlbumControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{AlbumControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_artist}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Artist}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{ArtistControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{ArtistControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_track}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Track}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{TrackControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{TrackControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_genre}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Genre}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{GenreControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{GenreControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_mediaType}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Mediatype}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{MediaTypeControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{MediaTypeControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_playlist}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Playlist}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{PlaylistControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{PlaylistControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_invoiceLine}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Invoice_line}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{InvoiceLineControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{InvoiceLineControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_invoice}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Invoice}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{InvoiceControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{InvoiceControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_customer}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Customer}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{CustomerControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{CustomerControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
-					<p:submenu label="#{i18n.label_employee}">
-						<p:menuitem value="#{i18n.label_create}" icon="ui-icon-contact"
+					<p:submenu label="#{i18n.label_Employee}">
+						<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact"
 							action="#{EmployeeControllerTx.onCreate}" ajax="false">
 						</p:menuitem>
-						<p:menuitem value="#{i18n.label_view}" icon="ui-icon-contact"
+						<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact"
 							action="#{EmployeeControllerQry.onPaginate}" ajax="false" />
 					</p:submenu>
 

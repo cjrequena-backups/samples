@@ -17,16 +17,16 @@
 			<!-- COMPONENTE DE BOTONES -->
 			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText value="#{i18n.label_track}" style="margin-left:45%;margin-right:45%;" />
+					<h:outputText value="#{i18n.label_Track}" style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
 				<h:panelGrid binding="#{TrackControllerTx.actionsButtonsComponent}" columns="19">
 				</h:panelGrid>
-				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_delete_record}"
+				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_Delete_record}"
 					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
 					<p:outputPanel id="deletePanel">
-						<p:commandButton id="deleteYesButton" value="#{i18n.label_yes}" action="#{TrackControllerTx.delete}"
+						<p:commandButton id="deleteYesButton" value="#{i18n.label_Yes}" action="#{TrackControllerTx.delete}"
 							oncomplete="deleteDialogWidget.hide()" />
-						<p:commandButton id="deleteNoButton" value="#{i18n.label_no}" onclick="deleteDialogWidget.hide()" type="button" />
+						<p:commandButton id="deleteNoButton" value="#{i18n.label_No}" onclick="deleteDialogWidget.hide()" type="button" />
 					</p:outputPanel>
 				</p:confirmDialog>
 			</p:panel>
@@ -37,10 +37,10 @@
 
 				</f:facet>
 				<p:tabView>
-					<p:tab id="tab1" title="#{i18n.label_tab_1}">
+					<p:tab id="tab1" title="#{i18n.label_Tab_1}">
 						<h:panelGrid columns="2">
 							<h:panelGrid columns="3" columnClasses="col1, col2, col3" >
-								<p:outputLabel id="track_name_label" for="track_name_inputtext_id" value="#{i18n.label_track_name}">
+								<p:outputLabel id="track_name_label" for="track_name_inputtext_id" value="#{i18n.label_Name}">
 								</p:outputLabel>
 								<p:inputText id="track_name_inputtext_id" value="#{TrackControllerTx.dataObject.name}" maxlength="160"
 									required="true" style="width:100%">
@@ -49,7 +49,7 @@
 								</p:message>
 							</h:panelGrid>
 							<h:panelGrid columns="3" columnClasses="col1, col2, col3" >
-								<p:outputLabel id="track_composer_label" for="track_composer_inputtext_id" value="#{i18n.label_track_composer}">
+								<p:outputLabel id="track_composer_label" for="track_composer_inputtext_id" value="#{i18n.label_Track_composer}">
 								</p:outputLabel>
 								<p:inputText id="track_composer_inputtext_id" value="#{TrackControllerTx.dataObject.composer}" maxlength="160"
 									required="true" style="width:100%">
@@ -58,7 +58,7 @@
 								</p:message>
 							</h:panelGrid>
 							<h:panelGrid columns="3" columnClasses="col1, col2, col3" >
-								<p:outputLabel id="track_milliseconds_label" for="track_milliseconds_inputtext_id" value="#{i18n.label_track_milliseconds}">
+								<p:outputLabel id="track_milliseconds_label" for="track_milliseconds_inputtext_id" value="#{i18n.label_Track_milliseconds}">
 								</p:outputLabel>
 								<p:inputText id="track_milliseconds_inputtext_id" value="#{TrackControllerTx.dataObject.milliseconds}" maxlength="160"
 									required="true" style="width:100%">
@@ -67,7 +67,7 @@
 								</p:message>
 							</h:panelGrid>
 							<h:panelGrid columns="3" columnClasses="col1, col2, col3" >
-								<p:outputLabel id="track_bytes_label" for="track_bytes_inputtext_id" value="#{i18n.label_track_bytes}">
+								<p:outputLabel id="track_bytes_label" for="track_bytes_inputtext_id" value="#{i18n.label_Track_bytes}">
 								</p:outputLabel>
 								<p:inputText id="track_bytes_inputtext_id" value="#{TrackControllerTx.dataObject.bytes}" maxlength="160"
 									required="true" style="width:100%">
@@ -76,7 +76,7 @@
 								</p:message>
 							</h:panelGrid>
 							<h:panelGrid columns="3" columnClasses="col1, col2, col3" >
-								<p:outputLabel id="track_unitPrice_label" for="track_unitPrice_inputtext_id" value="#{i18n.label_track_unitPrice}">
+								<p:outputLabel id="track_unitPrice_label" for="track_unitPrice_inputtext_id" value="#{i18n.label_Track_unitPrice}">
 								</p:outputLabel>
 								<p:inputText id="track_unitPrice_inputtext_id" value="#{TrackControllerTx.dataObject.unitPrice}" maxlength="160"
 									required="true" style="width:100%">
@@ -86,7 +86,7 @@
 							</h:panelGrid>
 							
 							<h:panelGrid columns="3" columnClasses="col1, col2, col3" >
-								<p:outputLabel id="album_label" for="album_autocomplete_id" value="#{i18n.label_album_name}">
+								<p:outputLabel id="album_label" for="album_autocomplete_id" value="#{i18n.label_Album}">
 								</p:outputLabel>
 								<p:autoComplete id="album_autocomplete_id" value="#{TrackControllerTx.dataObject.albumId}"
 									completeMethod="#{TrackControllerTx.autocompleteAlbum}" var="item" itemLabel="#{item.title}"
@@ -100,13 +100,13 @@
 						</h:panelGrid>
 					</p:tab>
 
-					<p:tab id="tab2" title="#{i18n.label_tab_2}">
+					<p:tab id="tab2" title="#{i18n.label_Tab_2}">
 						<h:panelGrid columns="2" cellpadding="10">
 
 						</h:panelGrid>
 					</p:tab>
 
-					<p:tab id="tab3" title="#{i18n.label_tab_3}">
+					<p:tab id="tab3" title="#{i18n.label_Tab_3}">
 						<h:panelGrid columns="2" cellpadding="10">
 
 						</h:panelGrid>

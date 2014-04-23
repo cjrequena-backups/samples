@@ -9,10 +9,12 @@ import java.util.Map.Entry;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
+import javax.faces.event.MethodExpressionActionListener;
 import javax.inject.Named;
 
 import org.primefaces.component.commandbutton.CommandButton;
@@ -28,8 +30,10 @@ import com.sample.architecture.controller.AbstractControllerQry;
 import com.sample.architecture.dao.Column;
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
+import com.sample.model.jpa.Album;
 import com.sample.model.jpa.Artist;
 import com.sample.service.IArtistService;
+import com.sun.faces.taglib.jsf_core.SetPropertyActionListenerImpl;
 
 @Named("ArtistControllerQry")
 @Scope("session")
@@ -47,7 +51,7 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 	IArtistService artistService;
 	@Autowired
 	ArtistControllerTx artistControllerTx;
-	
+
 	// COMPONENTS
 	private HtmlPanelGrid paginateFilterComponent;
 	private HtmlPanelGrid actionsButtonsComponent;
@@ -64,13 +68,14 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 					Map.Entry entry = (Map.Entry) iterator.next();
 					Column column = new Column();
 					column.setName(entry.getKey().toString());
-					column.setType(String.class);
+					column.setType(entry.getValue().getClass());
 					column.setValue(entry.getValue());
 					Filter filter = new Filter();
 					filter.setColumn(column);
 					filters.add(filter);
 				}
 				this.resultObjectsFiltered = this.artistService.executeQueryFilter(filters, firstResult, maxResults);
+				this.mapParameters.clear();
 
 			} else {
 				findEntries(firstResult, maxResults);
@@ -91,7 +96,7 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 
 		Column column = new Column();
 		column.setName("name");
-		column.setLabel(MessageFactory.getStringMessage("i18n", "label_artist_name"));
+		column.setLabel(MessageFactory.getStringMessage("i18n", "label_Name"));
 		column.setType(String.class);
 		listColumns.add(column);
 		return listColumns;
@@ -128,21 +133,21 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 			} else if (action.equalsIgnoreCase("DELETE")) {
 				return this.artistControllerTx.delete();
 			}
-		}else if (value.equalsIgnoreCase("ARTIST")) {
-//			this.artistControllerTx.setParentController(this);
-//			if (action.equalsIgnoreCase("CREATE")) {
-//				Artist artist = new Artist();
-//				artist.setArtistId(artist.getArtistId())
-//				this.artistControllerTx.setDataObject(ARTIST)
-//				return this.artistControllerTx.onCreate();
-//			} else if (action.equalsIgnoreCase("LIST")) {
-//				this.artistControllerQry.clearMapParamereters();
-//				this.artistControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
-//				this.artistControllerQry.addToMapParamereters(tempre.getPais(), "pais");
-//				return this.artistControllerQry.onPaginate();
-//			}
+		} else if (value.equalsIgnoreCase("ARTIST")) {
+			// this.artistControllerTx.setParentController(this);
+			// if (action.equalsIgnoreCase("CREATE")) {
+			// Artist artist = new Artist();
+			// artist.setArtistId(artist.getArtistId())
+			// this.artistControllerTx.setDataObject(ARTIST)
+			// return this.artistControllerTx.onCreate();
+			// } else if (action.equalsIgnoreCase("LIST")) {
+			// this.artistControllerQry.clearMapParamereters();
+			// this.artistControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
+			// this.artistControllerQry.addToMapParamereters(tempre.getPais(), "pais");
+			// return this.artistControllerQry.onPaginate();
+			// }
 		}
-		
+
 		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 		return null;
@@ -169,18 +174,6 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getPaginateFilterComponent() throws Exception {
-		if (this.paginateFilterComponent == null) {
-			return super.getPaginateFilterComponent(this.getClass().getSimpleName());
-		} else {
-			return this.paginateFilterComponent;
-		}
-	}
-
-	public void setPaginateFilterComponent(HtmlPanelGrid paginateFilterComponent) {
-		this.paginateFilterComponent = paginateFilterComponent;
-	}
-
 	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
 
 		if (this.actionsButtonsComponent == null) {
@@ -194,7 +187,7 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_create_new"));
+			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
 			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
@@ -215,24 +208,59 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 
 	public MenuModel getPaginateContextMenuComponent() throws Exception {
 		if (this.paginateContextMenuComponent == null) {
-			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), ArtistControllerTx.class.getSimpleName());
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			Application application = facesContext.getApplication();
 			ExpressionFactory expressionFactory = application.getExpressionFactory();
 			ELContext elContext = facesContext.getELContext();
 
-			// MENU ITEM DE EDICION
-			MenuItem menuItemEdit = new MenuItem();
-			menuItemEdit.setId("menuItemEditId");
-			menuItemEdit.setTitle(MessageFactory.getStringMessage("i18n", "label_edit"));
-			menuItemEdit.setValue(MessageFactory.getStringMessage("i18n", "label_edit"));
-			menuItemEdit.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
-			menuItemEdit.setIcon("ui-icon-pencil");
-			menuItemEdit.setImmediate(true);
-			menuItemEdit.setAjax(false);
-			menuItemEdit.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromContextMenu(item,'ALBUM','EDIT')}", String.class, new Class[] { Object.class, String.class, String.class }));
-			menuModel.addMenuItem(menuItemEdit);
+			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), ArtistControllerTx.class.getSimpleName());
+			MenuItem menuItem = null;
+			ValueExpression targetExpression = null;
+			ValueExpression valueExpression = null;
+
+			// EDIT
+			menuItem = new MenuItem();
+			menuItem.setId("menuItemEditId");
+			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_Edit"));
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_Edit"));
+			menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
+			menuItem.setIcon("ui-icon-pencil");
+			menuItem.setImmediate(true);
+			menuItem.setAjax(false);
+			targetExpression = expressionFactory.createValueExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".dataObject}", Artist.class);
+			valueExpression = expressionFactory.createValueExpression(elContext, "#{item}", Artist.class);
+			menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression, valueExpression));
+			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".onEdit()}", String.class, new Class[0]));
+			menuModel.addMenuItem(menuItem);
+
+			// DELETE
+			menuItem = new MenuItem();
+			menuItem.setId("menuItemDeleteId");
+			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_Delete"));
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
+			menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
+			menuItem.setIcon("ui-icon-pencil");
+			menuItem.setImmediate(true);
+			menuItem.setAjax(false);
+			targetExpression = expressionFactory.createValueExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".dataObject}", Artist.class);
+			valueExpression = expressionFactory.createValueExpression(elContext, "#{item}", Artist.class);
+			menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression, valueExpression));
+			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".delete()}", String.class, new Class[0]));
+			menuModel.addMenuItem(menuItem);
+
+			// VIEW ALBUMS
+			menuItem = new MenuItem();
+			menuItem.setId("menuItemViewAlbumsId");
+			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_View_artist_albums"));
+			menuItem.setUpdate(":txForm :growlForm:growl");
+			menuItem.setImmediate(true);
+			menuItem.setAjax(false);
+			menuItem.setIcon("ui-icon-disk");
+			menuItem.addActionListener(new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerQry.class.getSimpleName() + ".clearMapParamereters()}", String.class, new Class[0])));
+			menuItem.addActionListener(super.addToMapParameretersListenerByElExpression(facesContext, AlbumControllerQry.class.getSimpleName(), "item.artistId", "artistId.artistId"));
+			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerQry.class.getSimpleName() + ".onPaginate()}", String.class, new Class[0]));
+			menuModel.addMenuItem(menuItem);
 
 			return menuModel;
 		} else {
@@ -243,6 +271,18 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 
 	public void setPaginateContextMenuComponent(MenuModel paginateContextMenuComponent) {
 		this.paginateContextMenuComponent = paginateContextMenuComponent;
+	}
+
+	public HtmlPanelGrid getPaginateFilterComponent() throws Exception {
+		if (this.paginateFilterComponent == null) {
+			return super.getPaginateFilterComponent(this.getClass().getSimpleName());
+		} else {
+			return this.paginateFilterComponent;
+		}
+	}
+
+	public void setPaginateFilterComponent(HtmlPanelGrid paginateFilterComponent) {
+		this.paginateFilterComponent = paginateFilterComponent;
 	}
 
 	// ----------------------------------------------------------------

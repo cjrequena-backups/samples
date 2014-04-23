@@ -16,7 +16,7 @@
 		<h:form prependId="false" id="buttonsComponentForm">
 			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText value="#{i18n.label_artist}" style="margin-left:45%;margin-right:45%;" />
+					<h:outputText value="#{i18n.label_Artists}" style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
 				<h:panelGrid binding="#{ArtistControllerQry.actionsButtonsComponent}" columns="19">
 				</h:panelGrid>
@@ -31,7 +31,7 @@
 				</f:facet>
 				<h:panelGrid id="filterPanelGrid" columns="16" style="margin-left:auto;"
 					binding="#{ArtistControllerQry.paginateFilterComponent}">
-					<p:commandButton id="addFilterButton" value="#{i18n.label_apply}" action="#{ArtistControllerQry.addFilter}"
+					<p:commandButton id="addFilterButton" value="#{i18n.label_Apply}" action="#{ArtistControllerQry.addFilter}"
 						update=":filterForm :activeFilterForm :paginateForm :growlForm:growl" icon="ui-icon-plus" />
 				</h:panelGrid>
 			</p:panel>
@@ -44,8 +44,8 @@
 
 				</f:facet>
 				<p:contextMenu id="activeFilterContextMenu" for="paginateActiveFilter">
-					<p:menuitem value="#{i18n.label_delete}" action="#{ArtistControllerQry.removeFilter}" update=":filterForm :activeFilterForm :paginateForm :growlForm:growl"
-						title="#{i18n.label_delete}" icon="ui-icon-trash">
+					<p:menuitem value="#{i18n.label_Delete}" action="#{ArtistControllerQry.removeFilter}" update=":filterForm :activeFilterForm :paginateForm :growlForm:growl"
+						title="#{i18n.label_Delete}" icon="ui-icon-trash">
 					</p:menuitem>
 				</p:contextMenu>
 				<p:dataTable id="paginateActiveFilter" value="#{ArtistControllerQry.listFilter}" var="item" resizableColumns="false"
@@ -73,28 +73,28 @@
 					rowsPerPageTemplate="5,10,25,50" rows="10" sortMode="multiple" paginatorPosition="bottom" widgetVar="listtable"
 					selectionMode="single" selection="#{ArtistControllerQry.dataObject}" rowKey="#{item}">
 					<p:column style="width:5%">
-						<p:commandButton icon="ui-icon-zoomin" title="#{i18n.label_view}">
+						<p:commandButton icon="ui-icon-zoomin" title="#{i18n.label_View}">
 						</p:commandButton>
 					</p:column>
-					<p:column headerText="#{i18n.label_artist_name}" filterBy="#{item.name}" filterMatchMode="contains">
+					<p:column headerText="#{i18n.label_Name}" filterBy="#{item.name}" filterMatchMode="contains">
 						<h:outputText value="#{item.name}"></h:outputText>
 					</p:column>
 				
 					<p:column styleClass="action-column" style="width:5%">
 						<p:commandButton id="deleteButton" icon="ui-icon-trash" oncomplete="deleteDialogWidget.show()"
-							title="#{i18n.label_delete}">
+							title="#{i18n.label_Delete}">
 							<f:setPropertyActionListener value="#{item}" target="#{ArtistControllerTx.dataObject}" />
 						</p:commandButton>
-						<p:tooltip for="deleteButton" value="#{i18n.label_delete}" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="deleteButton" value="#{i18n.label_Delete}" showEffect="fade" hideEffect="fade" />
 					</p:column>
 				</p:dataTable>
 			</p:panel>
-			<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_delete_record}"
+			<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_Delete_record}"
 				showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
 				<p:outputPanel id="deletePanel">
-					<p:commandButton id="deleteYesButton" value="#{i18n.label_yes}" action="#{ArtistControllerTx.delete()}"
+					<p:commandButton id="deleteYesButton" value="#{i18n.label_Yes}" action="#{ArtistControllerTx.delete()}"
 						update=":filterForm :activeFilterForm :paginateForm :growlForm:growl" oncomplete="deleteDialogWidget.hide()" />
-					<p:commandButton id="deleteNoButton" value="#{i18n.label_no}" onclick="deleteDialogWidget.hide()" type="button" />
+					<p:commandButton id="deleteNoButton" value="#{i18n.label_No}" onclick="deleteDialogWidget.hide()" type="button" />
 				</p:outputPanel>
 			</p:confirmDialog>
 		</h:form>

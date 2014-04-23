@@ -218,7 +218,7 @@ public class MediaTypeControllerTx extends AbstractControllerTx<MediaType> imple
 			// CREATE
 			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			createButton.setId("createTempleButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_create_new"));
+			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
 			createButton.setUpdate(":txForm  :growlForm:growl");
 			createButton.setImmediate(true);
 			createButton.setAjax(false);
@@ -230,7 +230,7 @@ public class MediaTypeControllerTx extends AbstractControllerTx<MediaType> imple
 			// SAVE
 			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			saveCommandButton.setId("saveCommandButtonId");
-			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_save"));
+			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
 			saveCommandButton.setUpdate(":txForm :growlForm:growl");
 			saveCommandButton.setImmediate(false);
 			saveCommandButton.setAjax(false);
@@ -241,7 +241,7 @@ public class MediaTypeControllerTx extends AbstractControllerTx<MediaType> imple
 			// DELETE
 			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
 			deleteCommandButton.setId("deleteCommandButtonId");
-			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_delete"));
+			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
 			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
 			deleteCommandButton.setImmediate(true);
 			deleteCommandButton.setAjax(true);
