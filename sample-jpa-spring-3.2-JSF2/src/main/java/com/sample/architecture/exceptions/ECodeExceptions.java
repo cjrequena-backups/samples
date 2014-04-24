@@ -1,5 +1,14 @@
+/*
+ * email: carlosjose.requena@gmail.com 
+ * blog:  http://carlosjoserequena.blogspot.com
+ *  
+ */
 package com.sample.architecture.exceptions;
-
+/**
+ * 
+ * @author cjrequena
+ *
+ */
 public enum ECodeExceptions {
 	/**
 	 * GLOBAL_RESULT

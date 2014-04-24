@@ -1,3 +1,8 @@
+/*
+ * email: carlosjose.requena@gmail.com 
+ * blog:  http://carlosjoserequena.blogspot.com
+ *  
+ */
 package com.sample.architecture.converter;
 
 import java.io.Serializable;

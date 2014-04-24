@@ -1,3 +1,8 @@
+/*
+ * email: carlosjose.requena@gmail.com 
+ * blog:  http://carlosjoserequena.blogspot.com
+ *  
+ */
 package com.sample.architecture.exceptions;
 
 import java.util.Locale;
@@ -10,7 +15,11 @@ import com.sample.architecture.commons.constants.Constants;
 
 
 
-
+/**
+ * 
+ * @author cjrequena
+ *
+ */
 public class BaseExceptions extends Exception {
 
 	/**

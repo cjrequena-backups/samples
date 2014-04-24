@@ -1,3 +1,9 @@
+/*
+ * email: carlosjose.requena@gmail.com 
+ * blog:  http://carlosjoserequena.blogspot.com
+ *  
+ */
+
 package com.sample.architecture.dao;
 
 import java.io.Serializable;
@@ -20,7 +26,9 @@ import org.springframework.beans.factory.annotation.Configurable;
 /**
  * 
  * @author cjrequena
- * 
+ *
+ * @param <T>
+ * @param <PK>
  */
 @Configurable
 public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {

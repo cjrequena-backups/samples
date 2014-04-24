@@ -1,3 +1,8 @@
+/*
+ * email: carlosjose.requena@gmail.com 
+ * blog:  http://carlosjoserequena.blogspot.com
+ *  
+ */
 package com.sample.architecture.exceptions;
 
 import java.util.Iterator;
@@ -12,6 +17,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
+/**
+ * 
+ * @author cjrequena
+ *
+ */
 public class ManagerExceptionHandler extends ExceptionHandlerWrapper {
 	private ExceptionHandler wrapped;
 

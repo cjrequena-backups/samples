@@ -1,3 +1,10 @@
+
+/*
+ * email: carlosjose.requena@gmail.com 
+ * blog:  http://carlosjoserequena.blogspot.com
+ *  
+ */
+
 package com.sample.architecture.controller;
 
 import java.io.Serializable;
@@ -29,10 +36,12 @@ public abstract class AbstractController<T> implements IController<T>, Serializa
 
 	@Value("${firstResult}")
 	protected Integer firstResult;
+	
 	@Value("${maxResults}")
 	protected Integer maxResults;
 
 	protected IController<?> parentController;
+	
 	protected T dataObject;
 
 	// MAP FILTER PARAMETERS
@@ -41,11 +50,11 @@ public abstract class AbstractController<T> implements IController<T>, Serializa
 	/**
 	 * 
 	 * @param facesContext
-	 * @param controllerName
+	 * @param controllerQryName
 	 *            -- Controlador de tipo Qry.
-	 * @param parameterValue
+	 * @param value
 	 *            -- El valor u objeto u parametro a insertar.
-	 * @param parameterKey
+	 * @param targetField
 	 *            -- El nombre del campo en la entidad JPA del dataObject (Represanta el objeto JPA contra quien se ejecuta la query).
 	 * @return
 	 */

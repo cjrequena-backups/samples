@@ -1,3 +1,8 @@
+/*
+ * email: carlosjose.requena@gmail.com 
+ * blog:  http://carlosjoserequena.blogspot.com
+ *  
+ */
 package com.sample.architecture.dao;
 
 import java.io.Serializable;
@@ -7,7 +12,7 @@ import java.util.List;
 /**
  * 
  * @author cjrequena
- * 
+ *
  */
 public class Filter implements Serializable {
 

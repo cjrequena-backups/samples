@@ -1,3 +1,8 @@
+/*
+ * email: carlosjose.requena@gmail.com 
+ * blog:  http://carlosjoserequena.blogspot.com
+ *  
+ */
 package com.sample.architecture.exceptions;
 
 import java.util.Locale;
@@ -6,7 +11,11 @@ import java.util.PropertyResourceBundle;
 
 import com.sample.architecture.commons.constants.Constants;
 
-
+/**
+ * 
+ * @author cjrequena
+ *
+ */
 public class BusinessExceptions extends BaseExceptions {
 
 	private static final long serialVersionUID = 1L;
