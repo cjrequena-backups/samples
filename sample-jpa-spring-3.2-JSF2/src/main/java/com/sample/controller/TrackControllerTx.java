@@ -27,10 +27,16 @@ import org.springframework.context.annotation.Scope;
 import com.sample.architecture.commons.utils.MessageFactory;
 import com.sample.architecture.controller.AbstractControllerTx;
 import com.sample.controller.converter.AlbumConverter;
-import com.sample.model.jpa.Track;
+import com.sample.controller.converter.GenreConverter;
+import com.sample.controller.converter.MediaTypeConverter;
 import com.sample.model.jpa.Album;
-import com.sample.service.ITrackService;
+import com.sample.model.jpa.Genre;
+import com.sample.model.jpa.MediaType;
+import com.sample.model.jpa.Track;
 import com.sample.service.IAlbumService;
+import com.sample.service.IGenreService;
+import com.sample.service.IMediaTypeService;
+import com.sample.service.ITrackService;
 
 @Named("TrackControllerTx")
 @Scope("session")
@@ -48,13 +54,18 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 	private ITrackService trackService;
 	@Autowired
 	private IAlbumService albumService;
+	@Autowired
+	private IMediaTypeService mediaTypeService;
+	@Autowired
+	private IGenreService genreService;
 
 	// COMPONENTS
 	private HtmlPanelGrid actionsButtonsComponent;
 
 	// COMVERTERS
 	private AlbumConverter albumConverter;
-
+	private MediaTypeConverter mediaTypeConverter;
+	private GenreConverter genreConverter;
 	@Override
 	public String onCreate() throws Exception {
 		try {
@@ -170,6 +181,40 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 		return suggestions;
 	}
 
+	public List<MediaType> autocompleteMediaType(String query) {
+		List<MediaType> suggestions = new ArrayList<MediaType>();
+		try {
+			for (MediaType mediaType : mediaTypeService.findAll()) {
+
+				String obj = String.valueOf(mediaType.getName());
+
+				if (obj.toLowerCase().contains(query.toLowerCase())) {
+					suggestions.add(mediaType);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Error executing mediaType autocomplete " + e.getMessage());
+		}
+		return suggestions;
+	}
+	
+	public List<Genre> autocompleteGenre(String query) {
+		List<Genre> suggestions = new ArrayList<Genre>();
+		try {
+			for (Genre genre : genreService.findAll()) {
+
+				String obj = String.valueOf(genre.getName());
+
+				if (obj.toLowerCase().contains(query.toLowerCase())) {
+					suggestions.add(genre);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Error executing genre autocomplete " + e.getMessage());
+		}
+		return suggestions;
+	}
+
 	public void handleAutocompleteSelect(SelectEvent event) {
 		// if (event.getObject() instanceof Tpais) {
 		// Tpais tpais = (Tpais) event.getObject();
@@ -192,7 +237,7 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 	@Override
 	public String runFromActionsButtons(String value, String action) throws Exception {
 		Track track = this.dataObject;
-		
+
 		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
 			if (action.equalsIgnoreCase("CREATE")) {
 				this.dataObject = new Track();
@@ -345,6 +390,29 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 
 	public void setAlbumConverter(AlbumConverter albumConverter) {
 		this.albumConverter = albumConverter;
+	}
+	
+	
+	public MediaTypeConverter getMediaTypeConverter() {
+		if (this.mediaTypeConverter == null) {
+			this.mediaTypeConverter = new MediaTypeConverter(this.mediaTypeService);
+		}
+		return mediaTypeConverter;
+	}
+
+	public void setMediaTypeConverter(MediaTypeConverter mediaTypeConverter) {
+		this.mediaTypeConverter = mediaTypeConverter;
+	}
+	
+	public GenreConverter getGenreConverter() {
+		if (this.genreConverter == null) {
+			this.genreConverter = new GenreConverter(this.genreService);
+		}
+		return genreConverter;
+	}
+
+	public void setGenreConverter(GenreConverter genreConverter) {
+		this.genreConverter = genreConverter;
 	}
 
 }

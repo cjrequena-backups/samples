@@ -49,26 +49,29 @@ body .container #content table {
 	vertical-align: top;
 	font-weight: bold;
 	width: 35%;
-	padding: 2px;
+	float: left;
+	padding: 0.5%;
 }
 
 .col2 {
 	vertical-align: top;
-	width: 55%;
-	padding: 2px;
+	width: 52%;
+	float: left;
+	padding: 0.5%;
 }
 
 .col3 {
 	vertical-align: top;
 	width: 10%;
-	padding: 2px;
+	float: left;
+	padding: 0.5%;
 }
 
 /*-------------------------------------*/
 /*Primefaces						   */
 /*-------------------------------------*/
 .col2 .ui-autocomplete-input.ui-inputfield{
-    width : 88% !important;
+    width : 86% !important;
 }
 
 /*-------------------------------------*/

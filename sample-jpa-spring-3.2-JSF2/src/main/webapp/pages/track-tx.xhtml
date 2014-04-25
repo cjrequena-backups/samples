@@ -63,10 +63,10 @@
 					<p:tab
 						id="tab1"
 						title="#{i18n.label_Tab_1}">
-						<h:panelGrid columns="2">
+						<h:panelGrid columns="2" >
 							<h:panelGrid
 								columns="3"
-								columnClasses="col1, col2, col3">
+								columnClasses="col1,col2,col3">
 								<p:outputLabel
 									for="track_name_inputtext_id"
 									value="#{i18n.label_Name}">
@@ -86,7 +86,7 @@
 							</h:panelGrid>
 							<h:panelGrid
 								columns="3"
-								columnClasses="col1, col2, col3">
+								columnClasses="col1,col2,col3">
 								<p:outputLabel
 									for="track_composer_inputtext_id"
 									value="#{i18n.label_Track_composer}">
@@ -106,7 +106,7 @@
 							</h:panelGrid>
 							<h:panelGrid
 								columns="3"
-								columnClasses="col1, col2, col3">
+								columnClasses="col1,col2,col3">
 								<p:outputLabel
 									for="track_milliseconds_inputtext_id"
 									value="#{i18n.label_Track_milliseconds}">
@@ -128,7 +128,7 @@
 							</h:panelGrid>
 							<h:panelGrid
 								columns="3"
-								columnClasses="col1, col2, col3">
+								columnClasses="col1,col2,col3">
 								<p:outputLabel
 									for="track_bytes_inputtext_id"
 									value="#{i18n.label_Track_bytes}">
@@ -139,7 +139,7 @@
 									mask="9?9999999999"
 									maxlength="11"
 									placeHolder=""
-									required="true"
+									required="false"
 									style="width:100%">
 								</p:inputMask>
 								<p:message
@@ -150,7 +150,7 @@
 							</h:panelGrid>
 							<h:panelGrid
 								columns="3"
-								columnClasses="col1, col2, col3">
+								columnClasses="col1,col2,col3">
 								<p:outputLabel
 									for="track_unitPrice_inputtext_id"
 									value="#{i18n.label_Track_unitPrice}">
@@ -171,7 +171,7 @@
 							</h:panelGrid>
 							<h:panelGrid
 								columns="3"
-								columnClasses="col1, col2, col3">
+								columnClasses="col1,col2,col3">
 								<p:outputLabel
 									id="album_label"
 									for="album_autocomplete_id"
@@ -196,6 +196,64 @@
 								<p:message
 									id="album_message_id"
 									for="album_autocomplete_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="mediaType_autocomplete_id"
+									value="#{i18n.label_Mediatype}">
+								</p:outputLabel>
+								<p:autoComplete
+									id="mediaType_autocomplete_id"
+									value="#{TrackControllerTx.dataObject.mediaTypeId}"
+									completeMethod="#{TrackControllerTx.autocompleteMediaType}"
+									var="item"
+									itemLabel="#{item.name}"
+									itemValue="#{item}"
+									converter="#{TrackControllerTx.mediaTypeConverter}"
+									forceSelection="true"
+									required="true"
+									dropdown="true">
+									<p:ajax
+										event="itemSelect"
+										listener="#{TrackControllerTx.handleAutocompleteSelect}"
+										update="" />
+								</p:autoComplete>
+								<p:message
+									id="mediaType_message_id"
+									for="mediaType_autocomplete_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="genre_autocomplete_id"
+									value="#{i18n.label_Genre}">
+								</p:outputLabel>
+								<p:autoComplete
+									id="genre_autocomplete_id"
+									value="#{TrackControllerTx.dataObject.genreId}"
+									completeMethod="#{TrackControllerTx.autocompleteGenre}"
+									var="item"
+									itemLabel="#{item.name}"
+									itemValue="#{item}"
+									converter="#{TrackControllerTx.genreConverter}"
+									forceSelection="true"
+									required="false"
+									dropdown="true">
+									<p:ajax
+										event="itemSelect"
+										listener="#{TrackControllerTx.handleAutocompleteSelect}"
+										update="" />
+								</p:autoComplete>
+								<p:message
+									id="genre_message_id"
+									for="genre_autocomplete_id"
 									display="icon">
 								</p:message>
 							</h:panelGrid>
