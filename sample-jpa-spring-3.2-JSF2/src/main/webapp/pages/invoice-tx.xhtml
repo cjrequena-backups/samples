@@ -1,72 +1,247 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-
-
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../templates/layout.xhtml">
-
 	<ui:define name="content">
-		<h:form prependId="false" id="growlForm">
-			<p:growl id="growl" showDetail="false" />
+		<h:form
+			prependId="false"
+			id="growlForm">
+			<p:growl
+				id="growl"
+				showDetail="false" />
 		</h:form>
-
-		<h:form prependId="false" id="txForm">
-
+		<h:form
+			prependId="false"
+			id="txForm">
 			<!-- COMPONENTE DE BOTONES -->
-			<p:panel toggleable="true" toggleSpeed="250">
+			<p:panel
+				toggleable="true"
+				toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText value="#{i18n.label_Invoice}" style="margin-left:45%;margin-right:45%;" />
+					<h:outputText
+						value="#{i18n.label_Invoice}"
+						style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
-				<h:panelGrid binding="#{InvoiceControllerTx.actionsButtonsComponent}" columns="19">
+				<h:panelGrid
+					binding="#{InvoiceControllerTx.actionsButtonsComponent}"
+					columns="19">
 				</h:panelGrid>
-				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_Delete_record}"
-					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
+				<p:confirmDialog
+					id="deleteDialog"
+					widgetVar="deleteDialogWidget"
+					message="#{i18n.label_Delete_record}"
+					showEffect="fade"
+					hideEffect="explode"
+					header="#{i18n.label_confirm_deletion}"
+					severity="alarm">
 					<p:outputPanel id="deletePanel">
-						<p:commandButton id="deleteYesButton" value="#{i18n.label_Yes}" action="#{InvoiceControllerTx.delete}"
+						<p:commandButton
+							id="deleteYesButton"
+							value="#{i18n.label_Yes}"
+							action="#{InvoiceControllerTx.delete}"
 							oncomplete="deleteDialogWidget.hide()" />
-						<p:commandButton id="deleteNoButton" value="#{i18n.label_No}" onclick="deleteDialogWidget.hide()" type="button" />
+						<p:commandButton
+							id="deleteNoButton"
+							value="#{i18n.label_No}"
+							onclick="deleteDialogWidget.hide()"
+							type="button" />
 					</p:outputPanel>
 				</p:confirmDialog>
 			</p:panel>
-
 			<!-- DATA TRANSACTION -->
-			<p:panel toggleable="true" toggleSpeed="250">
+			<p:panel
+				toggleable="true"
+				toggleSpeed="250">
 				<f:facet name="header">
-
 				</f:facet>
 				<p:tabView>
-					<p:tab id="tab1" title="#{i18n.label_Tab_1}">
+					<p:tab
+						id="tab1"
+						title="#{i18n.label_Tab_1}">
 						<h:panelGrid columns="2">
-							<h:panelGrid columns="3" columnClasses="col1,col2,col3">
-								<p:outputLabel for="total_inputtext_id" value="#{i18n.label_Total}">
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="customer_autocomplete_id"
+									value="#{i18n.label_Customer}">
 								</p:outputLabel>
-								<p:inputText id="total_inputtext_id" value="#{InvoiceControllerTx.dataObject.total}" maxlength="160"
-									required="true" style="width:100%">
+								<p:autoComplete
+									id="customer_autocomplete_id"
+									value="#{InvoiceControllerTx.dataObject.customerId}"
+									completeMethod="#{InvoiceControllerTx.autocompleteCustomer}"
+									var="item"
+									itemLabel="#{item.firstName} #{item.lastName}"
+									itemValue="#{item}"
+									converter="#{CustomerControllerTx.customerConverter}"
+									forceSelection="true"
+									required="true"
+									dropdown="true">
+									<p:ajax
+										event="itemSelect"
+										listener="#{CustomerControllerTx.handleAutocompleteSelect}"
+										update="" />
+								</p:autoComplete>
+								<p:message
+									id="customer_message_id"
+									for="customer_autocomplete_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								styleClass="dialog"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="invoiceDate_calendar_id"
+									value="#{i18n.label_Date}">
+								</p:outputLabel>
+								<p:calendar
+									id="invoiceDate_calendar_id"
+									value="#{InvoiceControllerTx.dataObject.invoiceDate.time}"
+									showOn="button"
+									style="width:100%">
+								</p:calendar>
+								<p:message
+									id="invoiceDate_calendar_message"
+									for="invoiceDate_calendar_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel value="#{i18n.label_Address}">
+								</p:outputLabel>
+								<p:inputText
+									id="billingAddress_inputtext_id"
+									value="#{InvoiceControllerTx.dataObject.billingAddress}"
+									maxlength="70"
+									required="false"
+									style="width:100%">
 								</p:inputText>
-								<p:message id="total_inputtext_message" for="total_inputtext_id" display="icon">
+								<p:message
+									id="billingAddress_inputtext_message"
+									for="billingAddress_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel value="#{i18n.label_City}">
+								</p:outputLabel>
+								<p:inputText
+									id="billingCity_inputtext_id"
+									value="#{InvoiceControllerTx.dataObject.billingCity}"
+									maxlength="40"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="billingCity_inputtext_message"
+									for="billingCity_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel value="#{i18n.label_State}">
+								</p:outputLabel>
+								<p:inputText
+									id="billingState_inputtext_id"
+									value="#{InvoiceControllerTx.dataObject.billingState}"
+									maxlength="40"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="billingState_inputtext_message"
+									for="billingState_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel value="#{i18n.label_Country}">
+								</p:outputLabel>
+								<p:inputText
+									id="billingCountry_inputtext_id"
+									value="#{InvoiceControllerTx.dataObject.billingCountry}"
+									maxlength="40"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="billingCountry_inputtext_message"
+									for="billingCountry_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel value="#{i18n.label_Postal_Code}">
+								</p:outputLabel>
+								<p:inputText
+									id="billingPostalCode_inputtext_id"
+									value="#{InvoiceControllerTx.dataObject.billingPostalCode}"
+									maxlength="10"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="billingPostalCode_inputtext_message"
+									for="billingPostalCode_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel value="#{i18n.label_Total}">
+								</p:outputLabel>
+								<p:inputText
+									id="total_inputtext_id"
+									value="#{InvoiceControllerTx.dataObject.total}"
+									maxlength="10"
+									required="true"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="total_inputtext_message"
+									for="total_inputtext_id"
+									display="icon">
 								</p:message>
 							</h:panelGrid>
 						</h:panelGrid>
 					</p:tab>
-
-					<p:tab id="tab2" title="#{i18n.label_Tab_2}">
-						<h:panelGrid columns="2" cellpadding="10">
-
+					<p:tab
+						id="tab2"
+						title="#{i18n.label_Tab_2}">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
 						</h:panelGrid>
 					</p:tab>
-
-					<p:tab id="tab3" title="#{i18n.label_Tab_3}">
-						<h:panelGrid columns="2" cellpadding="10">
-
+					<p:tab
+						id="tab3"
+						title="#{i18n.label_Tab_3}">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
 						</h:panelGrid>
 					</p:tab>
-
 				</p:tabView>
-
 			</p:panel>
-
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,6 +1,11 @@
 package com.sample.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Set;
 
 import javax.el.ELContext;
@@ -145,6 +150,23 @@ public class EmployeeControllerTx extends AbstractControllerTx<Employee> impleme
 			message = constraintViolation.getPropertyPath() + " -> " + constraintViolation.getMessage();
 		}
 		return message;
+	}
+
+	public List<Employee> autocompleteReportsTo(String query) {
+		List<Employee> suggestions = new ArrayList<Employee>();
+		try {
+			for (Employee employee : employeeService.findAll()) {
+
+				String obj = String.valueOf(employee.getFirstName() + " " + employee.getLastName());
+
+				if (obj.toLowerCase().contains(query.toLowerCase())) {
+					suggestions.add(employee);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Error executing employee autocomplete " + e.getMessage());
+		}
+		return suggestions;
 	}
 
 	public void handleAutocompleteSelect(SelectEvent event) {
@@ -322,6 +344,40 @@ public class EmployeeControllerTx extends AbstractControllerTx<Employee> impleme
 
 	public void setEmployeeConverter(EmployeeConverter employeeConverter) {
 		this.employeeConverter = employeeConverter;
+	}
+
+	private Date hireDate;
+
+	public Date getHireDate() {
+		if (this.dataObject.getHireDate() != null) {
+			this.hireDate = this.dataObject.getHireDate().getTime();
+		}
+		return this.hireDate;
+	}
+
+	public void setHireDate(Date hireDate) {
+		if (hireDate != null) {
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(hireDate);
+			this.dataObject.setHireDate(calendar);
+		}
+	}
+
+	private Date birthDate;
+
+	public Date getBirthDate() {
+		if (this.dataObject.getBirthDate() != null) {
+			this.birthDate = this.dataObject.getBirthDate().getTime();
+		}
+		return this.birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		if (birthDate!=null) {
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(birthDate);
+			this.dataObject.setBirthDate(calendar);
+		}
 	}
 
 }

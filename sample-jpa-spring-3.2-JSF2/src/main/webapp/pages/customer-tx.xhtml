@@ -1,74 +1,318 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-
-
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../templates/layout.xhtml">
-
 	<ui:define name="content">
-		<h:form prependId="false" id="growlForm">
-			<p:growl id="growl" showDetail="false" />
+		<h:form
+			prependId="false"
+			id="growlForm">
+			<p:growl
+				id="growl"
+				showDetail="false" />
 		</h:form>
-
-		<h:form prependId="false" id="txForm">
-
+		<h:form
+			prependId="false"
+			id="txForm">
 			<!-- COMPONENTE DE BOTONES -->
-			<p:panel toggleable="true" toggleSpeed="250">
+			<p:panel
+				toggleable="true"
+				toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText value="#{i18n.label_Customer}" style="margin-left:45%;margin-right:45%;" />
+					<h:outputText
+						value="#{i18n.label_Customer}"
+						style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
-				<h:panelGrid binding="#{CustomerControllerTx.actionsButtonsComponent}" columns="19">
+				<h:panelGrid
+					binding="#{CustomerControllerTx.actionsButtonsComponent}"
+					columns="19">
 				</h:panelGrid>
-				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_Delete_record}"
-					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
+				<p:confirmDialog
+					id="deleteDialog"
+					widgetVar="deleteDialogWidget"
+					message="#{i18n.label_Delete_record}"
+					showEffect="fade"
+					hideEffect="explode"
+					header="#{i18n.label_confirm_deletion}"
+					severity="alarm">
 					<p:outputPanel id="deletePanel">
-						<p:commandButton id="deleteYesButton" value="#{i18n.label_Yes}" action="#{CustomerControllerTx.delete}"
+						<p:commandButton
+							id="deleteYesButton"
+							value="#{i18n.label_Yes}"
+							action="#{CustomerControllerTx.delete}"
 							oncomplete="deleteDialogWidget.hide()" />
-						<p:commandButton id="deleteNoButton" value="#{i18n.label_No}" onclick="deleteDialogWidget.hide()" type="button" />
+						<p:commandButton
+							id="deleteNoButton"
+							value="#{i18n.label_No}"
+							onclick="deleteDialogWidget.hide()"
+							type="button" />
 					</p:outputPanel>
 				</p:confirmDialog>
 			</p:panel>
-
 			<!-- DATA TRANSACTION -->
-			<p:panel toggleable="true" toggleSpeed="250">
+			<p:panel
+				toggleable="true"
+				toggleSpeed="250">
 				<f:facet name="header">
-
 				</f:facet>
 				<p:tabView>
-					<p:tab id="tab1" title="#{i18n.label_Tab_1}">
-						<h:panelGrid columns="3" columnClasses="col1, col2, col3" style="width:50%">
+					<p:tab
+						id="tab1"
+						title="#{i18n.label_Tab_1}">
+						<h:panelGrid columns="2">
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="firstName_inputtext_id"
+									value="#{i18n.label_First_name}">
+								</p:outputLabel>
+								<p:inputText
+									id="firstName_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.firstName}"
+									maxlength="40"
+									required="true"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="firstName_inputtext_message"
+									for="firstName_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="lastName_inputtext_id"
+									value="#{i18n.label_Last_name}">
+								</p:outputLabel>
+								<p:inputText
+									id="lastName_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.lastName}"
+									maxlength="20"
+									required="true"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="lastName_inputtext_message"
+									for="lastName_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="company_inputtext_id"
+									value="#{i18n.label_Company}">
+								</p:outputLabel>
+								<p:inputText
+									id="company_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.company}"
+									maxlength="80"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="company_inputtext_message"
+									for="company_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="address_inputtext_id"
+									value="#{i18n.label_Address}">
+								</p:outputLabel>
+								<p:inputText
+									id="address_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.address}"
+									maxlength="70"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="address_inputtext_message"
+									for="address_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="city_inputtext_id"
+									value="#{i18n.label_City}">
+								</p:outputLabel>
+								<p:inputText
+									id="city_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.city}"
+									maxlength="40"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="city_inputtext_message"
+									for="city_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="state_inputtext_id"
+									value="#{i18n.label_State}">
+								</p:outputLabel>
+								<p:inputText
+									id="state_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.state}"
+									maxlength="40"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="state_inputtext_message"
+									for="state_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="country_inputtext_id"
+									value="#{i18n.label_Country}">
+								</p:outputLabel>
+								<p:inputText
+									id="country_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.country}"
+									maxlength="40"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="country_inputtext_message"
+									for="country_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
 							
-							<p:outputLabel for="firstName_inputtext_id" value="#{i18n.label_First_name}">
-							</p:outputLabel>
-							<p:inputText id="firstName_inputtext_id" value="#{CustomerControllerTx.dataObject.firstName}" maxlength="160" required="true"
-								style="width:100%">
-							</p:inputText>
-							<p:message id="firstName_inputtext_message" for="firstName_inputtext_id" display="icon">
-							</p:message>
-
 							
-						
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="postalCode_inputtext_id"
+									value="#{i18n.label_Postal_Code}">
+								</p:outputLabel>
+								<p:inputText
+									id="postalCode_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.postalCode}"
+									maxlength="10"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="postalCode_inputtext_message"
+									for="postalCode_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							
+							
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="phone_inputtext_id"
+									value="#{i18n.label_Phone}">
+								</p:outputLabel>
+								<p:inputText
+									id="phone_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.phone}"
+									maxlength="24"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="phone_inputtext_message"
+									for="phone_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="fax_inputtext_id"
+									value="#{i18n.label_Fax}">
+								</p:outputLabel>
+								<p:inputText
+									id="fax_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.fax}"
+									maxlength="24"
+									required="false"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="fax_inputtext_message"
+									for="fax_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							
+							
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="email_inputtext_id"
+									value="#{i18n.label_Email}">
+								</p:outputLabel>
+								<p:inputText
+									id="email_inputtext_id"
+									value="#{CustomerControllerTx.dataObject.email}"
+									maxlength="60"
+									required="true"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="email_inputtext_message"
+									for="email_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							
 						</h:panelGrid>
 					</p:tab>
-
-					<p:tab id="tab2" title="#{i18n.label_Tab_2}">
-						<h:panelGrid columns="2" cellpadding="10">
-
+					<p:tab
+						id="tab2"
+						title="#{i18n.label_Tab_2}">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
 						</h:panelGrid>
 					</p:tab>
-
-					<p:tab id="tab3" title="#{i18n.label_Tab_3}">
-						<h:panelGrid columns="2" cellpadding="10">
-
+					<p:tab
+						id="tab3"
+						title="#{i18n.label_Tab_3}">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
 						</h:panelGrid>
 					</p:tab>
-
 				</p:tabView>
-
 			</p:panel>
-
 		</h:form>
 	</ui:define>
 </ui:composition>

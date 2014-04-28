@@ -1,6 +1,8 @@
 package com.sample.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.el.ELContext;
@@ -24,9 +26,15 @@ import org.springframework.context.annotation.Scope;
 
 import com.sample.architecture.commons.utils.MessageFactory;
 import com.sample.architecture.controller.AbstractControllerTx;
+import com.sample.controller.converter.InvoiceConverter;
 import com.sample.controller.converter.InvoiceLineConverter;
+import com.sample.controller.converter.TrackConverter;
+import com.sample.model.jpa.Invoice;
 import com.sample.model.jpa.InvoiceLine;
+import com.sample.model.jpa.Track;
 import com.sample.service.IInvoiceLineService;
+import com.sample.service.IInvoiceService;
+import com.sample.service.ITrackService;
 
 @Named("InvoiceLineControllerTx")
 @Scope("session")
@@ -42,12 +50,18 @@ public class InvoiceLineControllerTx extends AbstractControllerTx<InvoiceLine> i
 	// SERVICES
 	@Autowired
 	private IInvoiceLineService invoiceLineService;
+	@Autowired
+	private IInvoiceService invoiceService;
+	@Autowired
+	private ITrackService trackService;
 
 	// COMPONENTS
 	private HtmlPanelGrid actionsButtonsComponent;
 
 	// COMVERTERS
 	private InvoiceLineConverter invoiceLineConverter;
+	private InvoiceConverter invoiceConverter;
+	private TrackConverter trackConverter;
 
 	@Override
 	public String onCreate() throws Exception {
@@ -145,6 +159,40 @@ public class InvoiceLineControllerTx extends AbstractControllerTx<InvoiceLine> i
 			message = constraintViolation.getPropertyPath() + " -> " + constraintViolation.getMessage();
 		}
 		return message;
+	}
+	
+	public List<Invoice> autocompleteInvoice(String query) {
+		List<Invoice> suggestions = new ArrayList<Invoice>();
+		try {
+			for (Invoice invoice : invoiceService.findAll()) {
+
+				String obj = String.valueOf(invoice.getInvoiceId());
+
+				if (obj.toLowerCase().contains(query.toLowerCase())) {
+					suggestions.add(invoice);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Error executing invoice autocomplete " + e.getMessage());
+		}
+		return suggestions;
+	}
+	
+	public List<Track> autocompleteTrack(String query) {
+		List<Track> suggestions = new ArrayList<Track>();
+		try {
+			for (Track track : trackService.findAll()) {
+
+				String obj = String.valueOf(track.getName());
+
+				if (obj.toLowerCase().contains(query.toLowerCase())) {
+					suggestions.add(track);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Error executing track autocomplete " + e.getMessage());
+		}
+		return suggestions;
 	}
 
 	public void handleAutocompleteSelect(SelectEvent event) {
@@ -322,6 +370,28 @@ public class InvoiceLineControllerTx extends AbstractControllerTx<InvoiceLine> i
 
 	public void setInvoiceLineConverter(InvoiceLineConverter invoiceLineConverter) {
 		this.invoiceLineConverter = invoiceLineConverter;
+	}
+	
+	public InvoiceConverter getInvoiceConverter() {
+		if (this.invoiceConverter == null) {
+			this.invoiceConverter = new InvoiceConverter(this.invoiceService);
+		}
+		return invoiceConverter;
+	}
+
+	public void setInvoiceConverter(InvoiceConverter invoiceConverter) {
+		this.invoiceConverter = invoiceConverter;
+	}
+	
+	public TrackConverter getTrackConverter() {
+		if (this.trackConverter == null) {
+			this.trackConverter = new TrackConverter(this.trackService);
+		}
+		return trackConverter;
+	}
+
+	public void setTrackConverter(TrackConverter trackConverter) {
+		this.trackConverter = trackConverter;
 	}
 
 }

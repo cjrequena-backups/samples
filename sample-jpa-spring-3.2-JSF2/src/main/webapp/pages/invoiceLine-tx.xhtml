@@ -1,82 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-
-
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../templates/layout.xhtml">
-
 	<ui:define name="content">
-		<h:form prependId="false" id="growlForm">
-			<p:growl id="growl" showDetail="false" />
+		<h:form
+			prependId="false"
+			id="growlForm">
+			<p:growl
+				id="growl"
+				showDetail="false" />
 		</h:form>
-
-		<h:form prependId="false" id="txForm">
-
+		<h:form
+			prependId="false"
+			id="txForm">
 			<!-- COMPONENTE DE BOTONES -->
-			<p:panel toggleable="true" toggleSpeed="250">
+			<p:panel
+				toggleable="true"
+				toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText value="#{i18n.label_Invoice_line}" style="margin-left:45%;margin-right:45%;" />
+					<h:outputText
+						value="#{i18n.label_Invoice_line}"
+						style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
-				<h:panelGrid binding="#{InvoiceLineControllerTx.actionsButtonsComponent}" columns="19">
+				<h:panelGrid
+					binding="#{InvoiceLineControllerTx.actionsButtonsComponent}"
+					columns="19">
 				</h:panelGrid>
-				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_Delete_record}"
-					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
+				<p:confirmDialog
+					id="deleteDialog"
+					widgetVar="deleteDialogWidget"
+					message="#{i18n.label_Delete_record}"
+					showEffect="fade"
+					hideEffect="explode"
+					header="#{i18n.label_confirm_deletion}"
+					severity="alarm">
 					<p:outputPanel id="deletePanel">
-						<p:commandButton id="deleteYesButton" value="#{i18n.label_Yes}" action="#{InvoiceLineControllerTx.delete}"
+						<p:commandButton
+							id="deleteYesButton"
+							value="#{i18n.label_Yes}"
+							action="#{InvoiceLineControllerTx.delete}"
 							oncomplete="deleteDialogWidget.hide()" />
-						<p:commandButton id="deleteNoButton" value="#{i18n.label_No}" onclick="deleteDialogWidget.hide()" type="button" />
+						<p:commandButton
+							id="deleteNoButton"
+							value="#{i18n.label_No}"
+							onclick="deleteDialogWidget.hide()"
+							type="button" />
 					</p:outputPanel>
 				</p:confirmDialog>
 			</p:panel>
-
 			<!-- DATA TRANSACTION -->
-			<p:panel toggleable="true" toggleSpeed="250">
+			<p:panel
+				toggleable="true"
+				toggleSpeed="250">
 				<f:facet name="header">
-
 				</f:facet>
 				<p:tabView>
-					<p:tab id="tab1" title="#{i18n.label_Tab_1}">
+					<p:tab
+						id="tab1"
+						title="#{i18n.label_Tab_1}">
 						<h:panelGrid columns="2">
-							<h:panelGrid columns="3" columnClasses="col1,col2,col3">
-								<p:outputLabel for="quantity_inputtext_id" value="#{i18n.label_Quantity}">
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel 
+									for="invoice_autocomplete_id"
+									value="#{i18n.label_Invoice}">
 								</p:outputLabel>
-								<p:inputText id="quantity_inputtext_id" value="#{InvoiceLineControllerTx.dataObject.quantity}" maxlength="160"
-									required="true" style="width:100%">
-								</p:inputText>
-								<p:message id="quantity_inputtext_message" for="quantity_inputtext_id" display="icon">
+								<p:autoComplete
+									id="invoice_autocomplete_id"
+									value="#{InvoiceLineControllerTx.dataObject.invoiceId}"
+									completeMethod="#{InvoiceLineControllerTx.autocompleteInvoice}"
+									var="item"
+									itemLabel="#{item.invoiceId}"
+									itemValue="#{item}"
+									converter="#{InvoiceControllerTx.invoiceConverter}"
+									forceSelection="true"
+									required="true"
+									dropdown="true">
+									<p:ajax
+										event="itemSelect"
+										listener="#{InvoiceLineControllerTx.handleAutocompleteSelect}"
+										update="" />
+								</p:autoComplete>
+								<p:message
+									id="invoice_message_id"
+									for="invoice_autocomplete_id"
+									display="icon">
 								</p:message>
 							</h:panelGrid>
-
-							<h:panelGrid columns="3" columnClasses="col1,col2,col3">
-								<p:outputLabel for="unitPrice_inputtext_id" value="#{i18n.label_Unit_price}">
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel 
+									for="track_autocomplete_id"
+									value="#{i18n.label_Track}">
 								</p:outputLabel>
-								<p:inputText id="unitPrice_inputtext_id" value="#{InvoiceLineControllerTx.dataObject.unitPrice}" maxlength="160"
-									required="true" style="width:100%">
+								<p:autoComplete
+									id="track_autocomplete_id"
+									value="#{InvoiceLineControllerTx.dataObject.trackId}"
+									completeMethod="#{InvoiceLineControllerTx.autocompleteTrack}"
+									var="item"
+									itemLabel="#{item.name}"
+									itemValue="#{item}"
+									converter="#{InvoiceLineControllerTx.trackConverter}"
+									forceSelection="true"
+									required="true"
+									dropdown="true">
+									<p:ajax
+										event="itemSelect"
+										listener="#{TrackControllerTx.handleAutocompleteSelect}"
+										update="" />
+								</p:autoComplete>
+								<p:message
+									for="track_autocomplete_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="quantity_inputtext_id"
+									value="#{i18n.label_Quantity}">
+								</p:outputLabel>
+								<p:inputText
+									id="quantity_inputtext_id"
+									value="#{InvoiceLineControllerTx.dataObject.quantity}"
+									maxlength="160"
+									required="true"
+									style="width:100%">
 								</p:inputText>
-								<p:message id="unitPrice_inputtext_message" for="unitPrice_inputtext_id" display="icon">
+								<p:message
+									id="quantity_inputtext_message"
+									for="quantity_inputtext_id"
+									display="icon">
+								</p:message>
+							</h:panelGrid>
+							<h:panelGrid
+								columns="3"
+								columnClasses="col1,col2,col3">
+								<p:outputLabel
+									for="unitPrice_inputtext_id"
+									value="#{i18n.label_Unit_price}">
+								</p:outputLabel>
+								<p:inputText
+									id="unitPrice_inputtext_id"
+									value="#{InvoiceLineControllerTx.dataObject.unitPrice}"
+									maxlength="160"
+									required="true"
+									style="width:100%">
+								</p:inputText>
+								<p:message
+									id="unitPrice_inputtext_message"
+									for="unitPrice_inputtext_id"
+									display="icon">
 								</p:message>
 							</h:panelGrid>
 						</h:panelGrid>
 					</p:tab>
-
-					<p:tab id="tab2" title="#{i18n.label_Tab_2}">
-						<h:panelGrid columns="2" cellpadding="10">
-
+					<p:tab
+						id="tab2"
+						title="#{i18n.label_Tab_2}">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
 						</h:panelGrid>
 					</p:tab>
-
-					<p:tab id="tab3" title="#{i18n.label_Tab_3}">
-						<h:panelGrid columns="2" cellpadding="10">
-
+					<p:tab
+						id="tab3"
+						title="#{i18n.label_Tab_3}">
+						<h:panelGrid
+							columns="2"
+							cellpadding="10">
 						</h:panelGrid>
 					</p:tab>
-
 				</p:tabView>
-
 			</p:panel>
-
 		</h:form>
 	</ui:define>
 </ui:composition>

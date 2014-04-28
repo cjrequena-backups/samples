@@ -1,6 +1,8 @@
 package com.sample.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.el.ELContext;
@@ -24,8 +26,11 @@ import org.springframework.context.annotation.Scope;
 
 import com.sample.architecture.commons.utils.MessageFactory;
 import com.sample.architecture.controller.AbstractControllerTx;
+import com.sample.controller.converter.CustomerConverter;
 import com.sample.controller.converter.InvoiceConverter;
+import com.sample.model.jpa.Customer;
 import com.sample.model.jpa.Invoice;
+import com.sample.service.ICustomerService;
 import com.sample.service.IInvoiceService;
 
 @Named("InvoiceControllerTx")
@@ -42,12 +47,16 @@ public class InvoiceControllerTx extends AbstractControllerTx<Invoice> implement
 	// SERVICES
 	@Autowired
 	private IInvoiceService invoiceService;
+	
+	@Autowired
+	private ICustomerService customerService;
 
 	// COMPONENTS
 	private HtmlPanelGrid actionsButtonsComponent;
 
 	// COMVERTERS
 	private InvoiceConverter invoiceConverter;
+	private CustomerConverter customerConverter;
 
 	@Override
 	public String onCreate() throws Exception {
@@ -145,6 +154,24 @@ public class InvoiceControllerTx extends AbstractControllerTx<Invoice> implement
 			message = constraintViolation.getPropertyPath() + " -> " + constraintViolation.getMessage();
 		}
 		return message;
+	}
+	
+	
+	public List<Customer> autocompleteCustomer(String query) {
+		List<Customer> suggestions = new ArrayList<Customer>();
+		try {
+			for (Customer customer : customerService.findAll()) {
+
+				String obj = String.valueOf(customer.getFirstName() + " " + customer.getLastName());
+
+				if (obj.toLowerCase().contains(query.toLowerCase())) {
+					suggestions.add(customer);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Error executing customer autocomplete " + e.getMessage());
+		}
+		return suggestions;
 	}
 
 	public void handleAutocompleteSelect(SelectEvent event) {
@@ -322,6 +349,18 @@ public class InvoiceControllerTx extends AbstractControllerTx<Invoice> implement
 
 	public void setInvoiceConverter(InvoiceConverter invoiceConverter) {
 		this.invoiceConverter = invoiceConverter;
+	}
+	
+	
+	public CustomerConverter getCustomerConverter() {
+		if (this.customerConverter == null) {
+			this.customerConverter = new CustomerConverter(this.customerService);
+		}
+		return customerConverter;
+	}
+
+	public void setCustomerConverter(CustomerConverter customerConverter) {
+		this.customerConverter = customerConverter;
 	}
 
 }
