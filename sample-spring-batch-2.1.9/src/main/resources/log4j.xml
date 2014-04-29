@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+	<!-- APPENDERS LIST -->
+	<!-- show log entries on console -->
+	<appender name="console-appender" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- log all logs to a separate log file every day -->
+	<appender name="file-appender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/home/cjrequena/logs/sample-spring-batch.log" />
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<param name="append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- <param name="ConversionPattern" value="%d [%t] %-5p %C{6} (%F:%L) - %m%n" /> -->
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />		</layout>
+	</appender>
+
+
+	<!-- send all error logs to my email address -->
+	<!-- <appender name="mail-appender" class="org.apache.log4j.net.SMTPAppender"> -->
+	<!-- <param name="BufferSize" value="10" /> -->
+	<!-- <param name="SMTPHost" value="smtp" /> -->
+	<!-- <param name="SMTPPort" value="465" /> -->
+	<!-- <param name="SMTPProtocol" value="smtps" /> -->
+	<!-- <param name="SMTPUsername" value="username" /> -->
+	<!-- <param name="SMTPPassword" value="pass" /> -->
+	<!-- <param name="From" value="from" /> -->
+	<!-- <param name="To" value="to" /> -->
+	<!-- <param name="Subject" value="Notificación de la aplicación" /> -->
+	<!-- <param name="threshold" value="debug" /> -->
+	<!-- <layout class="org.apache.log4j.PatternLayout"> -->
+	<!-- <param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" /> -->
+	<!-- </layout> -->
+	<!-- </appender> -->
+
+	<!-- LOGGER LIST -->
+	<logger name="com.sample">
+		<level value="INFO" />
+		<appender-ref ref="file-appender" />
+	</logger>
+	<!-- <logger name="com.sample"> -->
+	<!-- <level value="ERROR" /> -->
+	<!-- <appender-ref ref="mail-appender" /> -->
+	<!-- </logger> -->
+	<logger name="org.springframework">
+		<level value="INFO" />
+		<appender-ref ref="file-appender" />
+	</logger>
+	<logger name="org.apache.ibatis">
+		<level value="INFO" />
+		<appender-ref ref="file-appender" />
+	</logger>
+	<root>
+		<priority value="INFO"></priority>
+		<!-- log all log entries on console -->
+		<appender-ref ref="console-appender" />
+		<!-- log all log entries on file -->
+		<appender-ref ref="file-appender" />
+		<!-- push all error logs to mailAppender -->
+		<!-- <appender-ref ref="mail-appender" /> -->
+	</root>
+</log4j:configuration>
