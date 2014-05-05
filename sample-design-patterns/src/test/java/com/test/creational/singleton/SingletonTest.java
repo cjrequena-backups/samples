@@ -4,13 +4,19 @@ import org.junit.Test;
 
 import com.design.patterns.creational.singleton.Singleton;
 
+/*
+ * In software engineering, the singleton pattern is a design pattern that restricts the instantiation of a class to one object. 
+ * This is useful when exactly one object is needed to coordinate actions across the system. The concept is sometimes generalized 
+ * to systems that operate more efficiently when only one object exists, or that restrict the instantiation to a certain number of objects. 
+ * The term comes from the mathematical concept of a singleton.
+ */
 public class SingletonTest {
 
 	@Test
-	public void test(){
+	public void test() {
 		Singleton obj1 = Singleton.getInstance();
 		obj1.setName("OBJE1");
 		Singleton obj2 = Singleton.getInstance();
-		System.out.println( obj2.getName());
+		System.out.println(obj2.getName());
 	}
 }
