@@ -6,19 +6,31 @@ import java.sql.SQLException;
 
 public class JDBCConnectionPool extends ObjectPool<Connection> {
 
-	private String dsn, usr, pwd;
+	private String dsn, usr, pwd,driver;
 
-	public JDBCConnectionPool(String driver, String dsn, String usr, String pwd) {
+	private JDBCConnectionPool() {
 		super();
+		this.driver = "com.mysql.jdbc.Driver";
+		this.dsn = "jdbc:mysql://localhost:3306/Chinook";
+		this.usr = "root";
+		this.pwd = "root";
+		
 		try {
 			Class.forName(driver).newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.dsn = dsn;
-		this.usr = usr;
-		this.pwd = pwd;
+		
 	}
+	
+	private static class JDBCConnectionPoolHolder {
+		private static final JDBCConnectionPool INSTANCE = new JDBCConnectionPool();
+	}
+
+	public synchronized static JDBCConnectionPool getInstance() {
+		return JDBCConnectionPoolHolder.INSTANCE;
+	}
+
 
 	@Override
 	protected Connection create() {

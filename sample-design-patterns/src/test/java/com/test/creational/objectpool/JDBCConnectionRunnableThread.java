@@ -8,18 +8,19 @@ import java.sql.Statement;
 import com.design.patterns.creational.objectpool.JDBCConnectionPool;
 
 public class JDBCConnectionRunnableThread implements Runnable {
-	
+
 	private JDBCConnectionPool pool;
-	 public static int count = 0;
+	public static int count = 0;
+
 	public JDBCConnectionRunnableThread() {
 		// Create the ConnectionPool:
-		pool = new JDBCConnectionPool("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/Chinook", "root", "root");
+		pool = JDBCConnectionPool.getInstance();
 	}
 
 	@Override
 	public void run() {
 		try {
-	
+
 			for (int i = 0; i <= 10; i++) {
 				// Get a connection:
 				Connection con = pool.checkOut();

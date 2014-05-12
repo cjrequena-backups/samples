@@ -23,7 +23,7 @@ public class JDBCConnectionPoolTest {
 	@Test
 	public void jdbcConnectionPoolTest() {
 		// Create the ConnectionPool:
-		JDBCConnectionPool pool = new JDBCConnectionPool("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/Chinook", "root", "root");
+		JDBCConnectionPool pool = JDBCConnectionPool.getInstance();
 
 		for (int i = 0; i <= 10; i++) {
 			// Get a connection:
