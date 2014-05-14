@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 public class Track {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TrackId")
 	private Integer trackId;
 

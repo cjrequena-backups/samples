@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CustomerId")
 	private Integer customerId;
 

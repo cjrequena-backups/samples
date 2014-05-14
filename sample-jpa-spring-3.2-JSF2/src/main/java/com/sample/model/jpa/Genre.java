@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 public class Genre {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "GenreId")
 	private Integer genreId;
 
