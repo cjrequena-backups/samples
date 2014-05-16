@@ -1,39 +1,84 @@
-<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+<jsp:root
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:spring="http://www.springframework.org/tags" version="2.0">
-
-
+	xmlns:spring="http://www.springframework.org/tags"
+	version="2.0">
 	<jsp:output omit-xml-declaration="yes" />
 
 	<!-- Get the user local from the page context (it was set by Spring MVC's locale resolver) -->
 	<c:set var="userLocale">
-		<c:set var="contextpath" value="${pageContext.request.contextPath}" />
+		<c:set
+			var="contextpath"
+			value="${pageContext.request.contextPath}" />
 		<c:set var="plocale">${pageContext.response.locale}</c:set>
-		<c:out value="${fn:replace(plocale, '_', '-')}" default="en" />
+		<c:out
+			value="${fn:replace(plocale, '_', '-')}"
+			default="en" />
 	</c:set>
 
-	<!-- style url -->
-	<spring:url value="/resources/css/reset.css" var="reset_css_url" />
-	<spring:url value="/resources/css/style.css" var="style_css_url" />
-	<!-- <spring:url value="/resources/bootstrap/css/bootstrap.min.css" var="theme_css_url" /> -->
-	<!--<spring:url value="/resources/bootstrap/css/amelia-theme.min.css" var="theme_css_url" />-->
-	<!-- <spring:url value="/resources/bootstrap/css/flatly-theme.min.css" var="theme_css_url" /> -->
-<!--<spring:url value="/resources/bootstrap/css/spacelab-theme.min.css" var="theme_css_url" />-->
-<spring:url value="/resources/bootstrap/css/cosmo-theme.min.css" var="theme_css_url" />
-	<!-- js url -->
-	<spring:url value="/resources/js/jquery/jquery-1.10.2.min.js" var="jquery_url" />
-	<spring:url value="/resources/bootstrap/js/bootstrap.min.js" var="bootstrap_js_url" />
+	<!-- *************************************************** -->
+	<!-- ********************** CSS  *********************** -->
+	<!-- *************************************************** -->
+	<spring:url
+		value="/resources/css/reset.css"
+		var="reset_css_url" />
+	<spring:url
+		value="/resources/css/style.css"
+		var="style_css_url" />
+	<spring:url
+		value="/resources/bootstrap/css/bootstrap.min.css"
+		var="theme_css_url" />
+	<link
+		rel="stylesheet"
+		type="text/css"
+		href="${reset_css_url}" />
+	<link
+		rel="stylesheet"
+		type="text/css"
+		href="${style_css_url}" />
+	<link
+		rel="stylesheet"
+		type="text/css"
+		href="${theme_css_url}" />
 
-	<!-- css -->
-	<link rel="stylesheet" type="text/css" href="${reset_css_url}" />
-	<link rel="stylesheet" type="text/css" href="${style_css_url}" />
-	<link rel="stylesheet" type="text/css" href="${theme_css_url}" />
+	<!-- *************************************************** -->
+	<!-- ********************** JS  ************************ -->
+	<!-- *************************************************** -->
 
-	<!-- js -->
-	<script src="${jquery_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-	<script src="${bootstrap_js_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-	<!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
+	<spring:url
+		value="/resources/js/jquery/jquery-1.10.2.min.js"
+		var="jquery_url" />
+
+	<spring:url
+		value="/resources/js/angular/angular-1.2.16/angular.min.js"
+		var="angular_url" />
+
+	<spring:url
+		value="/resources/bootstrap/js/bootstrap.min.js"
+		var="bootstrap_js_url" />
+
+	<script
+		src="${jquery_url}"
+		type="text/javascript">
+	<!-- required for FF3 and Opera -->
+		
+	</script>
+	
+	<script
+		src="${angular_url}"
+		type="text/javascript">
+	<!-- required for FF3 and Opera -->
+		
+	</script>
+
+	<script
+		src="${bootstrap_js_url}"
+		type="text/javascript">
+	<!-- required for FF3 and Opera -->
+		
+	</script>
+
 
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
