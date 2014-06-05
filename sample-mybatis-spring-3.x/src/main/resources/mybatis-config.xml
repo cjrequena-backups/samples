@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<!-- changes from the defaults -->
+		<setting name="lazyLoadingEnabled" value="true" />
+	</settings>
+		<!--  
+
+	<typeAliases>
+		<typeAlias alias="User" type="com.cerbero.core.business.model.pojos.User" />
+		<typeAlias alias="Role" type="com.cerbero.core.business.model.pojos.Role" />
+		<typeAlias alias="Right" type="com.cerbero.core.business.model.pojos.Right" />
+		<typeAlias alias="UserRole" type="com.cerbero.core.business.model.pojos.UserRoleKey" />
+		<typeAlias alias="RoleRight" type="com.cerbero.core.business.model.pojos.RoleRight" />
+	</typeAliases>
+			-->
+	
+	<mappers>
+		<mapper resource="SqlMaps/AlbumMapper.xml"></mapper>
+		
+		
+		
+	</mappers>
+</configuration>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<classPathEntry
+		location="/home/cjrequena/Desarrollo/libs/mysql/mysql-connector-java-5.1.18.jar" />
+	
+	<context id="context" targetRuntime="MyBatis3">
+
+		<!-- CONFIGURACION PARA MYSQL -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/Chinook" userId="root"
+			password="root">
+		</jdbcConnection>
+
+		<!-- CONFIGURACION PARA POSTGRES -->
+		<!-- <classPathEntry location="/home/carlos/Temporal/libs/postgresql-9.1-901.jdbc4.jar"/> -->
+		<!-- <jdbcConnection driverClass="org.postgresql.Driver" -->
+		<!-- connectionURL="jdbc:postgresql://localhost:5432/cerbero" userId="postgres" -->
+		<!-- password="admin"> -->
+		<!-- </jdbcConnection> -->
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="true" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.sample.model.pojos"
+			targetProject="./src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="SqlMaps"
+			targetProject="./src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="MIXEDMAPPER" targetPackage="com.sample.model.dao"
+			targetProject="./src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+
+
+		<table tableName="Album" domainObjectName="Album">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="Artist" domainObjectName="Artist">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="Customer" domainObjectName="Customer">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="Employee" domainObjectName="Employee">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="Genre" domainObjectName="Genre">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="Invoice" domainObjectName="Invoice">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="InvoiceLine" domainObjectName="InvoiceLine">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="MediaType" domainObjectName="MediaType">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="PlayList" domainObjectName="PlayList">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table tableName="Track" domainObjectName="Track">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+
+	</context>
+</generatorConfiguration>
