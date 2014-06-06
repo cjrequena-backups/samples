@@ -317,7 +317,6 @@
 				<version>2.4</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<contextRoot>/jsf</contextRoot>
 					<!-- <webXml>${project.basedir}/src/main/webapp/WEB-INF/web.xml</webXml> -->
 					<webappDirectory>${project.build.directory}/webapp</webappDirectory>
 					<warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory>
@@ -402,21 +401,7 @@
 						<!-- <jpt.jpa>2.0</jpt.jpa> -->
 						<useProjectReferences>true</useProjectReferences>
 					</additionalProjectFacets>
-					<additionalBuildcommands>
-						<buildCommand>
-							<name>org.eclipse.ajdt.core.ajbuilder</name>
-							<arguments>
-								<aspectPath>org.springframework.aspects</aspectPath>
-							</arguments>
-						</buildCommand>
-						<buildCommand>
-							<name>org.springframework.ide.eclipse.core.springbuilder</name>
-						</buildCommand>
-					</additionalBuildcommands>
-					<additionalProjectnatures>
-						<projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-					</additionalProjectnatures>
+					
 				</configuration>
 			</plugin>
 			<plugin>
