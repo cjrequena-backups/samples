@@ -3,11 +3,11 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-	<display-name>sample-jpa-spring-mvc</display-name>
-	<description>sample-jpa-spring-mvc</description>
+	<display-name>sample-jpa-spring-3.x</display-name>
+	<description>sample-jpa-spring-3.x</description>
 	<context-param>
 		<param-name>webAppRootKey</param-name>
-		<param-value>sample-jpa-spring-mvc</param-value>
+		<param-value>sample-jpa-spring-3.x</param-value>
 	</context-param>
 	<context-param>
 		<param-name>defaultHtmlEscape</param-name>
@@ -54,7 +54,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<servlet>
-		<servlet-name>sample-jpa-spring-mvc</servlet-name>
+		<servlet-name>sample-jpa-spring-3.x</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
             <param-name>contextConfigLocation</param-name>
@@ -63,7 +63,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>sample-jpa-spring-mvc</servlet-name>
+		<servlet-name>sample-jpa-spring-3.x</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<session-config>

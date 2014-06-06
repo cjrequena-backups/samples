@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sample</groupId>
-	<artifactId>sample-jpa-spring-mvc</artifactId>
+	<artifactId>sample-jpa-spring-3.x</artifactId>
 	<packaging>war</packaging>
 	<version>0.1.0.BUILD-SNAPSHOT</version>
-	<name>sample-jpa-spring-mvc</name>
+	<name>sample-jpa-spring-3.x</name>
 	<properties>
 		<aspectj.version>1.7.0.RC1</aspectj.version>
 		<java.version>1.6</java.version>
