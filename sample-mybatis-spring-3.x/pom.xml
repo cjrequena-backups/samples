@@ -11,6 +11,7 @@
 		<java.version>1.6</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.6.4</slf4j.version>
+		<aspectj.version>1.8.0</aspectj.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
 		<mybatis.generator.configurationFile>${basedir}/generatorConfig.xml</mybatis.generator.configurationFile>
 	</properties>
@@ -120,12 +121,17 @@
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
-			<version>1.8.0</version>
+			<version>${aspectj.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.8.0</version>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${aspectj.version}</version>
 		</dependency>
 		<!-- commons -->
 		<dependency>
