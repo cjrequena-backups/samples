@@ -34,7 +34,7 @@
 
 	<!-- scan for mappers and let them be autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.sample.model.dao" />
+		<property name="basePackage" value="com.sample.model.mapper" />
 	</bean>
 
 	<bean id="transactionManager"
@@ -68,4 +68,15 @@
 			<tx:method name="*" />
 		</tx:attributes>
 	</tx:advice>
+	
+	<!-- ensure that the above transactional advice runs for any execution of 
+		an operation defined by the FooService interface -->
+	<aop:config>
+		<aop:pointcut id="businessDAOsOperation"
+			expression="execution(* com.sample.model.dao..*.*(..))" />
+		<aop:pointcut id="businessServicesOperation"
+			expression="execution(* com.sample.services..*.*(..))" />
+		<aop:advisor advice-ref="txDAOs" pointcut-ref="businessDAOsOperation" />
+		<aop:advisor advice-ref="txServices" pointcut-ref="businessServicesOperation" />
+	</aop:config>
 </beans>

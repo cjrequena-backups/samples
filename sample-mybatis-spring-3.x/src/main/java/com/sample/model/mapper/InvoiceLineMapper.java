@@ -1,4 +1,4 @@
-package com.sample.model.dao;
+package com.sample.model.mapper;
 
 import com.sample.model.pojos.InvoiceLine;
 import com.sample.model.pojos.InvoiceLineExample;
