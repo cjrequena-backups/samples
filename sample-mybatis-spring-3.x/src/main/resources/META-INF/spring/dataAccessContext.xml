@@ -42,7 +42,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<tx:annotation-driven mode="aspectj"
+	<tx:annotation-driven 
 		transaction-manager="transactionManager" />
 
 	<!-- the transactional txDAOs (what 'happens'; see the <aop:advisor/> bean 
