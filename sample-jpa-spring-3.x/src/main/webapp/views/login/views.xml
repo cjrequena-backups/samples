@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 
-	<definition name="login" template="/views/login/login.jspx" >
+	<definition name="login" template="/views/login/login.jsp" >
 	</definition>
 
 </tiles-definitions>

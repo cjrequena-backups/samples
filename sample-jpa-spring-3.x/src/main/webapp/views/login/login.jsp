@@ -1,23 +1,15 @@
-<html xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:tiles="http://tiles.apache.org/tags-tiles"
-	xmlns:form="http://www.springframework.org/tags/form"
-	xmlns:spring="http://www.springframework.org/tags"
-	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util">
-
-<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
-
-<jsp:directive.page contentType="text/html;charset=UTF-8" />
-<jsp:directive.page pageEncoding="UTF-8" />
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib tagdir="/WEB-INF/tags/util" prefix="util"%>
+<%@ page session="false"%>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
 <util:load-scripts />
-
 </head>
 
 <body>

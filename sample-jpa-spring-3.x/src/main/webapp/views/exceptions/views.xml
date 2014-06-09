@@ -7,15 +7,15 @@
 
 
 	<definition name="dataAccessFailure" extends="public">
-		<put-attribute name="body" value="/views/exceptions/dataAccessFailure.jspx" />
+		<put-attribute name="body" value="/views/exceptions/dataAccessFailure.jsp" />
 	</definition>
 
 	<definition name="resourceNotFound" extends="public">
-		<put-attribute name="body" value="/views/exceptions/resourceNotFound.jspx" />
+		<put-attribute name="body" value="/views/exceptions/resourceNotFound.jsp" />
 	</definition>
 
 	<definition name="uncaughtException" extends="public">
-		<put-attribute name="body" value="/views/exceptions/uncaughtException.jspx" />
+		<put-attribute name="body" value="/views/exceptions/uncaughtException.jsp" />
 	</definition>
 
 </tiles-definitions>
