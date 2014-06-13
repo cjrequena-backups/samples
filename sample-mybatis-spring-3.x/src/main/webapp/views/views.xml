@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 	
-	<definition name="testbootstrap" template="/views/testbootstrap.jspx">
+	<definition name="testbootstrap" template="/views/testbootstrap.jsp">
 	</definition>
 
 </tiles-definitions>

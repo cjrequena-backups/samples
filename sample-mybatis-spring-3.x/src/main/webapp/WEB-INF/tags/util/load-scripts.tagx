@@ -1,80 +1,62 @@
-<jsp:root
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:spring="http://www.springframework.org/tags"
-	version="2.0">
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
 	<jsp:output omit-xml-declaration="yes" />
 
 	<!-- Get the user local from the page context (it was set by Spring MVC's locale resolver) -->
 	<c:set var="userLocale">
-		<c:set
-			var="contextpath"
-			value="${pageContext.request.contextPath}" />
+		<c:set var="contextpath" value="${pageContext.request.contextPath}" />
 		<c:set var="plocale">${pageContext.response.locale}</c:set>
-		<c:out
-			value="${fn:replace(plocale, '_', '-')}"
-			default="en" />
+		<c:out value="${fn:replace(plocale, '_', '-')}" default="en" />
 	</c:set>
+
+	<!-- *************************************************** -->
+	<!-- ********************** URL  *********************** -->
+	<!-- *************************************************** -->
+	<!--  -->
+	<spring:url value="/resources/css/reset.css" var="reset_css_url" />
+	<!--  -->
+	<spring:url value="/resources/css/style.css" var="style_css_url" />
+	<!--  -->
+	<spring:url value="/resources/js/bootstrapvalidator/css/bootstrapValidator.min.css" var="bootstrapvalidator_css_url" />
+	<!--  -->
+	<spring:url value="/resources/js/bootstrapvalidator/js/bootstrapValidator.min.js" var="bootstrapvalidator_js_url" />
+	<!--  -->
+	<spring:url value="/resources/js/bootstrapdialog/css/bootstrap-dialog.min.css" var="bootstrapdialog_css_url" />
+	<!--  -->
+	<spring:url value="/resources/js/bootstrapdialog/js/bootstrap-dialog.min.js" var="bootstrapdialog_js_url" />
 
 	<!-- *************************************************** -->
 	<!-- ********************** CSS  *********************** -->
 	<!-- *************************************************** -->
-	<spring:url
-		value="/resources/css/reset.css"
-		var="reset_css_url" />
-	<spring:url
-		value="/resources/css/style.css"
-		var="style_css_url" />
-	<spring:url
-		value="/resources/bootstrap/css/bootstrap.min.css"
-		var="theme_css_url" />
-	<link
-		rel="stylesheet"
-		type="text/css"
-		href="${reset_css_url}" />
-	<link
-		rel="stylesheet"
-		type="text/css"
-		href="${style_css_url}" />
-	<link
-		rel="stylesheet"
-		type="text/css"
-		href="${theme_css_url}" />
+	<link rel="stylesheet" type="text/css" href="${reset_css_url}" />
+	<link rel="stylesheet" type="text/css" href="${style_css_url}" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="${bootstrapvalidator_css_url}" />
+	<link rel="stylesheet" type="text/css" href="${bootstrapdialog_css_url}" />
 
 	<!-- *************************************************** -->
 	<!-- ********************** JS  ************************ -->
 	<!-- *************************************************** -->
+	<!-- jquery.min.js -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+	<!-- required for FF3 and Opera -->
+		
+	</script>
 
-	<spring:url
-		value="/resources/js/jquery/jquery-1.10.2.min.js"
-		var="jquery_url" />
+	<!-- bootstrap.min.js -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js">
+	<!-- required for FF3 and Opera -->
+		
+	</script>
 
-	<spring:url
-		value="/resources/js/angular/angular-1.2.16/angular.min.js"
-		var="angular_url" />
-
-	<spring:url
-		value="/resources/bootstrap/js/bootstrap.min.js"
-		var="bootstrap_js_url" />
-
-	<script
-		src="${jquery_url}"
-		type="text/javascript">
+	<!-- bootstrapvalidator.js  -->
+	<script src="${bootstrapvalidator_js_url}" type="text/javascript">
 	<!-- required for FF3 and Opera -->
 		
 	</script>
 	
-	<script
-		src="${angular_url}"
-		type="text/javascript">
-	<!-- required for FF3 and Opera -->
-		
-	</script>
-
-	<script
-		src="${bootstrap_js_url}"
-		type="text/javascript">
+	<!-- bootstrapdialog.js  -->
+	<script src="${bootstrapdialog_js_url}" type="text/javascript">
 	<!-- required for FF3 and Opera -->
 		
 	</script>
