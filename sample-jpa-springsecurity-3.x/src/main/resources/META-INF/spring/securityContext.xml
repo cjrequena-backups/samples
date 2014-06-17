@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/security 
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd
+        http://www.springframework.org/schema/aop   
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd ">
+
+	<http auto-config="true" use-expressions="true">
+		<intercept-url pattern="/login*" access="permitAll" />
+		<intercept-url pattern="/signup*" access="permitAll" />
+		<intercept-url pattern="/home*" access="permitAll" />
+		<intercept-url pattern="/*" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<!-- <intercept-url pattern="/test*" access="hasRole('ROLE_ADMIN')" /> -->
+		<form-login 
+			login-page="/login.html" 
+			default-target-url="/home.html"
+			authentication-failure-url="/login.html?error"/>
+		<logout logout-success-url="/login.html?logout" />
+		<csrf />
+	</http>
+
+	<!-- ====================================================== -->
+	<!-- We define the kind of authentification with a -->
+	<!-- so called authentication-provider -->
+	<!-- We use the DAO authenticationProvider. -->
+	<!-- We coded out a custom UserDetailServiceImpl. -->
+	<!-- So we have our users stored in a DB we use -->
+	<!-- our own user-service class and point to her. -->
+	<!-- ====================================================== -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="securityUserDetailsService">
+			<!-- The password encoder is additonally for -->
+			<!-- simulating a one-time-password mechanism -->
+			<password-encoder hash="plaintext"></password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+	<!-- ====================================================== -->
+	<!-- The Implementation of the Interface -->
+	<!-- UserDetailService for the logged in -->
+	<!-- user and his rights -->
+	<!-- ====================================================== -->
+	<beans:bean id="securityUserDetailsService"
+		class="com.sample.architecture.security.SecurityUserDetailsService">
+	</beans:bean>
+	
+	<!-- <authentication-manager> -->
+	<!-- <authentication-provider> -->
+	<!-- <user-service> -->
+	<!-- <user name="admin" password="admin" authorities="ROLE_USER" /> -->
+	<!-- </user-service> -->
+	<!-- </authentication-provider> -->
+	<!-- </authentication-manager> -->
+</beans:beans>
