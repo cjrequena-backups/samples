@@ -42,7 +42,7 @@
 
 	<!-- Selects a static view for rendering without the need for an explicit 
 		controller -->
-	<mvc:view-controller path="/" view-name="home" />
+	<mvc:view-controller path="/" view-name="login/form" />
 	<mvc:view-controller path="/uncaughtException" />
 	<mvc:view-controller path="/resourceNotFound" />
 	<mvc:view-controller path="/dataAccessFailure" />
@@ -87,17 +87,20 @@
 			</props>
 		</property>
 	</bean>
-
+	
 	<!-- Enable this for integration of file upload functionality -->
 	<bean
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		id="multipartResolver" />
+	
+
+	<!-- Enable this for tiles3 integration -->
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"
 		id="tilesViewResolver">
 		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles2.TilesView" />
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</bean>
-	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
 		id="tilesConfigurer">
 		<property name="definitions">
 			<list>
@@ -107,6 +110,7 @@
 			</list>
 		</property>
 	</bean>
+	
 	<bean class="com.sample.controller.ApplicationConversionServiceFactoryBean"
 		id="applicationConversionService" />
 </beans>
