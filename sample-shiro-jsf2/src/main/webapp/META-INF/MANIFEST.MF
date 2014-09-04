@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Class-Path: all-themes-1.0.9.jar commons-beanutils-1.8.3.jar commons-l
+ ang3-3.3.2.jar commons-logging-1.1.1.jar ehcache-core-2.5.0.jar el-ap
+ i-2.2.jar el-impl-2.2.jar flexjson-2.1.jar javaee-api-6.0.jar jcl-ove
+ r-slf4j-1.6.4.jar jsf-api-2.1.2.jar jsf-impl-2.1.2.jar jstl-1.2.jar l
+ og4j-1.2.16.jar mysql-connector-java-5.1.18.jar primefaces-3.5.jar se
+ rvlet-api-2.5.jar shiro-core-1.2.1.jar shiro-ehcache-1.2.1.jar shiro-
+ web-1.2.1.jar slf4j-api-1.6.4.jar slf4j-log4j12-1.6.4.jar
+
