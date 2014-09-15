@@ -53,10 +53,10 @@ public class LoginController implements Serializable {
 
 			if (subject.hasRole("ROLE_ADMIN")) {
 				// FacesContext.getCurrentInstance().getExternalContext().redirect("admin/index.xhtml");
-				return "admin/index.xhtml";
+				return "admin/index.xhtml?faces-redirect=true";
 			} else {
 				//FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-				return "index.xhtml";
+				return "index.xhtml?faces-redirect=true";
 			}
 		} catch (UnknownAccountException ex) {
 			facesError("Unknown account");
@@ -78,7 +78,7 @@ public class LoginController implements Serializable {
 		finally {
 			token.clear();
 		}
-		return "index.xhtml";
+		return null;
 	}
 
 	/**
