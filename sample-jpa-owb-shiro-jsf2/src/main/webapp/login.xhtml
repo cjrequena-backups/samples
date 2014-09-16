@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>SAMPLE</title>
+	<h:outputStylesheet library="css" name="reset.css" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css/bootstrap/css"
+		name="bootstrap.min.css" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js"
+		target="head" />
+	<h:outputScript library="css/bootstrap/js" name="bootstrap.min.js"
+		target="head"></h:outputScript>
+
+</h:head>
+<h:body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="login-form">
+					<h:form styleClass="form-horizontal">
+						
+						<p:messages id="messages" autoUpdate="true" closable="true" />
+
+						<div class="form-group">
+							<h:outputLabel value="Login:" styleClass="control-label col-md-4" />
+							<div class="col-md-8">
+								<p:inputText id="username" required="true"
+									value="#{loginController.username}" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel value="Password:"
+								styleClass="control-label col-md-4" />
+							<div class="col-md-8">
+								<p:password id="password" required="true"
+									value="#{loginController.password}" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel value="Remember me:"
+								styleClass="control-label col-md-4" />
+							<div class="col-md-8">
+								<p:selectBooleanCheckbox id="rememberMe"
+									value="#{loginController.rememberMe}" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h:outputLabel value="" styleClass="control-label col-md-4" />
+							<div class="col-md-8">
+								<p:commandButton value="Login" action="#{loginController.login}"
+									styleClass="btn btn-primary" />
+							</div>
+						</div>
+
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

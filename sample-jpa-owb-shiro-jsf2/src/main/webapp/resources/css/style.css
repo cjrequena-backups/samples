@@ -1,0 +1,122 @@
+@CHARSET "UTF-8";
+
+/*-------------------------------------*/
+/*Global							   */
+/*-------------------------------------*/
+html,body {
+	min-height: 100%;
+	height: 100%;
+}
+
+body .container #content table {
+	width: 100%;
+}
+
+.dialog {
+	width: auto;
+}
+
+.col31 {
+	vertical-align: top;
+	font-weight: bold;
+	width: 40%;
+	padding: 2px;
+}
+
+.col32 {
+	vertical-align: top;
+	width: 50%;
+	padding: 2px;
+}
+
+.col33 {
+	vertical-align: top;
+	padding: 2px;
+}
+
+.eight-percent {
+     width: 8%;
+}
+
+.forty-percent {
+     width: 40%;
+}
+
+.sixty-percent {
+     width: 60%;
+}
+
+.top-alignment {
+     vertical-align: top;
+}
+
+.ui-inputfield {
+	width: 85% !important;
+}
+
+#filterForm .ui-inputfield {
+	width: 70% !important;
+}
+
+
+.login-form {
+	background-color: #EEEEEE;
+	color: inherit;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	margin-top: 7%;
+	margin-bottom: 7%;
+}
+
+.container .login-form {
+	border-radius: 6px 6px 6px 6px;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media ( min-width : 768px) {
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media ( min-width : 992px) {
+	.container {
+		max-width: 970px !important;
+		width: 970px !important;
+	}
+	#tablePaginate {
+		max-width: 900px !important;
+		width: 900px !important;
+		overflow: auto;
+	}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media ( min-width : 1200px) {
+	.container {
+		max-width: 1170px !important;
+		width: 1170px !important;
+	}
+	#tablePaginate {
+		max-width: 1100px !important;
+		width: 1100px !important;
+		overflow: auto;
+	}
+}
+
+/* Extra Large devices (large desktops, 1200px and up) */
+@media ( min-width : 1800px) {
+	.container {
+		max-width: 1770px !important;
+		width: 1770px !important;
+	}
+	#tablePaginate {
+		max-width: 1700px !important;
+		width: 1700px !important;
+		overflow: auto;
+	}
+}

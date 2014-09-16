@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:shiro="http://shiro.apache.org/tags">
+<ui:composition template="../templates/layout.xhtml">
+	<ui:define name="content">
+		<p:panel id="mainPanel" toggleable="true" toggleSpeed="250">
+			<f:facet name="header">
+				<h:outputFormat value="#{i18n.label_welcome_to}">
+					<f:param value="** SAMPLE **" />
+				</h:outputFormat>
+			</f:facet>
+			<shiro:hasRole name="view-mandate">
+				<h:outputFormat value="TIENE PERMISO VIEW">
+				</h:outputFormat>
+			</shiro:hasRole>
+			<shiro:hasRole name="admin">
+				<h:outputFormat value="TIENE PERMISO ADMIN">
+				</h:outputFormat>
+			</shiro:hasRole>
+			<div id="media"></div>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

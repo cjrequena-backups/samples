@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+<!-- 	<h:form> -->
+<!-- 		<p:growl id="messages" /> -->
+<!-- 		<p:menubar autoDisplay="false"> -->
+<!-- 			<p:submenu label="#{i18n.label_Menu}" icon="ui-icon-document"> -->
+<!-- 				<p:submenu label="#{i18n.label_Mandate_}"> -->
+<!-- 					<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact" -->
+<!-- 						action="#{MandateControllerTx.onCreate}" ajax="false"> -->
+<!-- 					</p:menuitem> -->
+<!-- 					<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact" -->
+<!-- 						action="#{MandateControllerQry.onPaginate}" ajax="false" /> -->
+<!-- 				</p:submenu> -->
+<!-- 				<p:submenu label="#{i18n.label_debtor}"> -->
+<!-- 					<p:menuitem value="#{i18n.label_Create}" icon="ui-icon-contact" -->
+<!-- 						action="#{DebtorControllerTx.onCreate}" ajax="false"> -->
+<!-- 					</p:menuitem> -->
+<!-- 					<p:menuitem value="#{i18n.label_View}" icon="ui-icon-contact" -->
+<!-- 						action="#{DebtorControllerQry.onPaginate}" ajax="false" /> -->
+<!-- 				</p:submenu> -->
+<!-- 			</p:submenu> -->
+<!-- 		</p:menubar> -->
+<!-- 	</h:form> -->
+<h:form>
+		<p:menubar model="#{ApplicationBean.menuModel}" autoDisplay="false"></p:menubar>
+	</h:form>
+</ui:composition>
+</html>
