@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd    
+    http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- El origen de datos que apunta a la base de datos con las tablas de 
+		Spring Batch. En estas tablas Spring Batch lleva un registro de todas las 
+		corridas que se hicieron. El script para generar las tablas necesarias por 
+		Spring Batch se encuentra dentro de spring-batch-core-xxxx.jar (en la raiz). -->
+
+	<!-- hsqldb -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:ledger" />
+		<property name="username" value="SA" />
+		<property name="password" value="" />
+	</bean>
+	<jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath:sql-schemas/schema-hsql.sql" />
+		<jdbc:script location="classpath:sql-schemas/demo.sql" />
+	</jdbc:initialize-database>
+
+
+	<!-- mysql -->
+	<!-- <bean id="dataSource" -->
+	<!-- class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+	<!-- <property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+	<!-- <property name="url" value="jdbc:mysql://localhost:3306/springbatch" 
+		/> -->
+	<!-- <property name="username" value="root" /> -->
+	<!-- <property name="password" value="admin" /> -->
+	<!-- </bean> -->
+
+	<!-- El gestor de transacciones que se usará durante el procesamiento batch. -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- El repositorio de tareas de Spring Batch. Este bean es el encargado 
+		de guardar la información de las corridas en la base de datos. -->
+	<batch:job-repository id="jobRepository" />
+
+	<!-- Un ejecutador de tareas. A través de esta clase es que se inicia la 
+		ejecución de las taras batch. -->
+	<bean id="jobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>
+
+
+
+	<!-- Una trabajo de Spring Batch. Este es el bean principal de Spring Batch, 
+		que declara el trabajo batch que se va a ejecutar. El trabajo está compuesta 
+		de varios "pasos" (step). Los pasos se ejecutan en forma secuencial. En este 
+		ejemplo, el trabajo consiste en un único paso "imprimirPorConsola". Este 
+		paso tiene un "itemReader" que lee planetas y los mapea a un objeto Planeta, 
+		y un "itemWriter" que imprimir objetos Planeta por consola. -->
+	<batch:job id="trabajoBatch" restartable="true">
+		<batch:step id="imprimirPorConsola">
+			<batch:tasklet>
+				<batch:chunk reader="planetaItemReader" writer="consolaItemWriter"
+					commit-interval="5" />
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+
+	<!-- Lector de planteas. Esta reader de archivos planos es una clase utilitaria 
+		provista por Spring Batch. Este bean lee el archivo "planetas.csv". El atributo 
+		"lineMapper" indica la composicion del archivo (en este caso, separado por 
+		comas "," y con los nombres de cada una de las columnas. El atributo "fileSetMapper" 
+		es el encargado de convertir cada linea del archivo a un objeto. En este 
+		caso se utiliza una clase utilitaria de Spring Batch para convertir cada 
+		columna a un objeto Planeta. Esta clase utilitaria utiliza los nombres de 
+		columna como nombres de atributos en el objeto Planeta destino. -->
+	<bean id="planetaItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="resource" value="classpath:jobs/demo10/planetas.csv" />
+		<property name="lineMapper" ref="prefixMatchingLineMapper" />
+	</bean>
+
+	<bean id="prefixMatchingLineMapper"
+		class="org.springframework.batch.item.file.mapping.PatternMatchingCompositeLineMapper">
+		<property name="tokenizers">
+			<map>
+				<entry key="10*" value-ref="tradeLineTokenizer" />
+			
+			</map>
+		</property>
+		<property name="fieldSetMappers">
+			<map>
+				<entry key="10*" value-ref="tradeFieldSetMapper" />
+			
+			</map>
+		</property>
+	</bean>
+
+	<bean id="tradeLineTokenizer"
+		class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+		<property name="delimiter" value="," />
+		<property name="names" value="Codigo, Nombre, Diametro, Tipo, Significado" />
+	</bean>
+
+
+
+
+
+	<bean id="tradeFieldSetMapper"
+		class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+		<property name="prototypeBeanName" value="planeta" />
+	</bean>
+
+
+
+	<!-- Esta es la clase encargada de escribir los resultados de la lectura 
+		del "itemReader". Cada elemento leido por el "planetaItemReader" es procesado 
+		por este "itemWriter". ConsolaItemWriter recibe entonces un Planeta y lo 
+		muestra por consola. -->
+	<bean id="consolaItemWriter" class="com.sample.springbatch.demo10.ConsolaItemWriter" />
+
+	<!-- Este bean es usado por "planetaItemReader" (en particular, por su fieldSetMapper), 
+		para convertir cada línea del archivo de origen a un objeto. Su scope TIENE 
+		que ser "prototype", ya que se necesita una instancia nueva por cada invocación. -->
+	<bean id="planeta" scope="prototype" class="com.sample.springbatch.demo10.Planeta" />
+
+</beans>
