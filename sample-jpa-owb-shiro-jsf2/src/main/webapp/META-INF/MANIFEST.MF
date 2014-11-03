@@ -4,13 +4,14 @@ Class-Path: all-themes-1.0.9.jar commons-beanutils-1.8.3.jar commons-l
  i-2.2.jar el-impl-2.2.jar flexjson-2.1.jar geronimo-atinject_1.0_spec
  -1.0.jar geronimo-ejb_3.1_spec-1.0.2.jar geronimo-el_2.2_spec-1.0.jar
   geronimo-interceptor_1.1_spec-1.0.jar geronimo-jcdi_1.0_spec-1.0.jar
-  geronimo-jpa_2.0_spec-1.1.jar geronimo-validation_1.0_spec-1.1.jar j
- avaee-api-6.0.jar javassist-3.12.0.GA.jar jcl-over-slf4j-1.6.4.jar js
- f-api-2.1.2.jar jsf-impl-2.1.2.jar jstl-1.2.jar log4j-1.2.16.jar mysq
- l-connector-java-5.1.18.jar openwebbeans-ejb-1.1.7.jar openwebbeans-e
- l10-1.1.7.jar openwebbeans-impl-1.1.7.jar openwebbeans-jsf12-1.1.7.ja
- r openwebbeans-resource-1.1.7.jar openwebbeans-spi-1.1.7.jar openwebb
- eans-web-1.1.7.jar primefaces-3.5.jar scannotation-1.0.2.jar servlet-
- api-2.5.jar shiro-core-1.2.1.jar shiro-ehcache-1.2.1.jar shiro-web-1.
- 2.1.jar slf4j-api-1.6.4.jar slf4j-log4j12-1.6.4.jar
+  geronimo-jpa_2.0_spec-1.1.jar geronimo-validation_1.0_spec-1.1.jar g
+ son-2.2.4.jar javaee-api-6.0.jar javassist-3.12.0.GA.jar javax.servle
+ t-api-3.1.0.jar jcl-over-slf4j-1.6.4.jar jsf-api-2.1.2.jar jsf-impl-2
+ .1.2.jar jstl-1.2.jar log4j-1.2.16.jar mysql-connector-java-5.1.18.ja
+ r openwebbeans-ejb-1.1.7.jar openwebbeans-el10-1.1.7.jar openwebbeans
+ -impl-1.1.7.jar openwebbeans-jsf12-1.1.7.jar openwebbeans-resource-1.
+ 1.7.jar openwebbeans-spi-1.1.7.jar openwebbeans-web-1.1.7.jar primefa
+ ces-5.0.jar primefaces-extensions-2.1.0.jar scannotation-1.0.2.jar sh
+ iro-core-1.2.1.jar shiro-ehcache-1.2.1.jar shiro-web-1.2.1.jar slf4j-
+ api-1.6.4.jar slf4j-log4j12-1.6.4.jar
 
