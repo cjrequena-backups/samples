@@ -1,6 +1,5 @@
 package com.sample.architecture.commons.utils;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
@@ -8,9 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReflectionUtils<T> {
-	public T setAllSetters(T target, Object[] data) throws Exception {
-		
-		Class<? extends Object> targetClass = target.getClass();
+
+	final Class<T> targetClass;
+
+	public ReflectionUtils(Class<T> targetClass) {
+		this.targetClass = targetClass;
+	}
+
+	public T setAllSetters(Object[] data) throws Exception {
+
+		// Class<? extends Object> targetClass = target.getClass();
+
+		T target = this.targetClass.newInstance();
+
 		for (int i = 0; i < data.length; i++) {
 
 			for (Field field : targetClass.getDeclaredFields()) {
@@ -33,10 +42,14 @@ public class ReflectionUtils<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> setAllSetters(T target, ResultSet rs) throws Exception {
+	public List<T> setAllSetters(ResultSet rs) throws Exception {
+
+		// Class<? extends Object> targetClass = target.getClass();
+		
+		T target = this.targetClass.newInstance();
 
 		List<T> list = new ArrayList<T>();
-		Class<? extends Object> targetClass = target.getClass();
+
 		while (rs.next()) {
 			for (Field field : targetClass.getDeclaredFields()) {
 				for (Method method : targetClass.getMethods()) {
@@ -73,18 +86,18 @@ public class ReflectionUtils<T> {
 				}
 			}
 			list.add(target);
-			Class<?> clazz = Class.forName(targetClass.getName());
-			Constructor<?> constructor = clazz.getConstructor();
-			T newInstance = (T) constructor.newInstance(new Object[] {});
-			target = newInstance;
+			target = this.targetClass.newInstance();
 		}
 		return list;
 	}
 
-	public T setAllSetters(T target, Object source) throws Exception {
-		Class<? extends Object> targetClass = target.getClass();
+	public T setAllSetters(Object source) throws Exception {
+		
+		T target = this.targetClass.newInstance();
+		
+		//Class<? extends Object> targetClass = target.getClass();
 		Class<? extends Object> sourceClass = source.getClass();
-
+		
 		for (Method sourceMethod : sourceClass.getMethods()) {
 			String sourceMethodName = sourceMethod.getName();
 			if ((sourceMethodName.startsWith("get"))) {

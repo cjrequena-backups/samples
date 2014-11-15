@@ -95,8 +95,12 @@ public class EmployeeDAO implements IEmployeeDAO {
 
 			try {
 				employee = new Employee();
-				ReflectionUtils<Employee> reflectionUtils = new ReflectionUtils<Employee>();
-				reflectionUtils.setAllSetters(employee, rs);
+				
+				ReflectionUtils<Employee> reflectionUtils = new ReflectionUtils<Employee>(Employee.class);
+				
+				List<Employee> empList  = reflectionUtils.setAllSetters(rs);
+				employee = empList.get(0);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -190,9 +194,9 @@ public class EmployeeDAO implements IEmployeeDAO {
 //			}
 			
 			try {
-				Employee employee = new Employee();
-				ReflectionUtils<Employee> reflectionUtils = new ReflectionUtils<Employee>();
-				empList = reflectionUtils.setAllSetters(employee, rs);
+				
+				ReflectionUtils<Employee> reflectionUtils = new ReflectionUtils<Employee>(Employee.class);
+				empList = reflectionUtils.setAllSetters(rs);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
