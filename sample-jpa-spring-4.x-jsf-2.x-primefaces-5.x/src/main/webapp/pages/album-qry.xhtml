@@ -76,7 +76,7 @@
 				</f:facet>
 				<p:contextMenu id="paginateContextMenu" for="tablePaginate">
 					<p:menuitem id="albumEditId" title="#{i18n.label_Edit}" value="#{i18n.label_Edit}" icon="ui-icon-pencil"
-						ajax="false" immediate="true" action="#{AlbumControllerTx.onEdit()}" update=":growlForm:growl"></p:menuitem>
+						ajax="false" immediate="true" action="#{AlbumControllerTx.onEdit()}" actionListener="#{AlbumControllerTx.setDataObject(item)}"  update=":growlForm:growl"></p:menuitem>
 				</p:contextMenu>
 				<p:dataTable id="tablePaginate" value="#{AlbumControllerQry.resultObjectsFiltered}" var="item"
 					resizableColumns="false" paginator="true"

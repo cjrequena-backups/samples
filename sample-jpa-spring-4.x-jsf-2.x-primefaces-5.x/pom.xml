@@ -20,7 +20,7 @@
 		<spring-data.version>1.4.2.RELEASE</spring-data.version>
 
 		<!-- aspectj -->
-		<aspectj.version>1.7.4</aspectj.version>
+		<aspectj.version>1.8.1</aspectj.version>
 
 		<!-- loggin -->
 		<slf4j.version>1.7.2</slf4j.version>
@@ -410,7 +410,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.4</version>
+				<version>1.7</version>
 				<configuration>
 					<showWeaveInfo>true</showWeaveInfo>
 					<source>${java.version}</source>
