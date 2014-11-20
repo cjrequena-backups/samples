@@ -106,11 +106,9 @@ public class EmployeeControllerTx extends AbstractControllerTx<Employee> impleme
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Employee");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
+	
 			return "employee-tx";
-		}
+		
 	}
 
 	@Override
@@ -131,11 +129,9 @@ public class EmployeeControllerTx extends AbstractControllerTx<Employee> impleme
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Employee");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
+	
 			return "employee-tx";
-		}
+		
 
 	}
 
@@ -188,134 +184,119 @@ public class EmployeeControllerTx extends AbstractControllerTx<Employee> impleme
 		// }
 	}
 
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-		Employee employee = this.dataObject;
-
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.dataObject = new Employee();
-				return this.onCreate();
-			}
-			if (action.equalsIgnoreCase("SAVE")) {
-				return this.persist();
-			}
-			if (action.equalsIgnoreCase("DELETE")) {
-				return this.delete();
-			}
-		}
-
-		// else if (value.equalsIgnoreCase("P5_Employee")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// return this.employeeControllerQry.onPaginate();
-		// }
-		// } else if (value.equalsIgnoreCase("P5_TEMPLE")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// this.templeControllerQry.clearMapParamereters();
-		// this.templeControllerQry.addToMapParamereters(employee.geEmployeesa(),
-		// "empresa");
-		// this.templeControllerQry.addToMapParamereters(employee.getPais(),
-		// "pais");
-		// return this.templeControllerQry.onPaginate();
-		// }
-		// }
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Employee");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+//	@Override
+//	public String runFromActionsButtons(String value, String action) throws Exception {
+//		Employee employee = this.dataObject;
+//
+//		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+//			if (action.equalsIgnoreCase("CREATE")) {
+//				this.dataObject = new Employee();
+//				return this.onCreate();
+//			}
+//			if (action.equalsIgnoreCase("SAVE")) {
+//				return this.persist();
+//			}
+//			if (action.equalsIgnoreCase("DELETE")) {
+//				return this.delete();
+//			}
+//		}
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Employee");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		try {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			this.actionsButtonsComponent = super.getActionsButtonsComponent(EmployeeControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
-
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createTempleButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":txForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.employeeId!=null}  ", boolean.class));
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(createButton);
-
-			// SAVE
-			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			saveCommandButton.setId("saveCommandButtonId");
-			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
-			saveCommandButton.setUpdate(":txForm :growlForm:growl");
-			saveCommandButton.setImmediate(false);
-			saveCommandButton.setAjax(false);
-			saveCommandButton.setIcon("ui-icon-disk");
-			saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(saveCommandButton);
-
-			// DELETE
-			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			deleteCommandButton.setId("deleteCommandButtonId");
-			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
-			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
-			deleteCommandButton.setImmediate(true);
-			deleteCommandButton.setAjax(true);
-			deleteCommandButton.setIcon("ui-icon-disk");
-			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.employeeId!=null}  ", boolean.class));
-			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
-			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
-
-			// LIST ALL Employee
-			// CommandButton listEmployeeButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listEmployeeButton.setId("listEmployeeButtonId");
-			// listEmployeeButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_Employee_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listEmployeeButton.setUpdate(":growlForm:growl");
-			// listEmployeeButton.setImmediate(true);
-			// listEmployeeButton.setAjax(false);
-			// listEmployeeButton.setIcon("ui-icon-document");
-			// listEmployeeButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_Employee','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listEmployeeButton);
-
-			// LIST TEMPLE BY EMPRESA
-			// CommandButton listTempleByEmployeeButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listTempleByEmployeeButton.setId("listTempleByEmployeeButtonId");
-			// listTempleByEmployeeButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listTempleByEmployeeButton.setUpdate(":growlForm:growl");
-			// listTempleByEmployeeButton.setImmediate(true);
-			// listTempleByEmployeeButton.setAjax(false);
-			// listTempleByEmployeeButton.setIcon("ui-icon-document");
-			// listTempleByEmployeeButton.setValueExpression("rendered",
-			// expressionFactory.createValueExpression(elContext, "#{" +
-			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
-			// boolean.class));
-			// listTempleByEmployeeButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listTempleByEmployeeButton);
-			return this.actionsButtonsComponent;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-	}
+//	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+//
+//		try {
+//			FacesContext facesContext = FacesContext.getCurrentInstance();
+//			Application application = facesContext.getApplication();
+//			ExpressionFactory expressionFactory = application.getExpressionFactory();
+//			ELContext elContext = facesContext.getELContext();
+//			this.actionsButtonsComponent = super.getActionsButtonsComponent(EmployeeControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
+//
+//			// CREATE
+//			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			createButton.setId("createTempleButtonId");
+//			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+//			createButton.setUpdate(":txForm  :growlForm:growl");
+//			createButton.setImmediate(true);
+//			createButton.setAjax(false);
+//			createButton.setIcon("ui-icon-plus");
+//			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.employeeId!=null}  ", boolean.class));
+//			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
+//			this.actionsButtonsComponent.getChildren().add(createButton);
+//
+//			// SAVE
+//			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			saveCommandButton.setId("saveCommandButtonId");
+//			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
+//			saveCommandButton.setUpdate(":txForm :growlForm:growl");
+//			saveCommandButton.setImmediate(false);
+//			saveCommandButton.setAjax(false);
+//			saveCommandButton.setIcon("ui-icon-disk");
+//			saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}", String.class, new Class[] { String.class, String.class }));
+//			this.actionsButtonsComponent.getChildren().add(saveCommandButton);
+//
+//			// DELETE
+//			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			deleteCommandButton.setId("deleteCommandButtonId");
+//			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
+//			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
+//			deleteCommandButton.setImmediate(true);
+//			deleteCommandButton.setAjax(true);
+//			deleteCommandButton.setIcon("ui-icon-disk");
+//			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.employeeId!=null}  ", boolean.class));
+//			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
+//			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
+//
+//			// LIST ALL Employee
+//			// CommandButton listEmployeeButton = (CommandButton)
+//			// application.createComponent(CommandButton.COMPONENT_TYPE);
+//			// listEmployeeButton.setId("listEmployeeButtonId");
+//			// listEmployeeButton.setValue(MessageFactory.getStringMessage("messages",
+//			// "P5_Employee_PROCESSTRANSACTION_DISPLAY_LABEL"));
+//			// listEmployeeButton.setUpdate(":growlForm:growl");
+//			// listEmployeeButton.setImmediate(true);
+//			// listEmployeeButton.setAjax(false);
+//			// listEmployeeButton.setIcon("ui-icon-document");
+//			// listEmployeeButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+//			// "#{" + this.getClass().getSimpleName() +
+//			// ".runFromActionsButtons('P5_Employee','LIST')}", String.class, new
+//			// Class[] {
+//			// String.class, String.class }));
+//			// htmlPanelGrid.getChildren().add(listEmployeeButton);
+//
+//			// LIST TEMPLE BY EMPRESA
+//			// CommandButton listTempleByEmployeeButton = (CommandButton)
+//			// application.createComponent(CommandButton.COMPONENT_TYPE);
+//			// listTempleByEmployeeButton.setId("listTempleByEmployeeButtonId");
+//			// listTempleByEmployeeButton.setValue(MessageFactory.getStringMessage("messages",
+//			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
+//			// listTempleByEmployeeButton.setUpdate(":growlForm:growl");
+//			// listTempleByEmployeeButton.setImmediate(true);
+//			// listTempleByEmployeeButton.setAjax(false);
+//			// listTempleByEmployeeButton.setIcon("ui-icon-document");
+//			// listTempleByEmployeeButton.setValueExpression("rendered",
+//			// expressionFactory.createValueExpression(elContext, "#{" +
+//			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
+//			// boolean.class));
+//			// listTempleByEmployeeButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+//			// "#{" + this.getClass().getSimpleName() +
+//			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
+//			// Class[] {
+//			// String.class, String.class }));
+//			// htmlPanelGrid.getChildren().add(listTempleByEmployeeButton);
+//			return this.actionsButtonsComponent;
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			throw new Exception(e);
+//		}
+//	}
 
 	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
 		this.actionsButtonsComponent = actionsButtonsComponent;

@@ -84,7 +84,7 @@ public class CustomerControllerQry extends AbstractControllerQry<Customer> imple
 	}
 
 	@Override
-	public List<Column> getListColumns() throws Exception {
+	public List<Column> getColumnsFilter() throws Exception {
 		List<Column> listColumns = new ArrayList<Column>();
 
 		Column column = new Column();
@@ -116,60 +116,49 @@ public class CustomerControllerQry extends AbstractControllerQry<Customer> imple
 		return this.resultObjectsFiltered;
 	}
 
-	@Override
-	public String runFromContextMenu(Customer item, String value, String action) throws Exception {
-		Customer customer = (Customer) item;
-		if (value.equalsIgnoreCase("ALBUM")) {
-			this.customerControllerTx.setDataObject(customer);
-			if (action.equalsIgnoreCase("EDIT")) {
-				return this.customerControllerTx.onEdit();
-			} else if (action.equalsIgnoreCase("DELETE")) {
-				return this.customerControllerTx.delete();
-			}
-		} else if (value.equalsIgnoreCase("ARTIST")) {
-			// this.customerControllerTx.setParentController(this);
-			// if (action.equalsIgnoreCase("CREATE")) {
-			// Customer customer = new Customer();
-			// customer.setCustomerId(customer.getCustomerId())
-			// this.customerControllerTx.setDataObject(ARTIST)
-			// return this.customerControllerTx.onCreate();
-			// } else if (action.equalsIgnoreCase("LIST")) {
-			// this.customerControllerQry.clearMapParamereters();
-			// this.customerControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
-			// this.customerControllerQry.addToMapParamereters(tempre.getPais(), "pais");
-			// return this.customerControllerQry.onPaginate();
-			// }
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Customer");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
-
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-
-		Customer customer = this.dataObject;
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.customerControllerTx.setParentController(this);
-				this.customerControllerTx.setDataObject(new Customer());
-				return this.customerControllerTx.onCreate();
-			}
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Customer");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+//	@Override
+//	public String runFromContextMenu(Customer item, String value, String action) throws Exception {
+//		Customer customer = (Customer) item;
+//		if (value.equalsIgnoreCase("ALBUM")) {
+//			this.customerControllerTx.setDataObject(customer);
+//			if (action.equalsIgnoreCase("EDIT")) {
+//				return this.customerControllerTx.onEdit();
+//			} else if (action.equalsIgnoreCase("DELETE")) {
+//				return this.customerControllerTx.delete();
+//			}
+//		} else if (value.equalsIgnoreCase("ARTIST")) {
+//			
+//		}
+//
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Customer");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
+//
+//	@Override
+//	public String runFromActionsButtons(String value, String action) throws Exception {
+//
+//		Customer customer = this.dataObject;
+//		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+//			if (action.equalsIgnoreCase("CREATE")) {
+//				this.customerControllerTx.setParentController(this);
+//				this.customerControllerTx.setDataObject(new Customer());
+//				return this.customerControllerTx.onCreate();
+//			}
+//		}
+//
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Customer");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getPaginateFilterComponent() throws Exception {
+	public HtmlPanelGrid getFilterComponent() throws Exception {
 		if (this.paginateFilterComponent == null) {
-			return super.getPaginateFilterComponent(this.getClass().getSimpleName());
+			return super.getFilterComponent(this.getClass().getSimpleName());
 		} else {
 			return this.paginateFilterComponent;
 		}
@@ -179,33 +168,33 @@ public class CustomerControllerQry extends AbstractControllerQry<Customer> imple
 		this.paginateFilterComponent = paginateFilterComponent;
 	}
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		if (this.actionsButtonsComponent == null) {
-
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), CustomerControllerTx.class.getSimpleName());
-
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-
-			htmlPanelGrid.getChildren().add(createButton);
-
-			this.actionsButtonsComponent = htmlPanelGrid;
-		}
-		return this.actionsButtonsComponent;
-
-	}
+//	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+//
+//		if (this.actionsButtonsComponent == null) {
+//
+//			FacesContext facesContext = FacesContext.getCurrentInstance();
+//			Application application = facesContext.getApplication();
+//			ExpressionFactory expressionFactory = application.getExpressionFactory();
+//			ELContext elContext = facesContext.getELContext();
+//			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), CustomerControllerTx.class.getSimpleName());
+//
+//			// CREATE
+//			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			createButton.setId("createButtonId");
+//			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+//			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
+//			createButton.setImmediate(true);
+//			createButton.setAjax(false);
+//			createButton.setIcon("ui-icon-plus");
+//			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
+//
+//			htmlPanelGrid.getChildren().add(createButton);
+//
+//			this.actionsButtonsComponent = htmlPanelGrid;
+//		}
+//		return this.actionsButtonsComponent;
+//
+//	}
 
 	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
 		this.actionsButtonsComponent = actionsButtonsComponent;

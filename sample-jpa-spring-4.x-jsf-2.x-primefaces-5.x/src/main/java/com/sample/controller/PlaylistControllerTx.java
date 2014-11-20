@@ -101,11 +101,8 @@ public class PlaylistControllerTx extends AbstractControllerTx<Playlist> impleme
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Playlist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
-			return "playlist-tx";
-		}
+		return "playlist-tx";
+
 	}
 
 	@Override
@@ -126,11 +123,7 @@ public class PlaylistControllerTx extends AbstractControllerTx<Playlist> impleme
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Playlist");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
-			return "playlist-tx";
-		}
+		return "playlist-tx";
 
 	}
 
@@ -166,138 +159,141 @@ public class PlaylistControllerTx extends AbstractControllerTx<Playlist> impleme
 		// }
 	}
 
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-		Playlist playlist = this.dataObject;
-
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.dataObject = new Playlist();
-				return this.onCreate();
-			}
-			if (action.equalsIgnoreCase("SAVE")) {
-				return this.persist();
-			}
-			if (action.equalsIgnoreCase("DELETE")) {
-				return this.delete();
-			}
-		}
-
-		// else if (value.equalsIgnoreCase("P5_Playlist")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// return this.playlistControllerQry.onPaginate();
-		// }
-		// } else if (value.equalsIgnoreCase("P5_TEMPLE")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// this.templeControllerQry.clearMapParamereters();
-		// this.templeControllerQry.addToMapParamereters(playlist.gePlaylistsa(),
-		// "empresa");
-		// this.templeControllerQry.addToMapParamereters(playlist.getPais(),
-		// "pais");
-		// return this.templeControllerQry.onPaginate();
-		// }
-		// }
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+	// @Override
+	// public String runFromActionsButtons(String value, String action) throws Exception {
+	// Playlist playlist = this.dataObject;
+	//
+	// if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+	// if (action.equalsIgnoreCase("CREATE")) {
+	// this.dataObject = new Playlist();
+	// return this.onCreate();
+	// }
+	// if (action.equalsIgnoreCase("SAVE")) {
+	// return this.persist();
+	// }
+	// if (action.equalsIgnoreCase("DELETE")) {
+	// return this.delete();
+	// }
+	// }
+	// FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
+	// FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	// return null;
+	// }
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		try {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			this.actionsButtonsComponent = super.getActionsButtonsComponent(PlaylistControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
-
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createTempleButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":txForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.playlistId!=null}  ", boolean.class));
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(createButton);
-
-			// SAVE
-			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			saveCommandButton.setId("saveCommandButtonId");
-			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
-			saveCommandButton.setUpdate(":txForm :growlForm:growl");
-			saveCommandButton.setImmediate(false);
-			saveCommandButton.setAjax(false);
-			saveCommandButton.setIcon("ui-icon-disk");
-			saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(saveCommandButton);
-
-			// DELETE
-			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			deleteCommandButton.setId("deleteCommandButtonId");
-			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
-			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
-			deleteCommandButton.setImmediate(true);
-			deleteCommandButton.setAjax(true);
-			deleteCommandButton.setIcon("ui-icon-disk");
-			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.playlistId!=null}  ", boolean.class));
-			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
-			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
-
-			// LIST ALL Playlist
-			// CommandButton listPlaylistButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listPlaylistButton.setId("listPlaylistButtonId");
-			// listPlaylistButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_Playlist_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listPlaylistButton.setUpdate(":growlForm:growl");
-			// listPlaylistButton.setImmediate(true);
-			// listPlaylistButton.setAjax(false);
-			// listPlaylistButton.setIcon("ui-icon-document");
-			// listPlaylistButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_Playlist','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listPlaylistButton);
-
-			// LIST TEMPLE BY EMPRESA
-			// CommandButton listTempleByPlaylistButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listTempleByPlaylistButton.setId("listTempleByPlaylistButtonId");
-			// listTempleByPlaylistButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listTempleByPlaylistButton.setUpdate(":growlForm:growl");
-			// listTempleByPlaylistButton.setImmediate(true);
-			// listTempleByPlaylistButton.setAjax(false);
-			// listTempleByPlaylistButton.setIcon("ui-icon-document");
-			// listTempleByPlaylistButton.setValueExpression("rendered",
-			// expressionFactory.createValueExpression(elContext, "#{" +
-			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
-			// boolean.class));
-			// listTempleByPlaylistButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listTempleByPlaylistButton);
-			return this.actionsButtonsComponent;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-	}
-
-	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
-		this.actionsButtonsComponent = actionsButtonsComponent;
-	}
+	// public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+	//
+	// try {
+	// FacesContext facesContext = FacesContext.getCurrentInstance();
+	// Application application = facesContext.getApplication();
+	// ExpressionFactory expressionFactory = application.getExpressionFactory();
+	// ELContext elContext = facesContext.getELContext();
+	// this.actionsButtonsComponent =
+	// super.getActionsButtonsComponent(PlaylistControllerQry.class.getSimpleName(),
+	// this.getClass().getSimpleName());
+	//
+	// // CREATE
+	// CommandButton createButton = (CommandButton)
+	// application.createComponent(CommandButton.COMPONENT_TYPE);
+	// createButton.setId("createTempleButtonId");
+	// createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+	// createButton.setUpdate(":txForm  :growlForm:growl");
+	// createButton.setImmediate(true);
+	// createButton.setAjax(false);
+	// createButton.setIcon("ui-icon-plus");
+	// createButton.setValueExpression(
+	// "rendered",
+	// expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() +
+	// ".dataObject!=null && " + this.getClass().getSimpleName()
+	// + ".dataObject.playlistId!=null}  ", boolean.class));
+	// createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" +
+	// this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}",
+	// String.class, new Class[] { String.class, String.class }));
+	// this.actionsButtonsComponent.getChildren().add(createButton);
+	//
+	// // SAVE
+	// CommandButton saveCommandButton = (CommandButton)
+	// application.createComponent(CommandButton.COMPONENT_TYPE);
+	// saveCommandButton.setId("saveCommandButtonId");
+	// saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
+	// saveCommandButton.setUpdate(":txForm :growlForm:growl");
+	// saveCommandButton.setImmediate(false);
+	// saveCommandButton.setAjax(false);
+	// saveCommandButton.setIcon("ui-icon-disk");
+	// saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+	// "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}",
+	// String.class, new Class[] { String.class, String.class }));
+	// this.actionsButtonsComponent.getChildren().add(saveCommandButton);
+	//
+	// // DELETE
+	// CommandButton deleteCommandButton = (CommandButton)
+	// application.createComponent(CommandButton.COMPONENT_TYPE);
+	// deleteCommandButton.setId("deleteCommandButtonId");
+	// deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
+	// deleteCommandButton.setUpdate(":txForm :growlForm:growl");
+	// deleteCommandButton.setImmediate(true);
+	// deleteCommandButton.setAjax(true);
+	// deleteCommandButton.setIcon("ui-icon-disk");
+	// deleteCommandButton.setValueExpression(
+	// "rendered",
+	// expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() +
+	// ".dataObject!=null && " + this.getClass().getSimpleName()
+	// + ".dataObject.playlistId!=null}  ", boolean.class));
+	// deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
+	// this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
+	//
+	// // LIST ALL Playlist
+	// // CommandButton listPlaylistButton = (CommandButton)
+	// // application.createComponent(CommandButton.COMPONENT_TYPE);
+	// // listPlaylistButton.setId("listPlaylistButtonId");
+	// // listPlaylistButton.setValue(MessageFactory.getStringMessage("messages",
+	// // "P5_Playlist_PROCESSTRANSACTION_DISPLAY_LABEL"));
+	// // listPlaylistButton.setUpdate(":growlForm:growl");
+	// // listPlaylistButton.setImmediate(true);
+	// // listPlaylistButton.setAjax(false);
+	// // listPlaylistButton.setIcon("ui-icon-document");
+	// // listPlaylistButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+	// // "#{" + this.getClass().getSimpleName() +
+	// // ".runFromActionsButtons('P5_Playlist','LIST')}", String.class, new
+	// // Class[] {
+	// // String.class, String.class }));
+	// // htmlPanelGrid.getChildren().add(listPlaylistButton);
+	//
+	// // LIST TEMPLE BY EMPRESA
+	// // CommandButton listTempleByPlaylistButton = (CommandButton)
+	// // application.createComponent(CommandButton.COMPONENT_TYPE);
+	// // listTempleByPlaylistButton.setId("listTempleByPlaylistButtonId");
+	// // listTempleByPlaylistButton.setValue(MessageFactory.getStringMessage("messages",
+	// // "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
+	// // listTempleByPlaylistButton.setUpdate(":growlForm:growl");
+	// // listTempleByPlaylistButton.setImmediate(true);
+	// // listTempleByPlaylistButton.setAjax(false);
+	// // listTempleByPlaylistButton.setIcon("ui-icon-document");
+	// // listTempleByPlaylistButton.setValueExpression("rendered",
+	// // expressionFactory.createValueExpression(elContext, "#{" +
+	// // this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
+	// // boolean.class));
+	// //
+	// listTempleByPlaylistButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+	// // "#{" + this.getClass().getSimpleName() +
+	// // ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
+	// // Class[] {
+	// // String.class, String.class }));
+	// // htmlPanelGrid.getChildren().add(listTempleByPlaylistButton);
+	// return this.actionsButtonsComponent;
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// throw new Exception(e);
+	// }
+	// }
+	//
+	// public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
+	// this.actionsButtonsComponent = actionsButtonsComponent;
+	// }
 
 	// ----------------------------------------------------------------
 	// --------------------- GETTERS AND SETTERS ----------------------

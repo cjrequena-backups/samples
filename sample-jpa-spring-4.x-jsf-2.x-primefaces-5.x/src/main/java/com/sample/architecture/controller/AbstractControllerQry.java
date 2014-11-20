@@ -43,7 +43,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 
 	protected List<T> resultObjectsFiltered;
 
-	protected List<Filter> listFilter;
+	protected List<Filter> filters;
 
 	protected Filter filter;
 
@@ -61,9 +61,9 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 				this.filter.getColumn().setValue(new BigDecimal(value));
 
 			}
-			this.getListFilter().add(this.filter);
+			this.getFilters().add(this.filter);
 
-			this.resultObjectsFiltered = this.executeQueryFilter(listFilter, firstResult, maxResults);
+			this.resultObjectsFiltered = this.executeQueryFilter(filters, firstResult, maxResults);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e);
@@ -73,10 +73,10 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 
 	public void removeFilter() throws Exception {
 		try {
-			if (this.listFilter != null && !this.listFilter.isEmpty()) {
-				this.listFilter.remove(this.filter);
+			if (this.filters != null && !this.filters.isEmpty()) {
+				this.filters.remove(this.filter);
 			}
-			this.resultObjectsFiltered = this.executeQueryFilter(listFilter, firstResult, maxResults);
+			this.resultObjectsFiltered = this.executeQueryFilter(filters, firstResult, maxResults);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e);
@@ -87,7 +87,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 	public List<Column> autoCompleteColumn(String query) throws Exception {
 		List<Column> suggestions = new ArrayList<Column>();
 		try {
-			for (Column Column : this.getListColumns()) {
+			for (Column Column : this.getColumnsFilter()) {
 				String ColumnStr = String.valueOf(Column.getName());
 				if (ColumnStr.toLowerCase().startsWith(query.toLowerCase())) {
 					suggestions.add(Column);
@@ -117,28 +117,30 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 	}
 
 	public void reset() {
-		this.listFilter = null;
+		this.filters = null;
 		this.filter = null;
 	}
 
-	public HtmlPanelGrid getActionsButtonsComponent(String controllerQryName, String controllerTxName) throws Exception {
-		try {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			HtmlPanelGrid htmlPanelGrid = (HtmlPanelGrid) application.createComponent(HtmlPanelGrid.COMPONENT_TYPE);
+	// public HtmlPanelGrid getActionsButtonsComponent(String controllerQryName, String
+	// controllerTxName) throws Exception {
+	// try {
+	// FacesContext facesContext = FacesContext.getCurrentInstance();
+	// Application application = facesContext.getApplication();
+	// ExpressionFactory expressionFactory = application.getExpressionFactory();
+	// ELContext elContext = facesContext.getELContext();
+	// HtmlPanelGrid htmlPanelGrid = (HtmlPanelGrid)
+	// application.createComponent(HtmlPanelGrid.COMPONENT_TYPE);
+	//
+	// return htmlPanelGrid;
+	//
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// throw new Exception(e);
+	// }
+	//
+	// }
 
-			return htmlPanelGrid;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-
-	}
-
-	public HtmlPanelGrid getPaginateFilterComponent(String controllerQryName) throws Exception {
+	public HtmlPanelGrid getFilterComponent(String controllerQryName) throws Exception {
 
 		try {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -152,7 +154,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			outputLabelColumn.setFor("autoCompleteColumnId");
 			outputLabelColumn.setId("outputLabelColumn");
 			outputLabelColumn.setValue(MessageFactory.getStringMessage("i18n", "label_Column"));
-			outputLabelColumn.setStyleClass("col1");
+			
 			htmlPanelGrid.getChildren().add(outputLabelColumn);
 
 			AutoComplete autoCompleteColumn = (AutoComplete) application.createComponent(AutoComplete.COMPONENT_TYPE);
@@ -179,7 +181,6 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			outputLabelCriteria.setId("outputLabelCriteriaId");
 			outputLabelCriteria.setFor("autoCompleteCriteriaId");
 			outputLabelCriteria.setValue(MessageFactory.getStringMessage("i18n", "label_Criteria"));
-			outputLabelCriteria.setStyleClass("col1");
 			htmlPanelGrid.getChildren().add(outputLabelCriteria);
 
 			AutoComplete autoCompleteCriteria = (AutoComplete) application.createComponent(AutoComplete.COMPONENT_TYPE);
@@ -205,7 +206,6 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			outputLabelValue.setId("outputLabelValueId");
 			outputLabelValue.setFor("inputTextValue");
 			outputLabelValue.setValue(MessageFactory.getStringMessage("i18n", "label_Value"));
-			outputLabelValue.setStyleClass("col1");
 			htmlPanelGrid.getChildren().add(outputLabelValue);
 
 			InputText inputTextValue = (InputText) application.createComponent(InputText.COMPONENT_TYPE);
@@ -228,7 +228,7 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			outputLabelAndOr.setId("outputLabelAndOrId");
 			outputLabelAndOr.setFor("selectBooleanCheckboxtAndOr");
 			outputLabelAndOr.setValue(MessageFactory.getStringMessage("i18n", "label_And"));
-			outputLabelAndOr.setStyleClass("col1");
+			
 
 			htmlPanelGrid.getChildren().add(outputLabelAndOr);
 
@@ -248,7 +248,6 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 			outputLabelCaseSensitive.setId("outputLabelCaseSensitiveId");
 			outputLabelCaseSensitive.setFor("selectBooleanCheckboxtCaseSensitive");
 			outputLabelCaseSensitive.setValue(MessageFactory.getStringMessage("i18n", "label_Case_sensitive"));
-			outputLabelCaseSensitive.setStyleClass("col1");
 			htmlPanelGrid.getChildren().add(outputLabelCaseSensitive);
 
 			SelectBooleanCheckbox selectBooleanCheckboxtCaseSensitive = (SelectBooleanCheckbox) application.createComponent(SelectBooleanCheckbox.COMPONENT_TYPE);
@@ -270,21 +269,19 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 		}
 	}
 
-	
-
 	/* #################################### */
 	/* ######## GETTERS AND SETTERS ####### */
 	/* #################################### */
 
-	public List<Filter> getListFilter() {
-		if (this.listFilter == null) {
-			this.listFilter = new ArrayList<Filter>();
+	public List<Filter> getFilters() {
+		if (this.filters == null) {
+			this.filters = new ArrayList<Filter>();
 		}
-		return listFilter;
+		return filters;
 	}
 
-	public void setListFilter(List<Filter> listFilter) {
-		this.listFilter = listFilter;
+	public void setFilters(List<Filter> filters) {
+		this.filters = filters;
 	}
 
 	public List<T> getResultObjectsFiltered() {
@@ -306,9 +303,9 @@ public abstract class AbstractControllerQry<T> extends AbstractController<T> imp
 		this.filter = filter;
 	}
 
-	@Override
-	public String returnToParentController() throws Exception {
-		return onPaginate();
-	}
+	// @Override
+	// public String returnToParentController() throws Exception {
+	// return onPaginate();
+	// }
 
 }

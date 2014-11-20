@@ -84,7 +84,7 @@ public class PlaylistControllerQry extends AbstractControllerQry<Playlist> imple
 	}
 
 	@Override
-	public List<Column> getListColumns() throws Exception {
+	public List<Column> getColumnsFilter() throws Exception {
 		List<Column> listColumns = new ArrayList<Column>();
 
 		Column column = new Column();
@@ -116,60 +116,49 @@ public class PlaylistControllerQry extends AbstractControllerQry<Playlist> imple
 		return this.resultObjectsFiltered;
 	}
 
-	@Override
-	public String runFromContextMenu(Playlist item, String value, String action) throws Exception {
-		Playlist playlist = (Playlist) item;
-		if (value.equalsIgnoreCase("ALBUM")) {
-			this.playlistControllerTx.setDataObject(playlist);
-			if (action.equalsIgnoreCase("EDIT")) {
-				return this.playlistControllerTx.onEdit();
-			} else if (action.equalsIgnoreCase("DELETE")) {
-				return this.playlistControllerTx.delete();
-			}
-		} else if (value.equalsIgnoreCase("ARTIST")) {
-			// this.playlistControllerTx.setParentController(this);
-			// if (action.equalsIgnoreCase("CREATE")) {
-			// Playlist playlist = new Playlist();
-			// playlist.setPlaylistId(playlist.getPlaylistId())
-			// this.playlistControllerTx.setDataObject(ARTIST)
-			// return this.playlistControllerTx.onCreate();
-			// } else if (action.equalsIgnoreCase("LIST")) {
-			// this.playlistControllerQry.clearMapParamereters();
-			// this.playlistControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
-			// this.playlistControllerQry.addToMapParamereters(tempre.getPais(), "pais");
-			// return this.playlistControllerQry.onPaginate();
-			// }
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
-
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-
-		Playlist playlist = this.dataObject;
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.playlistControllerTx.setParentController(this);
-				this.playlistControllerTx.setDataObject(new Playlist());
-				return this.playlistControllerTx.onCreate();
-			}
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+//	@Override
+//	public String runFromContextMenu(Playlist item, String value, String action) throws Exception {
+//		Playlist playlist = (Playlist) item;
+//		if (value.equalsIgnoreCase("ALBUM")) {
+//			this.playlistControllerTx.setDataObject(playlist);
+//			if (action.equalsIgnoreCase("EDIT")) {
+//				return this.playlistControllerTx.onEdit();
+//			} else if (action.equalsIgnoreCase("DELETE")) {
+//				return this.playlistControllerTx.delete();
+//			}
+//		} else if (value.equalsIgnoreCase("ARTIST")) {
+//			
+//		}
+//
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
+//
+//	@Override
+//	public String runFromActionsButtons(String value, String action) throws Exception {
+//
+//		Playlist playlist = this.dataObject;
+//		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+//			if (action.equalsIgnoreCase("CREATE")) {
+//				this.playlistControllerTx.setParentController(this);
+//				this.playlistControllerTx.setDataObject(new Playlist());
+//				return this.playlistControllerTx.onCreate();
+//			}
+//		}
+//
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Playlist");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getPaginateFilterComponent() throws Exception {
+	public HtmlPanelGrid getFilterComponent() throws Exception {
 		if (this.paginateFilterComponent == null) {
-			return super.getPaginateFilterComponent(this.getClass().getSimpleName());
+			return super.getFilterComponent(this.getClass().getSimpleName());
 		} else {
 			return this.paginateFilterComponent;
 		}
@@ -179,37 +168,37 @@ public class PlaylistControllerQry extends AbstractControllerQry<Playlist> imple
 		this.paginateFilterComponent = paginateFilterComponent;
 	}
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		if (this.actionsButtonsComponent == null) {
-
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), PlaylistControllerTx.class.getSimpleName());
-
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-
-			htmlPanelGrid.getChildren().add(createButton);
-
-			this.actionsButtonsComponent = htmlPanelGrid;
-		}
-		return this.actionsButtonsComponent;
-
-	}
-
-	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
-		this.actionsButtonsComponent = actionsButtonsComponent;
-	}
+//	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+//
+//		if (this.actionsButtonsComponent == null) {
+//
+//			FacesContext facesContext = FacesContext.getCurrentInstance();
+//			Application application = facesContext.getApplication();
+//			ExpressionFactory expressionFactory = application.getExpressionFactory();
+//			ELContext elContext = facesContext.getELContext();
+//			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), PlaylistControllerTx.class.getSimpleName());
+//
+//			// CREATE
+//			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			createButton.setId("createButtonId");
+//			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+//			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
+//			createButton.setImmediate(true);
+//			createButton.setAjax(false);
+//			createButton.setIcon("ui-icon-plus");
+//			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
+//
+//			htmlPanelGrid.getChildren().add(createButton);
+//
+//			this.actionsButtonsComponent = htmlPanelGrid;
+//		}
+//		return this.actionsButtonsComponent;
+//
+//	}
+//
+//	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
+//		this.actionsButtonsComponent = actionsButtonsComponent;
+//	}
 
 	// public MenuModel getPaginateContextMenuComponent() throws Exception {
 	// if (this.paginateContextMenuComponent == null) {

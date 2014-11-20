@@ -110,11 +110,9 @@ public class InvoiceControllerTx extends AbstractControllerTx<Invoice> implement
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Invoice");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
+		
 			return "invoice-tx";
-		}
+		
 	}
 
 	@Override
@@ -135,11 +133,9 @@ public class InvoiceControllerTx extends AbstractControllerTx<Invoice> implement
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Invoice");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
+		
 			return "invoice-tx";
-		}
+		
 
 	}
 
@@ -193,134 +189,119 @@ public class InvoiceControllerTx extends AbstractControllerTx<Invoice> implement
 		// }
 	}
 
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-		Invoice invoice = this.dataObject;
-
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.dataObject = new Invoice();
-				return this.onCreate();
-			}
-			if (action.equalsIgnoreCase("SAVE")) {
-				return this.persist();
-			}
-			if (action.equalsIgnoreCase("DELETE")) {
-				return this.delete();
-			}
-		}
-
-		// else if (value.equalsIgnoreCase("P5_Invoice")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// return this.invoiceControllerQry.onPaginate();
-		// }
-		// } else if (value.equalsIgnoreCase("P5_TEMPLE")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// this.templeControllerQry.clearMapParamereters();
-		// this.templeControllerQry.addToMapParamereters(invoice.geInvoicesa(),
-		// "empresa");
-		// this.templeControllerQry.addToMapParamereters(invoice.getPais(),
-		// "pais");
-		// return this.templeControllerQry.onPaginate();
-		// }
-		// }
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Invoice");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+//	@Override
+//	public String runFromActionsButtons(String value, String action) throws Exception {
+//		Invoice invoice = this.dataObject;
+//
+//		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+//			if (action.equalsIgnoreCase("CREATE")) {
+//				this.dataObject = new Invoice();
+//				return this.onCreate();
+//			}
+//			if (action.equalsIgnoreCase("SAVE")) {
+//				return this.persist();
+//			}
+//			if (action.equalsIgnoreCase("DELETE")) {
+//				return this.delete();
+//			}
+//		}
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Invoice");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		try {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			this.actionsButtonsComponent = super.getActionsButtonsComponent(InvoiceControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
-
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createTempleButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":txForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.invoiceId!=null}  ", boolean.class));
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(createButton);
-
-			// SAVE
-			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			saveCommandButton.setId("saveCommandButtonId");
-			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
-			saveCommandButton.setUpdate(":txForm :growlForm:growl");
-			saveCommandButton.setImmediate(false);
-			saveCommandButton.setAjax(false);
-			saveCommandButton.setIcon("ui-icon-disk");
-			saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(saveCommandButton);
-
-			// DELETE
-			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			deleteCommandButton.setId("deleteCommandButtonId");
-			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
-			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
-			deleteCommandButton.setImmediate(true);
-			deleteCommandButton.setAjax(true);
-			deleteCommandButton.setIcon("ui-icon-disk");
-			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.invoiceId!=null}  ", boolean.class));
-			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
-			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
-
-			// LIST ALL Invoice
-			// CommandButton listInvoiceButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listInvoiceButton.setId("listInvoiceButtonId");
-			// listInvoiceButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_Invoice_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listInvoiceButton.setUpdate(":growlForm:growl");
-			// listInvoiceButton.setImmediate(true);
-			// listInvoiceButton.setAjax(false);
-			// listInvoiceButton.setIcon("ui-icon-document");
-			// listInvoiceButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_Invoice','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listInvoiceButton);
-
-			// LIST TEMPLE BY EMPRESA
-			// CommandButton listTempleByInvoiceButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listTempleByInvoiceButton.setId("listTempleByInvoiceButtonId");
-			// listTempleByInvoiceButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listTempleByInvoiceButton.setUpdate(":growlForm:growl");
-			// listTempleByInvoiceButton.setImmediate(true);
-			// listTempleByInvoiceButton.setAjax(false);
-			// listTempleByInvoiceButton.setIcon("ui-icon-document");
-			// listTempleByInvoiceButton.setValueExpression("rendered",
-			// expressionFactory.createValueExpression(elContext, "#{" +
-			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
-			// boolean.class));
-			// listTempleByInvoiceButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listTempleByInvoiceButton);
-			return this.actionsButtonsComponent;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-	}
+//	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+//
+//		try {
+//			FacesContext facesContext = FacesContext.getCurrentInstance();
+//			Application application = facesContext.getApplication();
+//			ExpressionFactory expressionFactory = application.getExpressionFactory();
+//			ELContext elContext = facesContext.getELContext();
+//			this.actionsButtonsComponent = super.getActionsButtonsComponent(InvoiceControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
+//
+//			// CREATE
+//			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			createButton.setId("createTempleButtonId");
+//			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+//			createButton.setUpdate(":txForm  :growlForm:growl");
+//			createButton.setImmediate(true);
+//			createButton.setAjax(false);
+//			createButton.setIcon("ui-icon-plus");
+//			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.invoiceId!=null}  ", boolean.class));
+//			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
+//			this.actionsButtonsComponent.getChildren().add(createButton);
+//
+//			// SAVE
+//			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			saveCommandButton.setId("saveCommandButtonId");
+//			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
+//			saveCommandButton.setUpdate(":txForm :growlForm:growl");
+//			saveCommandButton.setImmediate(false);
+//			saveCommandButton.setAjax(false);
+//			saveCommandButton.setIcon("ui-icon-disk");
+//			saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}", String.class, new Class[] { String.class, String.class }));
+//			this.actionsButtonsComponent.getChildren().add(saveCommandButton);
+//
+//			// DELETE
+//			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			deleteCommandButton.setId("deleteCommandButtonId");
+//			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
+//			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
+//			deleteCommandButton.setImmediate(true);
+//			deleteCommandButton.setAjax(true);
+//			deleteCommandButton.setIcon("ui-icon-disk");
+//			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.invoiceId!=null}  ", boolean.class));
+//			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
+//			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
+//
+//			// LIST ALL Invoice
+//			// CommandButton listInvoiceButton = (CommandButton)
+//			// application.createComponent(CommandButton.COMPONENT_TYPE);
+//			// listInvoiceButton.setId("listInvoiceButtonId");
+//			// listInvoiceButton.setValue(MessageFactory.getStringMessage("messages",
+//			// "P5_Invoice_PROCESSTRANSACTION_DISPLAY_LABEL"));
+//			// listInvoiceButton.setUpdate(":growlForm:growl");
+//			// listInvoiceButton.setImmediate(true);
+//			// listInvoiceButton.setAjax(false);
+//			// listInvoiceButton.setIcon("ui-icon-document");
+//			// listInvoiceButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+//			// "#{" + this.getClass().getSimpleName() +
+//			// ".runFromActionsButtons('P5_Invoice','LIST')}", String.class, new
+//			// Class[] {
+//			// String.class, String.class }));
+//			// htmlPanelGrid.getChildren().add(listInvoiceButton);
+//
+//			// LIST TEMPLE BY EMPRESA
+//			// CommandButton listTempleByInvoiceButton = (CommandButton)
+//			// application.createComponent(CommandButton.COMPONENT_TYPE);
+//			// listTempleByInvoiceButton.setId("listTempleByInvoiceButtonId");
+//			// listTempleByInvoiceButton.setValue(MessageFactory.getStringMessage("messages",
+//			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
+//			// listTempleByInvoiceButton.setUpdate(":growlForm:growl");
+//			// listTempleByInvoiceButton.setImmediate(true);
+//			// listTempleByInvoiceButton.setAjax(false);
+//			// listTempleByInvoiceButton.setIcon("ui-icon-document");
+//			// listTempleByInvoiceButton.setValueExpression("rendered",
+//			// expressionFactory.createValueExpression(elContext, "#{" +
+//			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
+//			// boolean.class));
+//			// listTempleByInvoiceButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+//			// "#{" + this.getClass().getSimpleName() +
+//			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
+//			// Class[] {
+//			// String.class, String.class }));
+//			// htmlPanelGrid.getChildren().add(listTempleByInvoiceButton);
+//			return this.actionsButtonsComponent;
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			throw new Exception(e);
+//		}
+//	}
 
 	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
 		this.actionsButtonsComponent = actionsButtonsComponent;

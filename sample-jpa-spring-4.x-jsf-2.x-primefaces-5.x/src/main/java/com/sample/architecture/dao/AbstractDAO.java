@@ -17,16 +17,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.openjpa.persistence.NoResultException;
+import org.apache.openjpa.util.NonUniqueResultException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Configurable;
-
-
+import org.springframework.dao.EmptyResultDataAccessException;
 
 /**
  * 
  * @author cjrequena
- *
+ * 
  * @param <T>
  * @param <PK>
  */
@@ -53,6 +54,13 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 		this.targetClass = targetClass;
 	}
 
+	public EntityManager entityManager() {
+		EntityManager em = entityManager;
+		if (em == null)
+			throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
+		return em;
+	}
+
 	/**
 	 * get collection objects from process query with arry param values, in jpa params are ?1, ?9 etc example select c from entity c where
 	 * c.columname1 = ?1 and c.columname2 = ?2
@@ -73,27 +81,36 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	}
 
 	/**
-	 * get object from process query with arry param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1 = ?1 and
-	 * c.columname2 = ?2
+	 * get object from process query with arry param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1
+	 * = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <D> D executeQueryResult(Query query, Object... params) throws Exception {
-		StringBuffer queryTrace = new StringBuffer(query.toString());
-		int index = 1;
-		for (Object object : params) {
-			queryTrace.append("Param ").append(index).append(": ").append(object);
-			query.setParameter(index++, object);
+		try {
+			StringBuffer queryTrace = new StringBuffer(query.toString());
+			int index = 1;
+			for (Object object : params) {
+				queryTrace.append("Param ").append(index).append(": ").append(object);
+				query.setParameter(index++, object);
+			}
+			logger.info("Query to execute: " + queryTrace.toString());
+			Object result = query.getSingleResult();
+			return (D) result;
+		} catch (EmptyResultDataAccessException erde) {
+			return null;
+		} catch (NoResultException nre) {
+			return null;
+		} catch (NonUniqueResultException nure) {
+			logger.error("There is no a unique result executing SingleQueryResult");
+			throw nure;
 		}
-		logger.info("Query to execute: " + queryTrace.toString());
-		Object result = query.getSingleResult();
-		return (D) result;
 	}
 
 	/**
-	 * get collection objects from process query with Map param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1
-	 * = ?1 and c.columname2 = ?2
+	 * get collection objects from process query with Map param values, in jpa params are ?1, ?9 etc example select c from entity c where
+	 * c.columname1 = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
@@ -110,21 +127,30 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	}
 
 	/**
-	 * get object from process query with Map param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1 = ?1 and
-	 * c.columname2 = ?2
+	 * get object from process query with Map param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1 =
+	 * ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <D> D executeQueryResult(Query query, Map<String, Object> params) throws Exception {
-		StringBuffer queryTrace = new StringBuffer(query.toString());
-		for (String key : params.keySet()) {
-			queryTrace.append("Param ").append(key).append(": ").append(params.get(key));
-			query.setParameter(key, params.get(key));
+		try {
+			StringBuffer queryTrace = new StringBuffer(query.toString());
+			for (String key : params.keySet()) {
+				queryTrace.append("Param ").append(key).append(": ").append(params.get(key));
+				query.setParameter(key, params.get(key));
+			}
+			logger.info("Query to execute: " + queryTrace.toString());
+			Object result = query.getSingleResult();
+			return (D) result;
+		} catch (EmptyResultDataAccessException erde) {
+			return null;
+		} catch (NoResultException nre) {
+			return null;
+		} catch (NonUniqueResultException nure) {
+			logger.error("There is no a unique result executing SingleQueryResult");
+			throw nure;
 		}
-		logger.info("Query to execute: " + queryTrace.toString());
-		Object result = query.getSingleResult();
-		return (D) result;
 	}
 
 	/**
@@ -150,23 +176,32 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	}
 
 	/**
-	 * get object from process query with List param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1 = ?1 and
-	 * c.columname2 = ?2
+	 * get object from process query with List param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1
+	 * = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <D> D executeQueryResult(Query query, List<Object> params) throws Exception {
-		StringBuffer queryTrace = new StringBuffer(query.toString());
-		int index = 1;
-		for (Iterator<Object> iterator = params.iterator(); iterator.hasNext();) {
-			Object object = (Object) iterator.next();
-			queryTrace.append("Param ").append(index).append(": ").append(object);
-			query.setParameter(index++, object);
+		try {
+			StringBuffer queryTrace = new StringBuffer(query.toString());
+			int index = 1;
+			for (Iterator<Object> iterator = params.iterator(); iterator.hasNext();) {
+				Object object = (Object) iterator.next();
+				queryTrace.append("Param ").append(index).append(": ").append(object);
+				query.setParameter(index++, object);
+			}
+			logger.info("Query to execute: " + queryTrace.toString());
+			Object result = query.getSingleResult();
+			return (D) result;
+		} catch (EmptyResultDataAccessException erde) {
+			return null;
+		} catch (NoResultException nre) {
+			return null;
+		} catch (NonUniqueResultException nure) {
+			logger.error("There is no a unique result executing SingleQueryResult");
+			throw nure;
 		}
-		logger.info("Query to execute: " + queryTrace.toString());
-		Object result = query.getSingleResult();
-		return (D) result;
 	}
 
 	@SuppressWarnings("unchecked")

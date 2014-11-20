@@ -18,8 +18,7 @@ import com.sample.model.dao.IAlbumDAO;
 import com.sample.model.jpa.Album;
 import com.sample.service.IAlbumService;
 
-@Service
-@Transactional
+@Service("albumService")
 public class AlbumService implements IAlbumService, Serializable {
 
 	/**

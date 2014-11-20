@@ -1,13 +1,5 @@
 @CHARSET "UTF-8";
 
-@media ( min-width : 1200px) {
-	/* or min-width: wherever-you-want-your-fluid-breakpoint */
-	body .container {
-		width: 100%;
-		padding: 60px;
-	}
-}
-
 /*-------------------------------------*/
 /*Global							   */
 /*-------------------------------------*/
@@ -20,68 +12,117 @@ body .container #content table {
 	width: 100%;
 }
 
-/* Wrapper for page content to push down footer */
-#wrapper {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	/* Negative indent footer by it's height */
-	margin: 0 auto -60px;
-}
-
-#push,#footer {
-	height: 60px;
-}
-
-#footer {
-	background-color: #f5f5f5;
-}
-
-#wrapper>.container {
-	padding-top: 40px;
-}
-
 .dialog {
 	width: auto;
 }
 
-.col1 {
+.col31 {
 	vertical-align: top;
 	font-weight: bold;
-	width: 35%;
-	float: left;
-	padding: 0.5%;
+	width: 40%;
+	padding: 2px;
 }
 
-.col2 {
+.col32 {
 	vertical-align: top;
-	width: 52%;
-	float: left;
-	padding: 0.5%;
+	width: 50%;
+	padding: 2px;
 }
 
-.col3 {
+.col33 {
 	vertical-align: top;
-	width: 10%;
-	float: left;
-	padding: 0.5%;
+	padding: 2px;
 }
 
-/*-------------------------------------*/
-/*Primefaces						   */
-/*-------------------------------------*/
-.col2 .ui-autocomplete-input.ui-inputfield{
-    width : 86% !important;
+.eight-percent {
+	width: 8%;
 }
 
-/*-------------------------------------*/
-/*Global							   */
-/*-------------------------------------*/
+.forty-percent {
+	width: 40%;
+}
 
-/*-------------------------------------*/
-/*Global							   */
-/*-------------------------------------*/
+.sixty-percent {
+	width: 60%;
+}
 
-/*-------------------------------------*/
-/*Global							   */
-/*-------------------------------------*/
+.top-alignment {
+	vertical-align: top;
+}
+
+.left-alignment {
+	text-align: left;
+}
+
+.right-alignment {
+	text-align: right;
+}
+
+.ui-inputfield {
+	width: 85% !important;
+}
+
+#filterForm .ui-inputfield {
+	width: 70% !important;
+}
+
+.login-form {
+	background-color: #EEEEEE;
+	color: inherit;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	margin-top: 7%;
+	margin-bottom: 7%;
+}
+
+.container .login-form {
+	border-radius: 6px 6px 6px 6px;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media ( min-width : 768px) {
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media ( min-width : 992px) {
+	.container {
+		max-width: 970px !important;
+		width: 970px !important;
+	}
+	#tablePaginate {
+		max-width: 900px !important;
+		width: 900px !important;
+		overflow: auto;
+	}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media ( min-width : 1200px) {
+	.container {
+		max-width: 1170px !important;
+		width: 1170px !important;
+	}
+	#tablePaginate {
+		max-width: 1100px !important;
+		width: 1100px !important;
+		overflow: auto;
+	}
+}
+
+/* Extra Large devices (large desktops, 1200px and up) */
+@media ( min-width : 1800px) {
+	.container {
+		max-width: 1770px !important;
+		width: 1770px !important;
+	}
+	#tablePaginate {
+		max-width: 1700px !important;
+		width: 1700px !important;
+		overflow: auto;
+	}
+}

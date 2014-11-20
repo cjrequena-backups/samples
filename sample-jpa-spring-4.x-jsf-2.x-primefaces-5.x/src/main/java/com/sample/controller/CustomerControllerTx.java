@@ -101,11 +101,9 @@ public class CustomerControllerTx extends AbstractControllerTx<Customer> impleme
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Customer");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
+	
 			return "customer-tx";
-		}
+		
 	}
 
 	@Override
@@ -126,11 +124,9 @@ public class CustomerControllerTx extends AbstractControllerTx<Customer> impleme
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Customer");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
+	
 			return "customer-tx";
-		}
+		
 
 	}
 
@@ -166,134 +162,119 @@ public class CustomerControllerTx extends AbstractControllerTx<Customer> impleme
 		// }
 	}
 
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-		Customer customer = this.dataObject;
-
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.dataObject = new Customer();
-				return this.onCreate();
-			}
-			if (action.equalsIgnoreCase("SAVE")) {
-				return this.persist();
-			}
-			if (action.equalsIgnoreCase("DELETE")) {
-				return this.delete();
-			}
-		}
-
-		// else if (value.equalsIgnoreCase("P5_Customer")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// return this.customerControllerQry.onPaginate();
-		// }
-		// } else if (value.equalsIgnoreCase("P5_TEMPLE")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// this.templeControllerQry.clearMapParamereters();
-		// this.templeControllerQry.addToMapParamereters(customer.geCustomersa(),
-		// "empresa");
-		// this.templeControllerQry.addToMapParamereters(customer.getPais(),
-		// "pais");
-		// return this.templeControllerQry.onPaginate();
-		// }
-		// }
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Customer");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+//	@Override
+//	public String runFromActionsButtons(String value, String action) throws Exception {
+//		Customer customer = this.dataObject;
+//
+//		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+//			if (action.equalsIgnoreCase("CREATE")) {
+//				this.dataObject = new Customer();
+//				return this.onCreate();
+//			}
+//			if (action.equalsIgnoreCase("SAVE")) {
+//				return this.persist();
+//			}
+//			if (action.equalsIgnoreCase("DELETE")) {
+//				return this.delete();
+//			}
+//		}
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Customer");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		try {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			this.actionsButtonsComponent = super.getActionsButtonsComponent(CustomerControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
-
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createTempleButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":txForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.customerId!=null}  ", boolean.class));
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(createButton);
-
-			// SAVE
-			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			saveCommandButton.setId("saveCommandButtonId");
-			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
-			saveCommandButton.setUpdate(":txForm :growlForm:growl");
-			saveCommandButton.setImmediate(false);
-			saveCommandButton.setAjax(false);
-			saveCommandButton.setIcon("ui-icon-disk");
-			saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(saveCommandButton);
-
-			// DELETE
-			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			deleteCommandButton.setId("deleteCommandButtonId");
-			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
-			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
-			deleteCommandButton.setImmediate(true);
-			deleteCommandButton.setAjax(true);
-			deleteCommandButton.setIcon("ui-icon-disk");
-			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.customerId!=null}  ", boolean.class));
-			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
-			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
-
-			// LIST ALL Customer
-			// CommandButton listCustomerButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listCustomerButton.setId("listCustomerButtonId");
-			// listCustomerButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_Customer_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listCustomerButton.setUpdate(":growlForm:growl");
-			// listCustomerButton.setImmediate(true);
-			// listCustomerButton.setAjax(false);
-			// listCustomerButton.setIcon("ui-icon-document");
-			// listCustomerButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_Customer','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listCustomerButton);
-
-			// LIST TEMPLE BY EMPRESA
-			// CommandButton listTempleByCustomerButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listTempleByCustomerButton.setId("listTempleByCustomerButtonId");
-			// listTempleByCustomerButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listTempleByCustomerButton.setUpdate(":growlForm:growl");
-			// listTempleByCustomerButton.setImmediate(true);
-			// listTempleByCustomerButton.setAjax(false);
-			// listTempleByCustomerButton.setIcon("ui-icon-document");
-			// listTempleByCustomerButton.setValueExpression("rendered",
-			// expressionFactory.createValueExpression(elContext, "#{" +
-			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
-			// boolean.class));
-			// listTempleByCustomerButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listTempleByCustomerButton);
-			return this.actionsButtonsComponent;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-	}
+//	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+//
+//		try {
+//			FacesContext facesContext = FacesContext.getCurrentInstance();
+//			Application application = facesContext.getApplication();
+//			ExpressionFactory expressionFactory = application.getExpressionFactory();
+//			ELContext elContext = facesContext.getELContext();
+//			this.actionsButtonsComponent = super.getActionsButtonsComponent(CustomerControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
+//
+//			// CREATE
+//			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			createButton.setId("createTempleButtonId");
+//			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+//			createButton.setUpdate(":txForm  :growlForm:growl");
+//			createButton.setImmediate(true);
+//			createButton.setAjax(false);
+//			createButton.setIcon("ui-icon-plus");
+//			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.customerId!=null}  ", boolean.class));
+//			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
+//			this.actionsButtonsComponent.getChildren().add(createButton);
+//
+//			// SAVE
+//			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			saveCommandButton.setId("saveCommandButtonId");
+//			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
+//			saveCommandButton.setUpdate(":txForm :growlForm:growl");
+//			saveCommandButton.setImmediate(false);
+//			saveCommandButton.setAjax(false);
+//			saveCommandButton.setIcon("ui-icon-disk");
+//			saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}", String.class, new Class[] { String.class, String.class }));
+//			this.actionsButtonsComponent.getChildren().add(saveCommandButton);
+//
+//			// DELETE
+//			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			deleteCommandButton.setId("deleteCommandButtonId");
+//			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
+//			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
+//			deleteCommandButton.setImmediate(true);
+//			deleteCommandButton.setAjax(true);
+//			deleteCommandButton.setIcon("ui-icon-disk");
+//			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.customerId!=null}  ", boolean.class));
+//			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
+//			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
+//
+//			// LIST ALL Customer
+//			// CommandButton listCustomerButton = (CommandButton)
+//			// application.createComponent(CommandButton.COMPONENT_TYPE);
+//			// listCustomerButton.setId("listCustomerButtonId");
+//			// listCustomerButton.setValue(MessageFactory.getStringMessage("messages",
+//			// "P5_Customer_PROCESSTRANSACTION_DISPLAY_LABEL"));
+//			// listCustomerButton.setUpdate(":growlForm:growl");
+//			// listCustomerButton.setImmediate(true);
+//			// listCustomerButton.setAjax(false);
+//			// listCustomerButton.setIcon("ui-icon-document");
+//			// listCustomerButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+//			// "#{" + this.getClass().getSimpleName() +
+//			// ".runFromActionsButtons('P5_Customer','LIST')}", String.class, new
+//			// Class[] {
+//			// String.class, String.class }));
+//			// htmlPanelGrid.getChildren().add(listCustomerButton);
+//
+//			// LIST TEMPLE BY EMPRESA
+//			// CommandButton listTempleByCustomerButton = (CommandButton)
+//			// application.createComponent(CommandButton.COMPONENT_TYPE);
+//			// listTempleByCustomerButton.setId("listTempleByCustomerButtonId");
+//			// listTempleByCustomerButton.setValue(MessageFactory.getStringMessage("messages",
+//			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
+//			// listTempleByCustomerButton.setUpdate(":growlForm:growl");
+//			// listTempleByCustomerButton.setImmediate(true);
+//			// listTempleByCustomerButton.setAjax(false);
+//			// listTempleByCustomerButton.setIcon("ui-icon-document");
+//			// listTempleByCustomerButton.setValueExpression("rendered",
+//			// expressionFactory.createValueExpression(elContext, "#{" +
+//			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
+//			// boolean.class));
+//			// listTempleByCustomerButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+//			// "#{" + this.getClass().getSimpleName() +
+//			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
+//			// Class[] {
+//			// String.class, String.class }));
+//			// htmlPanelGrid.getChildren().add(listTempleByCustomerButton);
+//			return this.actionsButtonsComponent;
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			throw new Exception(e);
+//		}
+//	}
 
 	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
 		this.actionsButtonsComponent = actionsButtonsComponent;

@@ -106,12 +106,8 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Album");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+		return "album-tx";
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
-			return "album-tx";
-		}
 	}
 
 	@Override
@@ -132,11 +128,9 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Album");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
+		
 			return "album-tx";
-		}
+		
 
 	}
 
@@ -189,99 +183,95 @@ public class AlbumControllerTx extends AbstractControllerTx<Album> implements Se
 		// }
 	}
 
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-		// Album album = this.dataObject;
-
-		// if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-		// if (action.equalsIgnoreCase("CREATE")) {
-		// this.dataObject = new Album();
-		// return this.onCreate();
-		// }
-		// if (action.equalsIgnoreCase("SAVE")) {
-		// return this.persist();
-		// }
-		// if (action.equalsIgnoreCase("DELETE")) {
-		// return this.delete();
-		// }
-		// }
-		// FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
-		// FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+//	@Override
+//	public String runFromActionsButtons(String value, String action) throws Exception {
+//		// Album album = this.dataObject;
+//
+//		// if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+//		// if (action.equalsIgnoreCase("CREATE")) {
+//		// this.dataObject = new Album();
+//		// return this.onCreate();
+//		// }
+//		// if (action.equalsIgnoreCase("SAVE")) {
+//		// return this.persist();
+//		// }
+//		// if (action.equalsIgnoreCase("DELETE")) {
+//		// return this.delete();
+//		// }
+//		// }
+//		// FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Album");
+//		// FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		try {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			this.actionsButtonsComponent = super.getActionsButtonsComponent(AlbumControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
-
-			CommandButton commandButton = null;
-
-			// CREATE
-			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			commandButton.setId("createCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create"));
-			commandButton.setUpdate(":txForm  :growlForm:growl");
-			commandButton.setImmediate(true);
-			commandButton.setAjax(false);
-			commandButton.setIcon("ui-icon-plus");
-			commandButton.setRendered(this.dataObject != null && this.dataObject.getAlbumId() != null);
-			// commandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " +
-			// this.getClass().getSimpleName() + ".dataObject.albumId!=null}  ", boolean.class));
-			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".onCreate()}", String.class, new Class[0]));
-			this.actionsButtonsComponent.getChildren().add(commandButton);
-
-			// SAVE
-			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			commandButton.setId("saveCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
-			commandButton.setUpdate(":txForm :growlForm:growl");
-			commandButton.setImmediate(false);
-			commandButton.setAjax(false);
-			commandButton.setIcon("ui-icon-disk");
-			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".persist()}", String.class, new Class[0]));
-			this.actionsButtonsComponent.getChildren().add(commandButton);
-
-			// DELETE
-			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			commandButton.setId("deleteCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
-			commandButton.setUpdate(":txForm :growlForm:growl");
-			commandButton.setImmediate(true);
-			commandButton.setAjax(false);
-			commandButton.setIcon("ui-icon-disk");
-			commandButton.setRendered(this.dataObject != null && this.dataObject.getAlbumId() != null);
-			// commandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " +
-			// this.getClass().getSimpleName() + ".dataObject.albumId!=null}  ", boolean.class));
-			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".delete()}", String.class, new Class[0]));
-			this.actionsButtonsComponent.getChildren().add(commandButton);
-
-			// VIEW ALL ALBUMS
-			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			commandButton.setId("listAlbumsCommandButtonId");
-			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_View_albums"));
-			commandButton.setUpdate(":txForm :growlForm:growl");
-			commandButton.setImmediate(true);
-			commandButton.setAjax(false);
-			commandButton.setIcon("ui-icon-disk");
-			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerQry.class.getSimpleName() + ".onPaginate()}", String.class, new Class[0]));
-			this.actionsButtonsComponent.getChildren().add(commandButton);
-
-			return this.actionsButtonsComponent;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-	}
+//	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+//
+//		try {
+//			FacesContext facesContext = FacesContext.getCurrentInstance();
+//			Application application = facesContext.getApplication();
+//			ExpressionFactory expressionFactory = application.getExpressionFactory();
+//			ELContext elContext = facesContext.getELContext();
+//			this.actionsButtonsComponent = super.getActionsButtonsComponent(AlbumControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
+//
+//			CommandButton commandButton = null;
+//
+//			// CREATE
+//			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			commandButton.setId("createCommandButtonId");
+//			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create"));
+//			commandButton.setUpdate(":txForm  :growlForm:growl");
+//			commandButton.setImmediate(true);
+//			commandButton.setAjax(false);
+//			commandButton.setIcon("ui-icon-plus");
+//			commandButton.setRendered(this.dataObject != null && this.dataObject.getAlbumId() != null);
+//			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".onCreate()}", String.class, new Class[0]));
+//			this.actionsButtonsComponent.getChildren().add(commandButton);
+//
+//			// SAVE
+//			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			commandButton.setId("saveCommandButtonId");
+//			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
+//			commandButton.setUpdate(":txForm :growlForm:growl");
+//			commandButton.setImmediate(false);
+//			commandButton.setAjax(false);
+//			commandButton.setIcon("ui-icon-disk");
+//			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".persist()}", String.class, new Class[0]));
+//			this.actionsButtonsComponent.getChildren().add(commandButton);
+//
+//			// DELETE
+//			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			commandButton.setId("deleteCommandButtonId");
+//			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
+//			commandButton.setUpdate(":txForm :growlForm:growl");
+//			commandButton.setImmediate(true);
+//			commandButton.setAjax(false);
+//			commandButton.setIcon("ui-icon-disk");
+//			commandButton.setRendered(this.dataObject != null && this.dataObject.getAlbumId() != null);
+//			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".delete()}", String.class, new Class[0]));
+//			this.actionsButtonsComponent.getChildren().add(commandButton);
+//
+//			// VIEW ALL ALBUMS
+//			commandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			commandButton.setId("listAlbumsCommandButtonId");
+//			commandButton.setValue(MessageFactory.getStringMessage("i18n", "label_View_albums"));
+//			commandButton.setUpdate(":txForm :growlForm:growl");
+//			commandButton.setImmediate(true);
+//			commandButton.setAjax(false);
+//			commandButton.setIcon("ui-icon-disk");
+//			commandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerQry.class.getSimpleName() + ".onPaginate()}", String.class, new Class[0]));
+//			this.actionsButtonsComponent.getChildren().add(commandButton);
+//
+//			return this.actionsButtonsComponent;
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			throw new Exception(e);
+//		}
+//	}
 
 	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
 		this.actionsButtonsComponent = actionsButtonsComponent;

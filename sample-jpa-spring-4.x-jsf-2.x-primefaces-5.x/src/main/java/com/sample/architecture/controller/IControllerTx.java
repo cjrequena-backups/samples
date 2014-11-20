@@ -5,7 +5,6 @@
  */
 package com.sample.architecture.controller;
 
-import javax.faces.component.html.HtmlPanelGrid;
 
 public interface IControllerTx<T> {
 
@@ -19,8 +18,8 @@ public interface IControllerTx<T> {
 
 	public String validate() throws Exception;
 
-	public HtmlPanelGrid getActionsButtonsComponent(String controllerQryName, String controllerTxName) throws Exception;
+//	public HtmlPanelGrid getActionsButtonsComponent(String controllerQryName, String controllerTxName) throws Exception;
 
-	public String runFromActionsButtons(String value, String action) throws Exception;
+//	public String runFromActionsButtons(String value, String action) throws Exception;
 
 }

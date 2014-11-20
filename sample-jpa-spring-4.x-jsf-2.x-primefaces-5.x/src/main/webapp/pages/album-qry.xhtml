@@ -1,91 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../templates/layout.xhtml">
 	<ui:define name="content">
-		<h:form
-			prependId="false"
-			id="growlForm">
-			<p:growl
-				id="growl"
-				showDetail="false" />
+		<h:form prependId="false" id="growlForm">
+			<p:growl id="growl" showDetail="false" />
 		</h:form>
-		<!-- COMPONENTE DE BOTONES -->
-		<h:form
-			prependId="false"
-			id="buttonsComponentForm">
-			<p:panel
-				toggleable="true"
-				toggleSpeed="250">
+
+		<!-- ********************************************************************* -->
+		<!-- Botones de acciones en la vista, Botones de creacion, Navegacion, Etc -->
+		<!-- ********************************************************************* -->
+
+		<h:form prependId="false" id="actionButtonsFormId">
+			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText
-						value="#{i18n.label_Albums}"
-						style="margin-left:45%;margin-right:45%;" />
+					<h:outputText value="#{i18n.label_Albums}" style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
-				<h:panelGrid
-					binding="#{AlbumControllerQry.actionsButtonsComponent}"
-					columns="19">
+				<h:panelGrid columns="2" columnClasses="eight-percent" style=" margin-right: auto;">
+					<p:commandButton id="createButtonId" label="#{i18n.label_Create}" value="#{i18n.label_Create}" icon="ui-icon-plus"
+						action="#{AlbumControllerTx.onCreate()}" ajax="false" immediate="true" update=":growlForm:growl"></p:commandButton>
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
-		<!-- COMPONENTE DE FILTRADO -->
-		<h:form
-			prependId="false"
-			id="filterForm">
-			<p:panel
-				toggleable="true"
-				toggleSpeed="250">
+
+
+
+		<!-- ********************************************************************* -->
+		<!-- Componente generico de filtrado por columna y criteria                -->
+		<!-- ********************************************************************* -->
+		<h:form prependId="false" id="filterForm">
+			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
 				</f:facet>
-				<h:panelGrid
-					id="filterPanelGrid"
-					columns="16"
-					style="margin-left:auto;"
-					binding="#{AlbumControllerQry.paginateFilterComponent}">
-					<p:commandButton
-						id="addFilterButton"
-						value="#{i18n.label_Apply}"
-						action="#{AlbumControllerQry.addFilter}"
-						update=":filterForm :activeFilterForm :paginateForm :growlForm:growl"
-						icon="ui-icon-plus" />
+				<h:panelGrid id="filterPanelGrid" columns="16" style="margin-left:auto;"
+					binding="#{AlbumControllerQry.filterComponent}">
+					<p:commandButton id="addFilterButton" value="#{i18n.label_Apply}" action="#{AlbumControllerQry.addFilter}"
+						update=":growlForm:growl" icon="ui-icon-plus" />
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
-		<!-- FILTROS ACTIVOS -->
-		<h:form
-			prependId="false"
-			id="activeFilterForm">
-			<p:panel
-				id="panelActiveFilter"
-				toggleable="true"
-				toggleSpeed="250">
+
+
+
+
+		<!-- ********************************************************************* -->
+		<!-- Filtros activos                                                       -->
+		<!-- ********************************************************************* -->
+		<h:form prependId="false" id="activesFilterForm">
+			<p:panel id="panelActiveFilter" toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
 				</f:facet>
-				<p:contextMenu
-					id="activeFilterContextMenu"
-					for="paginateActiveFilter">
-					<p:menuitem
-						value="#{i18n.label_Delete}"
-						action="#{AlbumControllerQry.removeFilter}"
-						update=":filterForm :activeFilterForm :paginateForm :growlForm:growl"
-						title="#{i18n.label_Delete}"
-						icon="ui-icon-trash">
+				<p:contextMenu id="activeFilterContextMenu" for="paginateActiveFilter">
+					<p:menuitem value="#{i18n.label_Delete}" action="#{AlbumControllerQry.removeFilter}" update=":growlForm:growl"
+						title="#{i18n.label_Delete}" icon="ui-icon-trash">
 					</p:menuitem>
 				</p:contextMenu>
-				<p:dataTable
-					id="paginateActiveFilter"
-					value="#{AlbumControllerQry.listFilter}"
-					var="item"
-					resizableColumns="false"
-					selectionMode="single"
-					selection="#{AlbumControllerQry.filter}"
-					rowKey="#{item}">
+				<p:dataTable id="paginateActiveFilter" value="#{AlbumControllerQry.filters}" var="item" resizableColumns="false"
+					selectionMode="single" selection="#{AlbumControllerQry.filter}" rowKey="#{item}">
 					<p:column>
 						<h:outputText
 							value="#{(item.andOr==true) ? 'AND':'OR'} #{item.column.label} #{item.criteria.shortDescription}  #{item.column.value}" />
@@ -93,93 +65,45 @@
 				</p:dataTable>
 			</p:panel>
 		</h:form>
-		<!-- FORMULARION DE PAGINACION -->
-		<h:form
-			prependId="false"
-			id="paginateForm">
-			<p:panel
-				toggleable="true"
-				toggleSpeed="250">
+
+
+		<!-- ********************************************************************* -->
+		<!-- Paginacion                                                       -->
+		<!-- ********************************************************************* -->
+		<h:form prependId="false" id="paginateForm">
+			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
 				</f:facet>
-				<p:contextMenu
-					id="paginateContextMenu"
-					for="tablePaginate">
+				<p:contextMenu id="paginateContextMenu" for="tablePaginate">
+					<p:menuitem id="albumEditId" title="#{i18n.label_Edit}" value="#{i18n.label_Edit}" icon="ui-icon-pencil"
+						ajax="false" immediate="true" action="#{AlbumControllerTx.onEdit()}" update=":growlForm:growl"></p:menuitem>
 				</p:contextMenu>
-				<p:dataTable
-					id="tablePaginate"
-					value="#{AlbumControllerQry.resultObjectsFiltered}"
-					var="item"
-					resizableColumns="false"
-					paginator="true"
+				<p:dataTable id="tablePaginate" value="#{AlbumControllerQry.resultObjectsFiltered}" var="item"
+					resizableColumns="false" paginator="true"
 					paginatorTemplate=" {CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,25,50"
-					rows="10"
-					sortMode="multiple"
-					paginatorPosition="bottom"
-					widgetVar="listtable"
-					selectionMode="single"
-					selection="#{AlbumControllerQry.dataObject}"
-					rowKey="#{item}">
+					rowsPerPageTemplate="5,10,25,50" rows="10" sortMode="multiple" paginatorPosition="bottom" widgetVar="listtable"
+					selectionMode="single" selection="#{AlbumControllerQry.dataObject}" rowKey="#{item}">
 					<p:column style="width:5%">
-						<p:commandButton
-							icon="ui-icon-zoomin"
-							title="#{i18n.label_View}">
+						<p:commandButton icon="ui-icon-zoomin" title="#{i18n.label_View}">
 						</p:commandButton>
 					</p:column>
-					<p:column
-						headerText="#{i18n.label_Title}"
-						filterBy="#{item.title}"
-						filterMatchMode="contains">
+					<p:column headerText="#{i18n.label_Title}" filterBy="#{item.title}" filterMatchMode="contains">
 						<h:outputText value="#{item.title}"></h:outputText>
 					</p:column>
-					<p:column
-						headerText="#{i18n.label_Artist}"
-						filterBy="#{item.artistId.name}"
-						filterMatchMode="contains">
+					<p:column headerText="#{i18n.label_Artist}" filterBy="#{item.artistId.name}" filterMatchMode="contains">
 						<h:outputText value="#{item.artistId.name}"></h:outputText>
 					</p:column>
-					<p:column
-						styleClass="action-column"
-						style="width:5%">
-						<p:commandButton
-							id="deleteButton"
-							icon="ui-icon-trash"
-							oncomplete="deleteDialogWidget.show()"
-							title="#{i18n.label_Delete}">
-							<f:setPropertyActionListener
-								value="#{item}"
-								target="#{AlbumControllerTx.dataObject}" />
+					<p:column styleClass="action-column" style="width:5%">
+						<p:commandButton actionListener="#{AlbumControllerTx.setDataObject(item)}" action="#{AlbumControllerTx.delete()}"
+							icon="ui-icon-trash">
+							<p:confirm header="#{i18n.label_confirm_deletion}" message="#{i18n.label_confirm_deletion}" icon="ui-icon-alert"/>
 						</p:commandButton>
-						<p:tooltip
-							for="deleteButton"
-							value="#{i18n.label_Delete}"
-							showEffect="fade"
-							hideEffect="fade" />
 					</p:column>
 				</p:dataTable>
 			</p:panel>
-			<p:confirmDialog
-				id="deleteDialog"
-				widgetVar="deleteDialogWidget"
-				message="#{i18n.label_Delete_record}"
-				showEffect="fade"
-				hideEffect="explode"
-				header="#{i18n.label_confirm_deletion}"
-				severity="alarm">
-				<p:outputPanel id="deletePanel">
-					<p:commandButton
-						id="deleteYesButton"
-						value="#{i18n.label_Yes}"
-						action="#{AlbumControllerTx.delete()}"
-						update=":filterForm :activeFilterForm :paginateForm :growlForm:growl"
-						oncomplete="deleteDialogWidget.hide()" />
-					<p:commandButton
-						id="deleteNoButton"
-						value="#{i18n.label_No}"
-						onclick="deleteDialogWidget.hide()"
-						type="button" />
-				</p:outputPanel>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode" severity="alarm">
+				<p:commandButton value="#{i18n.label_Yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n.label_No}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</h:form>
 	</ui:define>

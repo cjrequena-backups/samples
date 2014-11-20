@@ -84,7 +84,7 @@ public class InvoiceLineControllerQry extends AbstractControllerQry<InvoiceLine>
 	}
 
 	@Override
-	public List<Column> getListColumns() throws Exception {
+	public List<Column> getColumnsFilter() throws Exception {
 		List<Column> listColumns = new ArrayList<Column>();
 
 		Column column = new Column();
@@ -116,60 +116,49 @@ public class InvoiceLineControllerQry extends AbstractControllerQry<InvoiceLine>
 		return this.resultObjectsFiltered;
 	}
 
-	@Override
-	public String runFromContextMenu(InvoiceLine item, String value, String action) throws Exception {
-		InvoiceLine invoiceLine = (InvoiceLine) item;
-		if (value.equalsIgnoreCase("ALBUM")) {
-			this.invoiceLineControllerTx.setDataObject(invoiceLine);
-			if (action.equalsIgnoreCase("EDIT")) {
-				return this.invoiceLineControllerTx.onEdit();
-			} else if (action.equalsIgnoreCase("DELETE")) {
-				return this.invoiceLineControllerTx.delete();
-			}
-		} else if (value.equalsIgnoreCase("ARTIST")) {
-			// this.invoiceLineControllerTx.setParentController(this);
-			// if (action.equalsIgnoreCase("CREATE")) {
-			// InvoiceLine invoiceLine = new InvoiceLine();
-			// invoiceLine.setInvoiceLineId(invoiceLine.getInvoiceLineId())
-			// this.invoiceLineControllerTx.setDataObject(ARTIST)
-			// return this.invoiceLineControllerTx.onCreate();
-			// } else if (action.equalsIgnoreCase("LIST")) {
-			// this.invoiceLineControllerQry.clearMapParamereters();
-			// this.invoiceLineControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
-			// this.invoiceLineControllerQry.addToMapParamereters(tempre.getPais(), "pais");
-			// return this.invoiceLineControllerQry.onPaginate();
-			// }
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "InvoiceLine");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
-
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-
-		InvoiceLine invoiceLine = this.dataObject;
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.invoiceLineControllerTx.setParentController(this);
-				this.invoiceLineControllerTx.setDataObject(new InvoiceLine());
-				return this.invoiceLineControllerTx.onCreate();
-			}
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "InvoiceLine");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+//	@Override
+//	public String runFromContextMenu(InvoiceLine item, String value, String action) throws Exception {
+//		InvoiceLine invoiceLine = (InvoiceLine) item;
+//		if (value.equalsIgnoreCase("ALBUM")) {
+//			this.invoiceLineControllerTx.setDataObject(invoiceLine);
+//			if (action.equalsIgnoreCase("EDIT")) {
+//				return this.invoiceLineControllerTx.onEdit();
+//			} else if (action.equalsIgnoreCase("DELETE")) {
+//				return this.invoiceLineControllerTx.delete();
+//			}
+//		} else if (value.equalsIgnoreCase("ARTIST")) {
+//			
+//		}
+//
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "InvoiceLine");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
+//
+//	@Override
+//	public String runFromActionsButtons(String value, String action) throws Exception {
+//
+//		InvoiceLine invoiceLine = this.dataObject;
+//		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+//			if (action.equalsIgnoreCase("CREATE")) {
+//				this.invoiceLineControllerTx.setParentController(this);
+//				this.invoiceLineControllerTx.setDataObject(new InvoiceLine());
+//				return this.invoiceLineControllerTx.onCreate();
+//			}
+//		}
+//
+//		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "InvoiceLine");
+//		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//		return null;
+//	}
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getPaginateFilterComponent() throws Exception {
+	public HtmlPanelGrid getFilterComponent() throws Exception {
 		if (this.paginateFilterComponent == null) {
-			return super.getPaginateFilterComponent(this.getClass().getSimpleName());
+			return super.getFilterComponent(this.getClass().getSimpleName());
 		} else {
 			return this.paginateFilterComponent;
 		}
@@ -179,37 +168,37 @@ public class InvoiceLineControllerQry extends AbstractControllerQry<InvoiceLine>
 		this.paginateFilterComponent = paginateFilterComponent;
 	}
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		if (this.actionsButtonsComponent == null) {
-
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), InvoiceLineControllerTx.class.getSimpleName());
-
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-
-			htmlPanelGrid.getChildren().add(createButton);
-
-			this.actionsButtonsComponent = htmlPanelGrid;
-		}
-		return this.actionsButtonsComponent;
-
-	}
-
-	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
-		this.actionsButtonsComponent = actionsButtonsComponent;
-	}
+//	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+//
+//		if (this.actionsButtonsComponent == null) {
+//
+//			FacesContext facesContext = FacesContext.getCurrentInstance();
+//			Application application = facesContext.getApplication();
+//			ExpressionFactory expressionFactory = application.getExpressionFactory();
+//			ELContext elContext = facesContext.getELContext();
+//			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), InvoiceLineControllerTx.class.getSimpleName());
+//
+//			// CREATE
+//			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
+//			createButton.setId("createButtonId");
+//			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+//			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
+//			createButton.setImmediate(true);
+//			createButton.setAjax(false);
+//			createButton.setIcon("ui-icon-plus");
+//			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
+//
+//			htmlPanelGrid.getChildren().add(createButton);
+//
+//			this.actionsButtonsComponent = htmlPanelGrid;
+//		}
+//		return this.actionsButtonsComponent;
+//
+//	}
+//
+//	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
+//		this.actionsButtonsComponent = actionsButtonsComponent;
+//	}
 
 	// public MenuModel getPaginateContextMenuComponent() throws Exception {
 	// if (this.paginateContextMenuComponent == null) {

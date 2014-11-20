@@ -66,6 +66,7 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 	private AlbumConverter albumConverter;
 	private MediaTypeConverter mediaTypeConverter;
 	private GenreConverter genreConverter;
+
 	@Override
 	public String onCreate() throws Exception {
 		try {
@@ -118,11 +119,8 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Track");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
-			return "track-tx";
-		}
+		return "track-tx";
+
 	}
 
 	@Override
@@ -143,11 +141,7 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 		FacesMessage facesMessage = MessageFactory.getMessage(message, "Track");
 		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		if (this.getParentController() != null) {
-			return getParentController().returnToParentController();
-		} else {
-			return "track-tx";
-		}
+		return "track-tx";
 
 	}
 
@@ -197,7 +191,7 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 		}
 		return suggestions;
 	}
-	
+
 	public List<Genre> autocompleteGenre(String query) {
 		List<Genre> suggestions = new ArrayList<Genre>();
 		try {
@@ -234,138 +228,139 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 		// }
 	}
 
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-		Track track = this.dataObject;
-
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.dataObject = new Track();
-				return this.onCreate();
-			}
-			if (action.equalsIgnoreCase("SAVE")) {
-				return this.persist();
-			}
-			if (action.equalsIgnoreCase("DELETE")) {
-				return this.delete();
-			}
-		}
-
-		// else if (value.equalsIgnoreCase("P5_Track")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// return this.trackControllerQry.onPaginate();
-		// }
-		// } else if (value.equalsIgnoreCase("P5_TEMPLE")) {
-		// if (action.equalsIgnoreCase("LIST")) {
-		// this.templeControllerQry.clearMapParamereters();
-		// this.templeControllerQry.addToMapParamereters(track.geTracksa(),
-		// "empresa");
-		// this.templeControllerQry.addToMapParamereters(track.getPais(),
-		// "pais");
-		// return this.templeControllerQry.onPaginate();
-		// }
-		// }
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Track");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+	// @Override
+	// public String runFromActionsButtons(String value, String action) throws Exception {
+	// Track track = this.dataObject;
+	//
+	// if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+	// if (action.equalsIgnoreCase("CREATE")) {
+	// this.dataObject = new Track();
+	// return this.onCreate();
+	// }
+	// if (action.equalsIgnoreCase("SAVE")) {
+	// return this.persist();
+	// }
+	// if (action.equalsIgnoreCase("DELETE")) {
+	// return this.delete();
+	// }
+	// }
+	// FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Track");
+	// FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	// return null;
+	// }
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
-
-		try {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			this.actionsButtonsComponent = super.getActionsButtonsComponent(TrackControllerQry.class.getSimpleName(), this.getClass().getSimpleName());
-
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createTempleButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":txForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.trackId!=null}  ", boolean.class));
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(createButton);
-
-			// SAVE
-			CommandButton saveCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			saveCommandButton.setId("saveCommandButtonId");
-			saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
-			saveCommandButton.setUpdate(":txForm :growlForm:growl");
-			saveCommandButton.setImmediate(false);
-			saveCommandButton.setAjax(false);
-			saveCommandButton.setIcon("ui-icon-disk");
-			saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}", String.class, new Class[] { String.class, String.class }));
-			this.actionsButtonsComponent.getChildren().add(saveCommandButton);
-
-			// DELETE
-			CommandButton deleteCommandButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			deleteCommandButton.setId("deleteCommandButtonId");
-			deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
-			deleteCommandButton.setUpdate(":txForm :growlForm:growl");
-			deleteCommandButton.setImmediate(true);
-			deleteCommandButton.setAjax(true);
-			deleteCommandButton.setIcon("ui-icon-disk");
-			deleteCommandButton.setValueExpression("rendered", expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() + ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.trackId!=null}  ", boolean.class));
-			deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
-			this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
-
-			// LIST ALL Track
-			// CommandButton listTrackButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listTrackButton.setId("listTrackButtonId");
-			// listTrackButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_Track_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listTrackButton.setUpdate(":growlForm:growl");
-			// listTrackButton.setImmediate(true);
-			// listTrackButton.setAjax(false);
-			// listTrackButton.setIcon("ui-icon-document");
-			// listTrackButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_Track','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listTrackButton);
-
-			// LIST TEMPLE BY EMPRESA
-			// CommandButton listTempleByTrackButton = (CommandButton)
-			// application.createComponent(CommandButton.COMPONENT_TYPE);
-			// listTempleByTrackButton.setId("listTempleByTrackButtonId");
-			// listTempleByTrackButton.setValue(MessageFactory.getStringMessage("messages",
-			// "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
-			// listTempleByTrackButton.setUpdate(":growlForm:growl");
-			// listTempleByTrackButton.setImmediate(true);
-			// listTempleByTrackButton.setAjax(false);
-			// listTempleByTrackButton.setIcon("ui-icon-document");
-			// listTempleByTrackButton.setValueExpression("rendered",
-			// expressionFactory.createValueExpression(elContext, "#{" +
-			// this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
-			// boolean.class));
-			// listTempleByTrackButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
-			// "#{" + this.getClass().getSimpleName() +
-			// ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
-			// Class[] {
-			// String.class, String.class }));
-			// htmlPanelGrid.getChildren().add(listTempleByTrackButton);
-			return this.actionsButtonsComponent;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-	}
-
-	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
-		this.actionsButtonsComponent = actionsButtonsComponent;
-	}
+	// public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+	//
+	// try {
+	// FacesContext facesContext = FacesContext.getCurrentInstance();
+	// Application application = facesContext.getApplication();
+	// ExpressionFactory expressionFactory = application.getExpressionFactory();
+	// ELContext elContext = facesContext.getELContext();
+	// this.actionsButtonsComponent =
+	// super.getActionsButtonsComponent(TrackControllerQry.class.getSimpleName(),
+	// this.getClass().getSimpleName());
+	//
+	// // CREATE
+	// CommandButton createButton = (CommandButton)
+	// application.createComponent(CommandButton.COMPONENT_TYPE);
+	// createButton.setId("createTempleButtonId");
+	// createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+	// createButton.setUpdate(":txForm  :growlForm:growl");
+	// createButton.setImmediate(true);
+	// createButton.setAjax(false);
+	// createButton.setIcon("ui-icon-plus");
+	// createButton.setValueExpression("rendered",
+	// expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() +
+	// ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.trackId!=null}  ",
+	// boolean.class));
+	// createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" +
+	// this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}",
+	// String.class, new Class[] { String.class, String.class }));
+	// this.actionsButtonsComponent.getChildren().add(createButton);
+	//
+	// // SAVE
+	// CommandButton saveCommandButton = (CommandButton)
+	// application.createComponent(CommandButton.COMPONENT_TYPE);
+	// saveCommandButton.setId("saveCommandButtonId");
+	// saveCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Save"));
+	// saveCommandButton.setUpdate(":txForm :growlForm:growl");
+	// saveCommandButton.setImmediate(false);
+	// saveCommandButton.setAjax(false);
+	// saveCommandButton.setIcon("ui-icon-disk");
+	// saveCommandButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+	// "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','SAVE')}",
+	// String.class, new Class[] { String.class, String.class }));
+	// this.actionsButtonsComponent.getChildren().add(saveCommandButton);
+	//
+	// // DELETE
+	// CommandButton deleteCommandButton = (CommandButton)
+	// application.createComponent(CommandButton.COMPONENT_TYPE);
+	// deleteCommandButton.setId("deleteCommandButtonId");
+	// deleteCommandButton.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
+	// deleteCommandButton.setUpdate(":txForm :growlForm:growl");
+	// deleteCommandButton.setImmediate(true);
+	// deleteCommandButton.setAjax(true);
+	// deleteCommandButton.setIcon("ui-icon-disk");
+	// deleteCommandButton.setValueExpression("rendered",
+	// expressionFactory.createValueExpression(elContext, "#{" + this.getClass().getSimpleName() +
+	// ".dataObject!=null && " + this.getClass().getSimpleName() + ".dataObject.trackId!=null}  ",
+	// boolean.class));
+	// deleteCommandButton.setOncomplete("deleteDialogWidget.show()");
+	// this.actionsButtonsComponent.getChildren().add(deleteCommandButton);
+	//
+	// // LIST ALL Track
+	// // CommandButton listTrackButton = (CommandButton)
+	// // application.createComponent(CommandButton.COMPONENT_TYPE);
+	// // listTrackButton.setId("listTrackButtonId");
+	// // listTrackButton.setValue(MessageFactory.getStringMessage("messages",
+	// // "P5_Track_PROCESSTRANSACTION_DISPLAY_LABEL"));
+	// // listTrackButton.setUpdate(":growlForm:growl");
+	// // listTrackButton.setImmediate(true);
+	// // listTrackButton.setAjax(false);
+	// // listTrackButton.setIcon("ui-icon-document");
+	// // listTrackButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+	// // "#{" + this.getClass().getSimpleName() +
+	// // ".runFromActionsButtons('P5_Track','LIST')}", String.class, new
+	// // Class[] {
+	// // String.class, String.class }));
+	// // htmlPanelGrid.getChildren().add(listTrackButton);
+	//
+	// // LIST TEMPLE BY EMPRESA
+	// // CommandButton listTempleByTrackButton = (CommandButton)
+	// // application.createComponent(CommandButton.COMPONENT_TYPE);
+	// // listTempleByTrackButton.setId("listTempleByTrackButtonId");
+	// // listTempleByTrackButton.setValue(MessageFactory.getStringMessage("messages",
+	// // "P5_TEMPLE_PROCESSTRANSACTION_DISPLAY_LABEL"));
+	// // listTempleByTrackButton.setUpdate(":growlForm:growl");
+	// // listTempleByTrackButton.setImmediate(true);
+	// // listTempleByTrackButton.setAjax(false);
+	// // listTempleByTrackButton.setIcon("ui-icon-document");
+	// // listTempleByTrackButton.setValueExpression("rendered",
+	// // expressionFactory.createValueExpression(elContext, "#{" +
+	// // this.getClass().getSimpleName() + ".dataObject.pkObject!=null}",
+	// // boolean.class));
+	// //
+	// listTempleByTrackButton.setActionExpression(expressionFactory.createMethodExpression(elContext,
+	// // "#{" + this.getClass().getSimpleName() +
+	// // ".runFromActionsButtons('P5_TEMPLE','LIST')}", String.class, new
+	// // Class[] {
+	// // String.class, String.class }));
+	// // htmlPanelGrid.getChildren().add(listTempleByTrackButton);
+	// return this.actionsButtonsComponent;
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// throw new Exception(e);
+	// }
+	// }
+	//
+	// public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
+	// this.actionsButtonsComponent = actionsButtonsComponent;
+	// }
 
 	// ----------------------------------------------------------------
 	// --------------------- GETTERS AND SETTERS ----------------------
@@ -391,8 +386,7 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 	public void setAlbumConverter(AlbumConverter albumConverter) {
 		this.albumConverter = albumConverter;
 	}
-	
-	
+
 	public MediaTypeConverter getMediaTypeConverter() {
 		if (this.mediaTypeConverter == null) {
 			this.mediaTypeConverter = new MediaTypeConverter(this.mediaTypeService);
@@ -403,7 +397,7 @@ public class TrackControllerTx extends AbstractControllerTx<Track> implements Se
 	public void setMediaTypeConverter(MediaTypeConverter mediaTypeConverter) {
 		this.mediaTypeConverter = mediaTypeConverter;
 	}
-	
+
 	public GenreConverter getGenreConverter() {
 		if (this.genreConverter == null) {
 			this.genreConverter = new GenreConverter(this.genreService);

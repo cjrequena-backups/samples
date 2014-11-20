@@ -88,7 +88,7 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 	}
 
 	@Override
-	public List<Column> getListColumns() throws Exception {
+	public List<Column> getColumnsFilter() throws Exception {
 		List<Column> listColumns = new ArrayList<Column>();
 
 		Column column = new Column();
@@ -120,159 +120,167 @@ public class ArtistControllerQry extends AbstractControllerQry<Artist> implement
 		return this.resultObjectsFiltered;
 	}
 
-	@Override
-	public String runFromContextMenu(Artist item, String value, String action) throws Exception {
-		Artist artist = (Artist) item;
-		if (value.equalsIgnoreCase("ALBUM")) {
-			this.artistControllerTx.setDataObject(artist);
-			if (action.equalsIgnoreCase("EDIT")) {
-				return this.artistControllerTx.onEdit();
-			} else if (action.equalsIgnoreCase("DELETE")) {
-				return this.artistControllerTx.delete();
-			}
-		} else if (value.equalsIgnoreCase("ARTIST")) {
-			// this.artistControllerTx.setParentController(this);
-			// if (action.equalsIgnoreCase("CREATE")) {
-			// Artist artist = new Artist();
-			// artist.setArtistId(artist.getArtistId())
-			// this.artistControllerTx.setDataObject(ARTIST)
-			// return this.artistControllerTx.onCreate();
-			// } else if (action.equalsIgnoreCase("LIST")) {
-			// this.artistControllerQry.clearMapParamereters();
-			// this.artistControllerQry.addToMapParamereters(tempre.getEmpresa(), "empresa");
-			// this.artistControllerQry.addToMapParamereters(tempre.getPais(), "pais");
-			// return this.artistControllerQry.onPaginate();
-			// }
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
-
-	@Override
-	public String runFromActionsButtons(String value, String action) throws Exception {
-
-		Artist artist = this.dataObject;
-		if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
-			if (action.equalsIgnoreCase("CREATE")) {
-				this.artistControllerTx.setParentController(this);
-				this.artistControllerTx.setDataObject(new Artist());
-				return this.artistControllerTx.onCreate();
-			}
-		}
-
-		FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
-		FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		return null;
-	}
+	// @Override
+	// public String runFromContextMenu(Artist item, String value, String action) throws Exception {
+	// Artist artist = (Artist) item;
+	// if (value.equalsIgnoreCase("ALBUM")) {
+	// this.artistControllerTx.setDataObject(artist);
+	// if (action.equalsIgnoreCase("EDIT")) {
+	// return this.artistControllerTx.onEdit();
+	// } else if (action.equalsIgnoreCase("DELETE")) {
+	// return this.artistControllerTx.delete();
+	// }
+	// } else if (value.equalsIgnoreCase("ARTIST")) {
+	//
+	// }
+	//
+	// FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
+	// FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	// return null;
+	// }
+	//
+	// @Override
+	// public String runFromActionsButtons(String value, String action) throws Exception {
+	//
+	// Artist artist = this.dataObject;
+	// if (value.equalsIgnoreCase("COMMONS_ACTIONS")) {
+	// if (action.equalsIgnoreCase("CREATE")) {
+	// this.artistControllerTx.setParentController(this);
+	// this.artistControllerTx.setDataObject(new Artist());
+	// return this.artistControllerTx.onCreate();
+	// }
+	// }
+	//
+	// FacesMessage facesMessage = MessageFactory.getMessage("message_error", "Artist");
+	// FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+	// return null;
+	// }
 
 	// -------------------------------------------------------------
 	// ---------------------- COMPONENTS ---------------------------
 	// -------------------------------------------------------------
 
-	public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+	// public HtmlPanelGrid getActionsButtonsComponent() throws Exception {
+	//
+	// if (this.actionsButtonsComponent == null) {
+	//
+	// FacesContext facesContext = FacesContext.getCurrentInstance();
+	// Application application = facesContext.getApplication();
+	// ExpressionFactory expressionFactory = application.getExpressionFactory();
+	// ELContext elContext = facesContext.getELContext();
+	// HtmlPanelGrid htmlPanelGrid =
+	// super.getActionsButtonsComponent(this.getClass().getSimpleName(),
+	// ArtistControllerTx.class.getSimpleName());
+	//
+	// // CREATE
+	// CommandButton createButton = (CommandButton)
+	// application.createComponent(CommandButton.COMPONENT_TYPE);
+	// createButton.setId("createButtonId");
+	// createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
+	// createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
+	// createButton.setImmediate(true);
+	// createButton.setAjax(false);
+	// createButton.setIcon("ui-icon-plus");
+	// createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" +
+	// this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}",
+	// String.class, new Class[] { String.class, String.class }));
+	//
+	// htmlPanelGrid.getChildren().add(createButton);
+	//
+	// this.actionsButtonsComponent = htmlPanelGrid;
+	// }
+	// return this.actionsButtonsComponent;
+	//
+	// }
 
-		if (this.actionsButtonsComponent == null) {
+	// public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
+	// this.actionsButtonsComponent = actionsButtonsComponent;
+	// }
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			Application application = facesContext.getApplication();
-			ExpressionFactory expressionFactory = application.getExpressionFactory();
-			ELContext elContext = facesContext.getELContext();
-			HtmlPanelGrid htmlPanelGrid = super.getActionsButtonsComponent(this.getClass().getSimpleName(), ArtistControllerTx.class.getSimpleName());
+	// public MenuModel getPaginateContextMenuComponent() throws Exception {
+	// if (this.paginateContextMenuComponent == null) {
+	//
+	// FacesContext facesContext = FacesContext.getCurrentInstance();
+	// Application application = facesContext.getApplication();
+	// ExpressionFactory expressionFactory = application.getExpressionFactory();
+	// ELContext elContext = facesContext.getELContext();
+	//
+	// MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(),
+	// ArtistControllerTx.class.getSimpleName());
+	// MenuItem menuItem = null;
+	// ValueExpression targetExpression = null;
+	// ValueExpression valueExpression = null;
+	//
+	// // EDIT
+	// menuItem = new MenuItem();
+	// menuItem.setId("menuItemEditId");
+	// menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_Edit"));
+	// menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_Edit"));
+	// menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
+	// menuItem.setIcon("ui-icon-pencil");
+	// menuItem.setImmediate(true);
+	// menuItem.setAjax(false);
+	// targetExpression = expressionFactory.createValueExpression(elContext, "#{" +
+	// ArtistControllerTx.class.getSimpleName() + ".dataObject}", Artist.class);
+	// valueExpression = expressionFactory.createValueExpression(elContext, "#{item}",
+	// Artist.class);
+	// menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression,
+	// valueExpression));
+	// menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" +
+	// ArtistControllerTx.class.getSimpleName() + ".onEdit()}", String.class, new Class[0]));
+	// menuModel.addMenuItem(menuItem);
+	//
+	// // DELETE
+	// menuItem = new MenuItem();
+	// menuItem.setId("menuItemDeleteId");
+	// menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_Delete"));
+	// menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
+	// menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
+	// menuItem.setIcon("ui-icon-pencil");
+	// menuItem.setImmediate(true);
+	// menuItem.setAjax(false);
+	// targetExpression = expressionFactory.createValueExpression(elContext, "#{" +
+	// ArtistControllerTx.class.getSimpleName() + ".dataObject}", Artist.class);
+	// valueExpression = expressionFactory.createValueExpression(elContext, "#{item}",
+	// Artist.class);
+	// menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression,
+	// valueExpression));
+	// menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" +
+	// ArtistControllerTx.class.getSimpleName() + ".delete()}", String.class, new Class[0]));
+	// menuModel.addMenuItem(menuItem);
+	//
+	// // VIEW ALBUMS
+	// menuItem = new MenuItem();
+	// menuItem.setId("menuItemViewAlbumsId");
+	// menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_View_artist_albums"));
+	// menuItem.setUpdate(":txForm :growlForm:growl");
+	// menuItem.setImmediate(true);
+	// menuItem.setAjax(false);
+	// menuItem.setIcon("ui-icon-disk");
+	// menuItem.addActionListener(new
+	// MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" +
+	// AlbumControllerQry.class.getSimpleName() + ".clearMapParamereters()}", String.class, new
+	// Class[0])));
+	// menuItem.addActionListener(super.addToMapParameretersListenerByElExpression(facesContext,
+	// AlbumControllerQry.class.getSimpleName(), "item.artistId", "artistId.artistId"));
+	// menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" +
+	// AlbumControllerQry.class.getSimpleName() + ".onPaginate()}", String.class, new Class[0]));
+	// menuModel.addMenuItem(menuItem);
+	//
+	// return menuModel;
+	// } else {
+	// return this.paginateContextMenuComponent;
+	// }
+	//
+	// }
+	//
+	// public void setPaginateContextMenuComponent(MenuModel paginateContextMenuComponent) {
+	// this.paginateContextMenuComponent = paginateContextMenuComponent;
+	// }
 
-			// CREATE
-			CommandButton createButton = (CommandButton) application.createComponent(CommandButton.COMPONENT_TYPE);
-			createButton.setId("createButtonId");
-			createButton.setValue(MessageFactory.getStringMessage("i18n", "label_Create_new"));
-			createButton.setUpdate(":buttonsComponentForm  :growlForm:growl");
-			createButton.setImmediate(true);
-			createButton.setAjax(false);
-			createButton.setIcon("ui-icon-plus");
-			createButton.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + this.getClass().getSimpleName() + ".runFromActionsButtons('COMMONS_ACTIONS','CREATE')}", String.class, new Class[] { String.class, String.class }));
-
-			htmlPanelGrid.getChildren().add(createButton);
-
-			this.actionsButtonsComponent = htmlPanelGrid;
-		}
-		return this.actionsButtonsComponent;
-
-	}
-
-	public void setActionsButtonsComponent(HtmlPanelGrid actionsButtonsComponent) {
-		this.actionsButtonsComponent = actionsButtonsComponent;
-	}
-
-//	public MenuModel getPaginateContextMenuComponent() throws Exception {
-//		if (this.paginateContextMenuComponent == null) {
-//
-//			FacesContext facesContext = FacesContext.getCurrentInstance();
-//			Application application = facesContext.getApplication();
-//			ExpressionFactory expressionFactory = application.getExpressionFactory();
-//			ELContext elContext = facesContext.getELContext();
-//
-//			MenuModel menuModel = super.getPaginateContextMenuComponent(this.getClass().getSimpleName(), ArtistControllerTx.class.getSimpleName());
-//			MenuItem menuItem = null;
-//			ValueExpression targetExpression = null;
-//			ValueExpression valueExpression = null;
-//
-//			// EDIT
-//			menuItem = new MenuItem();
-//			menuItem.setId("menuItemEditId");
-//			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_Edit"));
-//			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_Edit"));
-//			menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
-//			menuItem.setIcon("ui-icon-pencil");
-//			menuItem.setImmediate(true);
-//			menuItem.setAjax(false);
-//			targetExpression = expressionFactory.createValueExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".dataObject}", Artist.class);
-//			valueExpression = expressionFactory.createValueExpression(elContext, "#{item}", Artist.class);
-//			menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression, valueExpression));
-//			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".onEdit()}", String.class, new Class[0]));
-//			menuModel.addMenuItem(menuItem);
-//
-//			// DELETE
-//			menuItem = new MenuItem();
-//			menuItem.setId("menuItemDeleteId");
-//			menuItem.setTitle(MessageFactory.getStringMessage("i18n", "label_Delete"));
-//			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_Delete"));
-//			menuItem.setUpdate(":buttonsComponentForm :filterForm :activeFilterForm :paginateForm :growlForm:growl");
-//			menuItem.setIcon("ui-icon-pencil");
-//			menuItem.setImmediate(true);
-//			menuItem.setAjax(false);
-//			targetExpression = expressionFactory.createValueExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".dataObject}", Artist.class);
-//			valueExpression = expressionFactory.createValueExpression(elContext, "#{item}", Artist.class);
-//			menuItem.addActionListener(new SetPropertyActionListenerImpl(targetExpression, valueExpression));
-//			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + ArtistControllerTx.class.getSimpleName() + ".delete()}", String.class, new Class[0]));
-//			menuModel.addMenuItem(menuItem);
-//
-//			// VIEW ALBUMS
-//			menuItem = new MenuItem();
-//			menuItem.setId("menuItemViewAlbumsId");
-//			menuItem.setValue(MessageFactory.getStringMessage("i18n", "label_View_artist_albums"));
-//			menuItem.setUpdate(":txForm :growlForm:growl");
-//			menuItem.setImmediate(true);
-//			menuItem.setAjax(false);
-//			menuItem.setIcon("ui-icon-disk");
-//			menuItem.addActionListener(new MethodExpressionActionListener(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerQry.class.getSimpleName() + ".clearMapParamereters()}", String.class, new Class[0])));
-//			menuItem.addActionListener(super.addToMapParameretersListenerByElExpression(facesContext, AlbumControllerQry.class.getSimpleName(), "item.artistId", "artistId.artistId"));
-//			menuItem.setActionExpression(expressionFactory.createMethodExpression(elContext, "#{" + AlbumControllerQry.class.getSimpleName() + ".onPaginate()}", String.class, new Class[0]));
-//			menuModel.addMenuItem(menuItem);
-//
-//			return menuModel;
-//		} else {
-//			return this.paginateContextMenuComponent;
-//		}
-//
-//	}
-//
-//	public void setPaginateContextMenuComponent(MenuModel paginateContextMenuComponent) {
-//		this.paginateContextMenuComponent = paginateContextMenuComponent;
-//	}
-
-	public HtmlPanelGrid getPaginateFilterComponent() throws Exception {
+	public HtmlPanelGrid getFilterComponent() throws Exception {
 		if (this.paginateFilterComponent == null) {
-			return super.getPaginateFilterComponent(this.getClass().getSimpleName());
+			return super.getFilterComponent(this.getClass().getSimpleName());
 		} else {
 			return this.paginateFilterComponent;
 		}

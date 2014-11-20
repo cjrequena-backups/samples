@@ -1,147 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="../templates/layout.xhtml">
 
 	<ui:define name="content">
-		<h:form
-			prependId="false"
-			id="growlForm">
-			<p:growl
-				id="growl"
-				showDetail="false" />
+		<h:form prependId="false" id="growlForm">
+			<p:growl id="growl" showDetail="false" />
 		</h:form>
 
-		<h:form
-			prependId="false"
-			id="txForm">
+		<h:form prependId="false" id="txForm">
 
-			<!-- COMPONENTE DE BOTONES -->
-			<p:panel
-				toggleable="true"
-				toggleSpeed="250">
+			<!-- ********************************************************************* -->
+			<!-- Botones de acciones en la vista, Botones de creacion, Navegacion, Etc -->
+			<!-- ********************************************************************* -->
+
+			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
-					<h:outputText
-						value="#{i18n.label_Album}"
-						style="margin-left:45%;margin-right:45%;" />
+					<h:outputText value="#{i18n.label_Album}" style="margin-left:45%;margin-right:45%;" />
 				</f:facet>
-				<h:panelGrid
-					binding="#{AlbumControllerTx.actionsButtonsComponent}"
-					columns="10"
-					style=" margin-right: auto; width:auto;">
+
+				<h:panelGrid columns="20" columnClasses="eight-percent" style=" margin-right: auto;">
+					<p:commandButton id="saveButtonId" label="#{i18n.label_Save}" value="#{i18n.label_Save}" icon="ui-icon-disk"
+						action="#{AlbumControllerTx.persist()}" ajax="false" immediate="false" update=":growlForm:growl"></p:commandButton>
+					<p:commandButton id="deleteButtonId" label="#{i18n.label_Delete}" value="#{i18n.label_Delete}" icon="ui-icon-disk"
+						action="#{AlbumControllerTx.delete()}" ajax="false" immediate="false" update=":growlForm:growl"
+						rendered="#{AlbumControllerTx.dataObject!=null and AlbumControllerTx.dataObject.albumId!=null}"></p:commandButton>
 				</h:panelGrid>
-				<p:confirmDialog
-					id="deleteDialog"
-					widgetVar="deleteDialogWidget"
-					message="#{i18n.label_Delete_record}"
-					showEffect="fade"
-					hideEffect="explode"
-					header="#{i18n.label_confirm_deletion}"
-					severity="alarm">
+
+				<p:confirmDialog id="deleteDialog" widgetVar="deleteDialogWidget" message="#{i18n.label_Delete_record}"
+					showEffect="fade" hideEffect="explode" header="#{i18n.label_confirm_deletion}" severity="alarm">
 					<p:outputPanel id="deletePanel">
-						<p:commandButton
-							id="deleteYesButton"
-							value="#{i18n.label_Yes}"
-							action="#{AlbumControllerTx.delete}"
+						<p:commandButton id="deleteYesButton" value="#{i18n.label_Yes}" action="#{AlbumControllerTx.delete}"
 							oncomplete="deleteDialogWidget.hide()" />
-						<p:commandButton
-							id="deleteNoButton"
-							value="#{i18n.label_No}"
-							onclick="deleteDialogWidget.hide()"
-							type="button" />
+						<p:commandButton id="deleteNoButton" value="#{i18n.label_No}" onclick="deleteDialogWidget.hide()" type="button" />
 					</p:outputPanel>
 				</p:confirmDialog>
 			</p:panel>
 
-			<!-- DATA TRANSACTION -->
-			<p:panel
-				toggleable="true"
-				toggleSpeed="250">
+			<!-- ********************************************************************* -->
+			<!--  -->
+			<!-- ********************************************************************* -->
+			<p:panel toggleable="true" toggleSpeed="250">
 				<f:facet name="header">
 
 				</f:facet>
 				<p:tabView>
-					<p:tab
-						id="tab1"
-						title="#{i18n.label_Tab_1}">
+					<p:tab id="tab1" title="#{i18n.label_Tab_1}">
 						<h:panelGrid columns="2">
-							<h:panelGrid
-								columns="3"
-								columnClasses="col1,col2,col3">
-								<p:outputLabel
-									id="title_label"
-									for="title_inputtext_id"
-									value="#{i18n.label_Title}">
+							<h:panelGrid columns="3" columnClasses="col31,col32,col33">
+								<p:outputLabel id="title_label" for="title_inputtext_id" value="#{i18n.label_Title}">
 								</p:outputLabel>
-								<p:inputText
-									id="title_inputtext_id"
-									value="#{AlbumControllerTx.dataObject.title}"
-									maxlength="160"
-									required="true"
-									style="width:100%">
+								<p:inputText id="title_inputtext_id" value="#{AlbumControllerTx.dataObject.title}" maxlength="160"
+									required="true" style="width:100%">
 								</p:inputText>
-								<p:message
-									id="title_inputtext_message"
-									for="title_inputtext_id"
-									display="icon">
+								<p:message id="title_inputtext_message" for="title_inputtext_id" display="icon">
 								</p:message>
 							</h:panelGrid>
-							<h:panelGrid
-								columns="3"
-								columnClasses="col1,col2,col3">
-								<p:outputLabel
-									id="artist_label"
-									for="artist_autocomplete_id"
-									value="#{i18n.label_Artist}">
+							<h:panelGrid columns="3" columnClasses="col31,col32,col33">
+								<p:outputLabel id="artist_label" for="artist_autocomplete_id" value="#{i18n.label_Artist}">
 								</p:outputLabel>
-								<p:autoComplete
-									id="artist_autocomplete_id"
-									value="#{AlbumControllerTx.dataObject.artistId}"
-									completeMethod="#{AlbumControllerTx.autocompleteArtist}"
-									var="item"
-									itemLabel="#{item.name}"
-									itemValue="#{item}"
-									converter="#{AlbumControllerTx.artistConverter}"
-									forceSelection="true"
-									required="true"
+								<p:autoComplete id="artist_autocomplete_id" value="#{AlbumControllerTx.dataObject.artistId}"
+									completeMethod="#{AlbumControllerTx.autocompleteArtist}" var="item" itemLabel="#{item.name}"
+									itemValue="#{item}" converter="#{AlbumControllerTx.artistConverter}" forceSelection="true" required="true"
 									dropdown="true">
-									<p:ajax
-										event="itemSelect"
-										listener="#{AlbumControllerTx.handleAutocompleteSelect}"
-										update="" />
+									<p:ajax event="itemSelect" listener="#{AlbumControllerTx.handleAutocompleteSelect}" update=":growlForm:growl" />
 								</p:autoComplete>
-								<p:message
-									id="artist_message_id"
-									for="artist_autocomplete_id"
-									display="icon">
+								<p:message id="artist_message_id" for="artist_autocomplete_id" display="icon">
 								</p:message>
 							</h:panelGrid>
 						</h:panelGrid>
 					</p:tab>
 
-					<p:tab
-						id="tab2"
-						title="#{i18n.label_Tab_2}">
-						<h:panelGrid
-							columns="2"
-							cellpadding="10">
+					<p:tab id="tab2" title="#{i18n.label_Tab_2}">
+						<h:panelGrid columns="2" cellpadding="10">
 						</h:panelGrid>
 					</p:tab>
 
-					<p:tab
-						id="tab3"
-						title="#{i18n.label_Tab_3}">
-						<h:panelGrid
-							columns="2"
-							cellpadding="10">
+					<p:tab id="tab3" title="#{i18n.label_Tab_3}">
+						<h:panelGrid columns="2" cellpadding="10">
 						</h:panelGrid>
 					</p:tab>
 
