@@ -7,25 +7,40 @@
 	<packaging>war</packaging>
 	<version>0.0.1</version>
 	<name>sample-jpa-spring-4.x-jsf-2.x-primefaces-5.x</name>
+
 	<properties>
-		<aspectj.version>1.8.1</aspectj.version>
-		<java.version>1.7</java.version>
+		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- java -->
+		<java.version>1.7</java.version>
+
+		<!-- spring -->
+		<spring-framework.version>4.1.1.RELEASE</spring-framework.version>
+		<spring-data.version>1.4.2.RELEASE</spring-data.version>
+
+		<!-- aspectj -->
+		<aspectj.version>1.7.4</aspectj.version>
+
+		<!-- loggin -->
 		<slf4j.version>1.7.2</slf4j.version>
-		<spring.version>4.1.1.RELEASE</spring.version>
-		<spring.data.version>1.4.2.RELEASE</spring.data.version>
+
 	</properties>
+
 	<dependencies>
-		
+
 		<!-- ************************************************************ -->
 		<!-- ****** General dependencies for standard applications ****** -->
 		<!-- ************************************************************ -->
+		<!-- test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- loggin -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -46,6 +61,8 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+
+		<!-- aspectj -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -56,11 +73,14 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib-nodep</artifactId>
 			<version>2.2.2</version>
 		</dependency>
+
+		<!-- commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -96,17 +116,20 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- javax -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
-			<version>6.0</version>
+			<version>7.0</version>
 		</dependency>
-		<!-- JSR-330 -->
+		<!-- jsr-330 -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+
 
 		<!-- ************************************************************ -->
 		<!-- ****************** Spring dependencies ********************* -->
@@ -114,7 +137,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -125,51 +148,54 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring.data.version}</version>
+			<version>${spring-data.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring-framework.version}</version>
 		</dependency>
 
-		<!-- DataBase -->
+
+		<!-- ************************************************************ -->
+		<!-- ********************** DataBase **************************** -->
+		<!-- ************************************************************ -->
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
@@ -207,7 +233,9 @@
 		</dependency>
 
 
-		<!-- Web -->
+		<!-- ************************************************************ -->
+		<!-- *************************** Web **************************** -->
+		<!-- ************************************************************ -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -249,7 +277,6 @@
 
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
-		<!-- <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/classes</outputDirectory> -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -287,7 +314,6 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<contextRoot>/jsf</contextRoot>
-					<!-- <webXml>${project.basedir}/src/main/webapp/WEB-INF/web.xml</webXml> -->
 					<webappDirectory>${project.build.directory}/webapp</webappDirectory>
 					<warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory>
 					<warSourceExcludes>**/resources/**/*.css,**/resources/**/*.js</warSourceExcludes>
@@ -355,7 +381,7 @@
 					<additionalProjectFacets>
 						<jst.java>${java.version}</jst.java>
 						<jst.web>3.0</jst.web>
-						<jst.jsf>2.1</jst.jsf>
+						<jst.jsf>2.2</jst.jsf>
 						<!-- <jpt.jpa>2.0</jpt.jpa> -->
 						<useProjectReferences>true</useProjectReferences>
 					</additionalProjectFacets>
@@ -381,15 +407,34 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<version>1.1</version>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
-				<!-- Have to use version 1.2 since version 1.3 does not appear to work 
-					with ITDs -->
-				<version>1.2</version>
+				<version>1.4</version>
+				<configuration>
+					<showWeaveInfo>true</showWeaveInfo>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<Xlint>ignore</Xlint>
+					<complianceLevel>${java.version}</complianceLevel>
+					<encoding>UTF-8</encoding>
+					<verbose>false</verbose>
+					<aspectLibraries>
+						<aspectLibrary>
+							<groupId>org.springframework</groupId>
+							<artifactId>spring-aspects</artifactId>
+						</aspectLibrary>
+					</aspectLibraries>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+				</executions>
 				<dependencies>
-					<!-- You must use Maven 2.0.9 or above or these are ignored (see MNG-2972) -->
 					<dependency>
 						<groupId>org.aspectj</groupId>
 						<artifactId>aspectjrt</artifactId>
@@ -401,19 +446,6 @@
 						<version>${aspectj.version}</version>
 					</dependency>
 				</dependencies>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-							<goal>test-compile</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<outxml>true</outxml>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.openjpa</groupId>
@@ -484,6 +516,5 @@
 			<name>Spring Maven Milestone Repository</name>
 			<url>http://maven.springframework.org/milestone</url>
 		</pluginRepository>
-
 	</pluginRepositories>
 </project>
