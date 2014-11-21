@@ -24,7 +24,7 @@ import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.sample.architecture.bindings.EntityManagerQualifier;
+import com.sample.architecture.bindings.MyEntityManager;
 
 
 /**
@@ -44,12 +44,12 @@ public class EntityManagerProducer {
 
 	@Produces
 	@RequestScoped
-	@EntityManagerQualifier
+	@MyEntityManager
 	public EntityManager createEntityManager() {
 		return entityManager;
 	}
 
-	public void dispose(@Disposes @EntityManagerQualifier EntityManager entityManager) {
+	public void dispose(@Disposes @MyEntityManager EntityManager entityManager) {
 		entityManager.close();
 	}
 

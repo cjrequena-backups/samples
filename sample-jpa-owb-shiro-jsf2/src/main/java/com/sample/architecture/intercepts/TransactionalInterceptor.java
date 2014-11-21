@@ -27,7 +27,7 @@ import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import com.sample.architecture.bindings.EntityManagerQualifier;
+import com.sample.architecture.bindings.MyEntityManager;
 import com.sample.architecture.bindings.Transactional;
 
 
@@ -39,7 +39,7 @@ public class TransactionalInterceptor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	@EntityManagerQualifier
+	@MyEntityManager
 	transient EntityManager entityManager;
 
 	@AroundInvoke

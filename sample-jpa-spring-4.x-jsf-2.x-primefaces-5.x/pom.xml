@@ -129,6 +129,12 @@
 			<version>2.2.2</version>
 		</dependency>
 
+		<!-- cache-api -->
+		<dependency>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 
 		<!-- commons -->
 		<dependency>
@@ -386,37 +392,44 @@
 				<version>2.4</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<contextRoot>/jsf</contextRoot>
-					<webappDirectory>${project.build.directory}/webapp</webappDirectory>
-					<warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory>
-					<warSourceExcludes>**/resources/**/*.css,**/resources/**/*.js</warSourceExcludes>
-					<packagingExcludes>**/web-overwrite.xml,WEB-INF/web.xml</packagingExcludes>
-					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-					<nonFilteredFileExtensions>
-						<nonFilteredFileExtension>jpeg</nonFilteredFileExtension>
-						<nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-						<nonFilteredFileExtension>gif</nonFilteredFileExtension>
-						<nonFilteredFileExtension>png</nonFilteredFileExtension>
-						<nonFilteredFileExtension>ico</nonFilteredFileExtension>
-						<nonFilteredFileExtension>bmp</nonFilteredFileExtension>
-						<nonFilteredFileExtension>pdf</nonFilteredFileExtension>
-						<nonFilteredFileExtension>jar</nonFilteredFileExtension>
-						<nonFilteredFileExtension>cab</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-					<archiveClasses>false</archiveClasses>
-					<archive>
-						<addMavenDescriptor>false</addMavenDescriptor>
-						<manifest>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-						</manifest>
-						<manifestEntries>
-							<X-Compile-Source>${java.version.source}</X-Compile-Source>
-							<X-Compile-Target>${java.version.target}</X-Compile-Target>
-						</manifestEntries>
-					</archive>
 				</configuration>
 			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-war-plugin</artifactId> -->
+			<!-- <version>2.4</version> -->
+			<!-- <configuration> -->
+			<!-- <failOnMissingWebXml>false</failOnMissingWebXml> -->
+			<!-- <webappDirectory>${project.build.directory}/webapp</webappDirectory> -->
+			<!-- <warSourceDirectory>${project.basedir}/src/main/webapp</warSourceDirectory> -->
+			<!-- <warSourceExcludes>**/resources/**/*.css,**/resources/**/*.js</warSourceExcludes> -->
+			<!-- <packagingExcludes>**/web-overwrite.xml,WEB-INF/web.xml</packagingExcludes> -->
+			<!-- <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors> -->
+			<!-- <nonFilteredFileExtensions> -->
+			<!-- <nonFilteredFileExtension>jpeg</nonFilteredFileExtension> -->
+			<!-- <nonFilteredFileExtension>jpg</nonFilteredFileExtension> -->
+			<!-- <nonFilteredFileExtension>gif</nonFilteredFileExtension> -->
+			<!-- <nonFilteredFileExtension>png</nonFilteredFileExtension> -->
+			<!-- <nonFilteredFileExtension>ico</nonFilteredFileExtension> -->
+			<!-- <nonFilteredFileExtension>bmp</nonFilteredFileExtension> -->
+			<!-- <nonFilteredFileExtension>pdf</nonFilteredFileExtension> -->
+			<!-- <nonFilteredFileExtension>jar</nonFilteredFileExtension> -->
+			<!-- <nonFilteredFileExtension>cab</nonFilteredFileExtension> -->
+			<!-- </nonFilteredFileExtensions> -->
+			<!-- <archiveClasses>false</archiveClasses> -->
+			<!-- <archive> -->
+			<!-- <addMavenDescriptor>false</addMavenDescriptor> -->
+			<!-- <manifest> -->
+			<!-- <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries> -->
+			<!-- <addDefaultImplementationEntries>true</addDefaultImplementationEntries> -->
+			<!-- </manifest> -->
+			<!-- <manifestEntries> -->
+			<!-- <X-Compile-Source>${java.version.source}</X-Compile-Source> -->
+			<!-- <X-Compile-Target>${java.version.target}</X-Compile-Target> -->
+			<!-- </manifestEntries> -->
+			<!-- </archive> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>

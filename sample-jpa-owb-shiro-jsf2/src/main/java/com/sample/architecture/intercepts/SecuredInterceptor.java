@@ -43,7 +43,6 @@ public class SecuredInterceptor implements Serializable {
 	public Object interceptShiroSecurity(InvocationContext context) throws Exception {
 		Class<?> c = context.getTarget().getClass();
 		Method m = context.getMethod();
-		Subject subject = SecurityUtils.getSubject();
 
 		if (!subject.isAuthenticated() && hasAnnotation(c, m, RequiresAuthentication.class)) {
 			throw new UnauthenticatedException("Authentication required");

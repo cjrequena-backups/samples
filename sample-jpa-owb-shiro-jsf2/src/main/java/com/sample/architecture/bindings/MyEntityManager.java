@@ -33,7 +33,7 @@ import javax.inject.Qualifier;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target( {FIELD, METHOD, TYPE,PARAMETER})
-public @interface EntityManagerQualifier
+public @interface MyEntityManager
 {
 
 }
