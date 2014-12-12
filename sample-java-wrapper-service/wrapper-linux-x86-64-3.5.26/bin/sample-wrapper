@@ -18,25 +18,17 @@
 # These settings can be modified to fit the needs of your application
 # Optimized for use with version 3.5.26 of the Wrapper.
 
-#********************************************************************
-# NOTE - This script has been modified to run the TestWrapper sample
-#        application and should NOT be used as a base for your own
-#        applications.  All of the documentation assumes that you are
-#        working from the default source script:
-#        WRAPPER_HOME/src/bin/sh.script.in
-#********************************************************************
-
 # IMPORTANT - Please always stop and uninstall an application before making
 #             any changes to this file.  Failure to do so could remove the
 #             script's ability to control the application.
 
 # Application
-APP_NAME="testwrapper"
-APP_LONG_NAME="Test Wrapper Sample Application"
+APP_NAME="Sample Wrapper Application"
+APP_LONG_NAME="Sample Wrapper Application"
 
 # Wrapper
 WRAPPER_CMD="./wrapper"
-WRAPPER_CONF="../conf/wrapper.conf"
+WRAPPER_CONF="../conf/sample-wrapper.conf"
 
 # Priority at which to run the wrapper.  See "man nice" for valid priorities.
 #  nice is only used if a priority is specified.
@@ -59,7 +51,7 @@ PIDFILE_CHECK_PID=true
 # PASS_THROUGH tells the script to pass all arguments through to the JVM
 #  as is.  If FIXED_COMMAND is specified then all arguments will be passed.
 #  If not set then all arguments starting with the second will be passed.
-PASS_THROUGH=true
+#PASS_THROUGH=true
 
 # If uncommented, causes the Wrapper to be shutdown using an anchor file.
 #  When launched with the 'start' command, it will also ignore all INT and

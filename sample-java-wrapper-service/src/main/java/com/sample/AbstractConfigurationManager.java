@@ -8,6 +8,7 @@ package com.sample;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -21,24 +22,17 @@ public abstract class AbstractConfigurationManager {
 	final static protected Properties defaults = new Properties();
 	final static protected Properties property = new Properties(defaults);
 	private static InputStream propsFile = null;
-	private static final String CONFIGURATION_FILE = "service.conf";
+	private static final String CONFIGURATION_FILE = "configuration.properties";
 
 	static {
 		File f = null;
-		f = new File("./service.conf");
+		f = new File(CONFIGURATION_FILE);
 		if (!f.exists() || !f.isFile()) {
-			f = new File("../service.conf");
-			if (!f.exists() || !f.isFile()) {
-				f = new File("../conf/service.conf");
-				if (!f.exists() || !f.isFile()) {
-					f = new File("./conf/service.conf");
-					if (!f.exists() || !f.isFile()) {
-						f = new File("/service.conf");
-						if (!f.exists() || !f.isFile()) {
-							// TODO
-						}
-					}
-				}
+			try {
+				ResourcesLocator serviceConf = new ResourcesLocator(CONFIGURATION_FILE);
+				propsFile = serviceConf.getInputStream();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 
