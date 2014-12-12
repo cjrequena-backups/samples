@@ -36,6 +36,11 @@ public class SampleWrapperMain implements WrapperListener, Runnable {
 	 */
 	private static boolean wrapperDebugEnabled = WrapperManager.isDebugEnabled();
 
+	/**
+	 * 
+	 */
+	private SampleWrapperService sampleWrapperService;
+
 	public SampleWrapperMain() {
 		m_mainThread = null;
 	}
@@ -143,6 +148,10 @@ public class SampleWrapperMain implements WrapperListener, Runnable {
 			System.out.println("Unable to open the action server socket: " + e.getMessage());
 		}
 
+		if (sampleWrapperService == null) {
+			sampleWrapperService = new SampleWrapperService(args);
+		}
+
 		synchronized (this) {
 			if (m_mainThread == null) {
 				m_mainThread = new Thread(this, this.getClass().getName());
@@ -173,6 +182,8 @@ public class SampleWrapperMain implements WrapperListener, Runnable {
 
 		Throwable t = null;
 		try {
+
+			sampleWrapperService.stop();
 
 			if (m_mainThread != null && Thread.currentThread() != m_mainThread) {
 
@@ -227,12 +238,7 @@ public class SampleWrapperMain implements WrapperListener, Runnable {
 				System.out.println(ConfigurationManager.getProperty(ConfigurationManager.SERVICE_NAME) + ": executing runService method");
 			}
 
-			// TODO Execute service.
-			// runService(m_appArgs);
-			System.out.println("**************************************************************************************************************************************");
-			System.out.println("SAMPLE WRAPPER SERVICE");
-			System.out.println("**************************************************************************************************************************************");
-
+			sampleWrapperService.run();
 
 			if (WrapperManager.isDebugEnabled()) {
 				System.out.println(ConfigurationManager.getProperty(ConfigurationManager.SERVICE_NAME) + ": runService method completed");
