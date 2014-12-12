@@ -14,7 +14,7 @@ INFO   | wrapper  | 2014/12/11 11:09:40 |   Command[10] : -Dwrapper.arch=x86
 INFO   | wrapper  | 2014/12/11 11:09:40 |   Command[11] : -Dwrapper.service=TRUE
 INFO   | wrapper  | 2014/12/11 11:09:40 |   Command[12] : -Dwrapper.cpu.timeout=10
 INFO   | wrapper  | 2014/12/11 11:09:40 |   Command[13] : -Dwrapper.jvmid=5
-INFO   | wrapper  | 2014/12/11 11:09:40 |   Command[14] : com.sample.Main
+INFO   | wrapper  | 2014/12/11 11:09:40 |   Command[14] : com.sample.demoapp.Main
 ERROR  | wrapper  | 2014/12/11 11:09:40 | JVM exited while loading the application.
 INFO   | jvm 5    | 2014/12/11 11:09:40 | Hola Mundo
 FATAL  | wrapper  | 2014/12/11 11:09:40 | There were 5 failed launches in a row, each lasting less than 300 seconds.  Giving up.
@@ -41,7 +41,7 @@ INFO   | wrapper  | 2014/12/11 11:10:06 |   Command[10] : -Dwrapper.arch=x86
 INFO   | wrapper  | 2014/12/11 11:10:06 |   Command[11] : -Dwrapper.service=TRUE
 INFO   | wrapper  | 2014/12/11 11:10:06 |   Command[12] : -Dwrapper.cpu.timeout=10
 INFO   | wrapper  | 2014/12/11 11:10:06 |   Command[13] : -Dwrapper.jvmid=1
-INFO   | wrapper  | 2014/12/11 11:10:06 |   Command[14] : com.sample.Main
+INFO   | wrapper  | 2014/12/11 11:10:06 |   Command[14] : com.sample.demoapp.Main
 ERROR  | wrapper  | 2014/12/11 11:10:06 | JVM exited while loading the application.
 INFO   | jvm 1    | 2014/12/11 11:10:06 | Hola Mundo
 STATUS | wrapper  | 2014/12/11 11:10:10 | Launching a JVM...
@@ -60,7 +60,7 @@ INFO   | wrapper  | 2014/12/11 11:10:10 |   Command[10] : -Dwrapper.arch=x86
 INFO   | wrapper  | 2014/12/11 11:10:10 |   Command[11] : -Dwrapper.service=TRUE
 INFO   | wrapper  | 2014/12/11 11:10:10 |   Command[12] : -Dwrapper.cpu.timeout=10
 INFO   | wrapper  | 2014/12/11 11:10:10 |   Command[13] : -Dwrapper.jvmid=2
-INFO   | wrapper  | 2014/12/11 11:10:10 |   Command[14] : com.sample.Main
+INFO   | wrapper  | 2014/12/11 11:10:10 |   Command[14] : com.sample.demoapp.Main
 ERROR  | wrapper  | 2014/12/11 11:10:10 | JVM exited while loading the application.
 INFO   | jvm 2    | 2014/12/11 11:10:10 | Hola Mundo
 STATUS | wrapper  | 2014/12/11 11:10:15 | Launching a JVM...
@@ -79,7 +79,7 @@ INFO   | wrapper  | 2014/12/11 11:10:15 |   Command[10] : -Dwrapper.arch=x86
 INFO   | wrapper  | 2014/12/11 11:10:15 |   Command[11] : -Dwrapper.service=TRUE
 INFO   | wrapper  | 2014/12/11 11:10:15 |   Command[12] : -Dwrapper.cpu.timeout=10
 INFO   | wrapper  | 2014/12/11 11:10:15 |   Command[13] : -Dwrapper.jvmid=3
-INFO   | wrapper  | 2014/12/11 11:10:15 |   Command[14] : com.sample.Main
+INFO   | wrapper  | 2014/12/11 11:10:15 |   Command[14] : com.sample.demoapp.Main
 ERROR  | wrapper  | 2014/12/11 11:10:15 | JVM exited while loading the application.
 INFO   | jvm 3    | 2014/12/11 11:10:15 | Hola Mundo
 STATUS | wrapper  | 2014/12/11 11:10:19 | Launching a JVM...
@@ -98,7 +98,7 @@ INFO   | wrapper  | 2014/12/11 11:10:19 |   Command[10] : -Dwrapper.arch=x86
 INFO   | wrapper  | 2014/12/11 11:10:19 |   Command[11] : -Dwrapper.service=TRUE
 INFO   | wrapper  | 2014/12/11 11:10:19 |   Command[12] : -Dwrapper.cpu.timeout=10
 INFO   | wrapper  | 2014/12/11 11:10:19 |   Command[13] : -Dwrapper.jvmid=4
-INFO   | wrapper  | 2014/12/11 11:10:19 |   Command[14] : com.sample.Main
+INFO   | wrapper  | 2014/12/11 11:10:19 |   Command[14] : com.sample.demoapp.Main
 ERROR  | wrapper  | 2014/12/11 11:10:20 | JVM exited while loading the application.
 INFO   | jvm 4    | 2014/12/11 11:10:20 | Hola Mundo
 STATUS | wrapper  | 2014/12/11 11:10:24 | Launching a JVM...
@@ -117,7 +117,7 @@ INFO   | wrapper  | 2014/12/11 11:10:24 |   Command[10] : -Dwrapper.arch=x86
 INFO   | wrapper  | 2014/12/11 11:10:24 |   Command[11] : -Dwrapper.service=TRUE
 INFO   | wrapper  | 2014/12/11 11:10:24 |   Command[12] : -Dwrapper.cpu.timeout=10
 INFO   | wrapper  | 2014/12/11 11:10:24 |   Command[13] : -Dwrapper.jvmid=5
-INFO   | wrapper  | 2014/12/11 11:10:24 |   Command[14] : com.sample.Main
+INFO   | wrapper  | 2014/12/11 11:10:24 |   Command[14] : com.sample.demoapp.Main
 ERROR  | wrapper  | 2014/12/11 11:10:24 | JVM exited while loading the application.
 INFO   | jvm 5    | 2014/12/11 11:10:24 | Hola Mundo
 FATAL  | wrapper  | 2014/12/11 11:10:24 | There were 5 failed launches in a row, each lasting less than 300 seconds.  Giving up.
@@ -167,16 +167,16 @@ STATUS | wrapper  | 2014/12/11 12:00:20 |     http://wrapper.tanukisoftware.com
 STATUS | wrapper  | 2014/12/11 12:00:20 | 
 STATUS | wrapper  | 2014/12/11 12:00:20 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:00:20 | JVM exited while loading the application.
-INFO   | jvm 1    | 2014/12/11 12:00:20 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 1    | 2014/12/11 12:00:20 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:00:25 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:00:25 | JVM exited while loading the application.
-INFO   | jvm 2    | 2014/12/11 12:00:25 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 2    | 2014/12/11 12:00:25 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 INFO   | jvm 1    | 2014/12/11 12:00:27 | Stopping...
 INFO   | jvm 1    | 2014/12/11 12:00:28 | Demo: stop(0)
 STATUS | wrapper  | 2014/12/11 12:00:29 | Launching a JVM...
 STATUS | wrapper  | 2014/12/11 12:00:30 | <-- Wrapper Stopped
 ERROR  | wrapper  | 2014/12/11 12:00:29 | JVM exited while loading the application.
-INFO   | jvm 3    | 2014/12/11 12:00:29 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 3    | 2014/12/11 12:00:29 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:01:02 | --> Wrapper Started as Daemon
 STATUS | wrapper  | 2014/12/11 12:01:02 | Java Service Wrapper Community Edition 64-bit 3.5.26
 STATUS | wrapper  | 2014/12/11 12:01:02 |   Copyright (C) 1999-2014 Tanuki Software, Ltd. All Rights Reserved.
@@ -604,64 +604,64 @@ STATUS | wrapper  | 2014/12/11 12:07:50 |     http://wrapper.tanukisoftware.com
 STATUS | wrapper  | 2014/12/11 12:07:50 | 
 STATUS | wrapper  | 2014/12/11 12:07:50 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:07:50 | JVM exited while loading the application.
-INFO   | jvm 1    | 2014/12/11 12:07:50 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 1    | 2014/12/11 12:07:50 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:07:55 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:07:55 | JVM exited while loading the application.
-INFO   | jvm 2    | 2014/12/11 12:07:55 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 2    | 2014/12/11 12:07:55 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:00 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:00 | JVM exited while loading the application.
-INFO   | jvm 3    | 2014/12/11 12:08:00 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 3    | 2014/12/11 12:08:00 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:04 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:04 | JVM exited while loading the application.
-INFO   | jvm 4    | 2014/12/11 12:08:04 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 4    | 2014/12/11 12:08:04 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:09 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:09 | JVM exited while loading the application.
-INFO   | jvm 5    | 2014/12/11 12:08:09 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 5    | 2014/12/11 12:08:09 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:13 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:13 | JVM exited while loading the application.
-INFO   | jvm 6    | 2014/12/11 12:08:13 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 6    | 2014/12/11 12:08:13 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:18 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:18 | JVM exited while loading the application.
-INFO   | jvm 7    | 2014/12/11 12:08:18 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 7    | 2014/12/11 12:08:18 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:22 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:22 | JVM exited while loading the application.
-INFO   | jvm 8    | 2014/12/11 12:08:22 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 8    | 2014/12/11 12:08:22 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:27 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:27 | JVM exited while loading the application.
-INFO   | jvm 9    | 2014/12/11 12:08:27 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 9    | 2014/12/11 12:08:27 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:32 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:32 | JVM exited while loading the application.
-INFO   | jvm 10   | 2014/12/11 12:08:32 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 10   | 2014/12/11 12:08:32 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:36 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:36 | JVM exited while loading the application.
-INFO   | jvm 11   | 2014/12/11 12:08:36 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 11   | 2014/12/11 12:08:36 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:41 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:41 | JVM exited while loading the application.
-INFO   | jvm 12   | 2014/12/11 12:08:41 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 12   | 2014/12/11 12:08:41 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:45 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:45 | JVM exited while loading the application.
-INFO   | jvm 13   | 2014/12/11 12:08:45 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 13   | 2014/12/11 12:08:45 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:50 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:50 | JVM exited while loading the application.
-INFO   | jvm 14   | 2014/12/11 12:08:50 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 14   | 2014/12/11 12:08:50 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:54 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:54 | JVM exited while loading the application.
-INFO   | jvm 15   | 2014/12/11 12:08:54 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 15   | 2014/12/11 12:08:54 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:08:59 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:08:59 | JVM exited while loading the application.
-INFO   | jvm 16   | 2014/12/11 12:08:59 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 16   | 2014/12/11 12:08:59 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:09:03 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:09:03 | JVM exited while loading the application.
-INFO   | jvm 17   | 2014/12/11 12:09:03 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 17   | 2014/12/11 12:09:03 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:09:08 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:09:08 | JVM exited while loading the application.
-INFO   | jvm 18   | 2014/12/11 12:09:08 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 18   | 2014/12/11 12:09:08 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:09:13 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:09:13 | JVM exited while loading the application.
-INFO   | jvm 19   | 2014/12/11 12:09:13 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 19   | 2014/12/11 12:09:13 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:09:17 | Launching a JVM...
 ERROR  | wrapper  | 2014/12/11 12:09:17 | JVM exited while loading the application.
-INFO   | jvm 20   | 2014/12/11 12:09:17 | Error: Could not find or load main class com.sample.DemoApp
+INFO   | jvm 20   | 2014/12/11 12:09:17 | Error: Could not find or load main class com.sample.demoapp.DemoApp
 STATUS | wrapper  | 2014/12/11 12:09:48 | --> Wrapper Started as Daemon
 STATUS | wrapper  | 2014/12/11 12:09:48 | Java Service Wrapper Community Edition 64-bit 3.5.26
 STATUS | wrapper  | 2014/12/11 12:09:48 |   Copyright (C) 1999-2014 Tanuki Software, Ltd. All Rights Reserved.
@@ -852,7 +852,7 @@ DEBUG  | wrapper  | 2014/12/11 12:15:23 |   Command[11] : -Dwrapper.arch=x86
 DEBUG  | wrapper  | 2014/12/11 12:15:23 |   Command[12] : -Dwrapper.service=TRUE
 DEBUG  | wrapper  | 2014/12/11 12:15:23 |   Command[13] : -Dwrapper.cpu.timeout=10
 DEBUG  | wrapper  | 2014/12/11 12:15:23 |   Command[14] : -Dwrapper.jvmid=1
-DEBUG  | wrapper  | 2014/12/11 12:15:23 |   Command[15] : com.sample.DemoApp
+DEBUG  | wrapper  | 2014/12/11 12:15:23 |   Command[15] : com.sample.demoapp.DemoApp
 INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: WrapperManager class initialized by thread: main   Using classloader: sun.misc.Launcher$AppClassLoader@1c8825a5
 INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager: Initializing...
 INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: JVM #1
@@ -884,7 +884,7 @@ INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug:
 INFO   | jvm 1    | 2014/12/11 12:15:23 | DemoApp: Initializing...
 INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: Control event monitor thread started.
 INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: Startup runner thread started.
-INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: WrapperManager.start(a com.sample.DemoApp, args[]) called by thread: main
+INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: WrapperManager.start(a com.sample.demoapp.DemoApp, args[]) called by thread: main
 INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: Initial thread: main Priority: 5
 INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: Communications runner thread started.
 INFO   | jvm 1    | 2014/12/11 12:15:23 | WrapperManager Debug: Open socket to wrapper...Wrapper-Connection
@@ -1138,7 +1138,7 @@ DEBUG  | wrapper  | 2014/12/11 12:17:41 |   Command[11] : -Dwrapper.arch=x86
 DEBUG  | wrapper  | 2014/12/11 12:17:41 |   Command[12] : -Dwrapper.service=TRUE
 DEBUG  | wrapper  | 2014/12/11 12:17:41 |   Command[13] : -Dwrapper.cpu.timeout=10
 DEBUG  | wrapper  | 2014/12/11 12:17:41 |   Command[14] : -Dwrapper.jvmid=1
-DEBUG  | wrapper  | 2014/12/11 12:17:41 |   Command[15] : com.sample.DemoApp
+DEBUG  | wrapper  | 2014/12/11 12:17:41 |   Command[15] : com.sample.demoapp.DemoApp
 INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: WrapperManager class initialized by thread: main   Using classloader: sun.misc.Launcher$AppClassLoader@29578426
 INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager: Initializing...
 INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: JVM #1
@@ -1170,7 +1170,7 @@ INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug:
 INFO   | jvm 1    | 2014/12/11 12:17:41 | DemoApp: Initializing...
 INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: Startup runner thread started.
 INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: Control event monitor thread started.
-INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: WrapperManager.start(a com.sample.DemoApp, args[]) called by thread: main
+INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: WrapperManager.start(a com.sample.demoapp.DemoApp, args[]) called by thread: main
 INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: Initial thread: main Priority: 5
 INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: Communications runner thread started.
 INFO   | jvm 1    | 2014/12/11 12:17:41 | WrapperManager Debug: Open socket to wrapper...Wrapper-Connection
@@ -1428,7 +1428,7 @@ DEBUG  | wrapper  | 2014/12/11 12:18:38 |   Command[11] : -Dwrapper.arch=x86
 DEBUG  | wrapper  | 2014/12/11 12:18:38 |   Command[12] : -Dwrapper.service=TRUE
 DEBUG  | wrapper  | 2014/12/11 12:18:38 |   Command[13] : -Dwrapper.cpu.timeout=10
 DEBUG  | wrapper  | 2014/12/11 12:18:38 |   Command[14] : -Dwrapper.jvmid=1
-DEBUG  | wrapper  | 2014/12/11 12:18:38 |   Command[15] : com.sample.DemoApp
+DEBUG  | wrapper  | 2014/12/11 12:18:38 |   Command[15] : com.sample.demoapp.DemoApp
 INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: WrapperManager class initialized by thread: main   Using classloader: sun.misc.Launcher$AppClassLoader@1c8825a5
 INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager: Initializing...
 INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: JVM #1
@@ -1460,7 +1460,7 @@ INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug:
 INFO   | jvm 1    | 2014/12/11 12:18:38 | DemoApp: Initializing...
 INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: Control event monitor thread started.
 INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: Startup runner thread started.
-INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: WrapperManager.start(a com.sample.DemoApp, args[]) called by thread: main
+INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: WrapperManager.start(a com.sample.demoapp.DemoApp, args[]) called by thread: main
 INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: Initial thread: main Priority: 5
 INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: Communications runner thread started.
 INFO   | jvm 1    | 2014/12/11 12:18:38 | WrapperManager Debug: Open socket to wrapper...Wrapper-Connection
@@ -1665,7 +1665,7 @@ DEBUG  | wrapper  | 2014/12/11 13:00:33 |   Command[9] : -Dwrapper.native_librar
 DEBUG  | wrapper  | 2014/12/11 13:00:33 |   Command[10] : -Dwrapper.arch=x86
 DEBUG  | wrapper  | 2014/12/11 13:00:33 |   Command[11] : -Dwrapper.cpu.timeout=10
 DEBUG  | wrapper  | 2014/12/11 13:00:33 |   Command[12] : -Dwrapper.jvmid=1
-DEBUG  | wrapper  | 2014/12/11 13:00:33 |   Command[13] : com.sample.DemoApp
+DEBUG  | wrapper  | 2014/12/11 13:00:33 |   Command[13] : com.sample.demoapp.DemoApp
 DEBUG  | wrapper  | 2014/12/11 13:00:33 |   Command[14] : start
 INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug: WrapperManager class initialized by thread: main   Using classloader: sun.misc.Launcher$AppClassLoader@29578426
 INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager: Initializing...
@@ -1698,7 +1698,7 @@ INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug:
 INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug: Startup runner thread started.
 INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug: Control event monitor thread started.
 INFO   | jvm 1    | 2014/12/11 13:00:33 | DemoApp: Initializing...
-INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug: WrapperManager.start(a com.sample.DemoApp, args["start"]) called by thread: main
+INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug: WrapperManager.start(a com.sample.demoapp.DemoApp, args["start"]) called by thread: main
 INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug: Initial thread: main Priority: 5
 INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug: Communications runner thread started.
 INFO   | jvm 1    | 2014/12/11 13:00:33 | WrapperManager Debug: Open socket to wrapper...Wrapper-Connection
