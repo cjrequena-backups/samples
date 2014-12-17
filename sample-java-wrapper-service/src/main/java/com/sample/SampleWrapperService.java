@@ -40,19 +40,19 @@ public class SampleWrapperService implements Runnable {
 
 		while (!this.m_stopping) {
 
-			// Si algun hilo esta detenido lo volvemos a levantar, creando un nuevo session
-			for (int i = 0; i < threads2.length; i++) {
-				if (!m_stopping && (threads2[i] == null || !threads2[i].isAlive())) {
-					threads2[i] = new SampleThread2();
-					threads2[i].start();
-				}
-			}
-
 			// Si algun hilo esta detenido lo volvemos a levantar, creando un nuevo hilo
 			for (int i = 0; i < threads1.length; i++) {
 				if (!m_stopping && (threads1[i] == null || !threads1[i].isAlive())) {
-					threads1[i] = new SampleThread1();
+					threads1[i] = new SampleThread1(workGroup1, "WorkerG1[ " + i + "]");
 					threads1[i].start();
+				}
+			}
+
+			// Si algun hilo esta detenido lo volvemos a levantar, creando un nuevo session
+			for (int i = 0; i < threads2.length; i++) {
+				if (!m_stopping && (threads2[i] == null || !threads2[i].isAlive())) {
+					threads2[i] = new SampleThread2(workGroup2, "WorkerG2[ " + i + "]");
+					threads2[i].start();
 				}
 			}
 

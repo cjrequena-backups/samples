@@ -39,7 +39,7 @@ public class SampleWrapperMain implements WrapperListener, Runnable {
 	/**
 	 * 
 	 */
-	private SampleWrapperService sampleWrapperService;
+	private SampleWrapperService2 sampleWrapperService;
 
 	public SampleWrapperMain() {
 		m_mainThread = null;
@@ -59,7 +59,11 @@ public class SampleWrapperMain implements WrapperListener, Runnable {
 	 */
 	static final void printDebug(String debugString) {
 		if (wrapperDebugEnabled) {
-			System.out.println((Thread.currentThread().getName() + "::" + debugString).replace('\0', ' '));
+			if (WrapperManager.isControlledByNativeWrapper()) {
+				WrapperManager.log(WrapperManager.WRAPPER_LOG_LEVEL_DEBUG, (Thread.currentThread().getName() + "::" + debugString).replace('\0', ' '));
+			} else {
+				System.out.println((Thread.currentThread().getName() + "::" + debugString).replace('\0', ' '));
+			}
 		}
 	}
 
@@ -149,7 +153,7 @@ public class SampleWrapperMain implements WrapperListener, Runnable {
 		}
 
 		if (sampleWrapperService == null) {
-			sampleWrapperService = new SampleWrapperService(args);
+			sampleWrapperService = new SampleWrapperService2(args);
 		}
 
 		synchronized (this) {
