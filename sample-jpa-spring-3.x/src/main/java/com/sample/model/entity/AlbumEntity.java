@@ -1,4 +1,4 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 @Configurable
 @Entity
 @Table(name = "Album")
-public class Album implements Serializable {
+public class AlbumEntity implements Serializable {
 
 	/**
 	 * 
@@ -39,24 +39,24 @@ public class Album implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "ArtistId", referencedColumnName = "ArtistId", nullable = false)
-	private Artist artistId;
+	private ArtistEntity artistId;
 
 	@OneToMany(mappedBy = "albumId")
-	private Set<Track> tracks;
+	private Set<TrackEntity> tracks;
 
-	public Set<Track> getTracks() {
+	public Set<TrackEntity> getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(Set<Track> tracks) {
+	public void setTracks(Set<TrackEntity> tracks) {
 		this.tracks = tracks;
 	}
 
-	public Artist getArtistId() {
+	public ArtistEntity getArtistId() {
 		return artistId;
 	}
 
-	public void setArtistId(Artist artistId) {
+	public void setArtistId(ArtistEntity artistId) {
 		this.artistId = artistId;
 	}
 

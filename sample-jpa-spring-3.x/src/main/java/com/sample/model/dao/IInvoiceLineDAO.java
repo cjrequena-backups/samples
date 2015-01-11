@@ -1,8 +1,8 @@
 package com.sample.model.dao;
 
 import com.sample.architecture.dao.IDAO;
-import com.sample.model.jpa.InvoiceLine;
+import com.sample.model.entity.InvoiceLineEntity;
 
-public interface IInvoiceLineDAO extends IDAO<InvoiceLine, Integer>{
+public interface IInvoiceLineDAO extends IDAO<InvoiceLineEntity, Integer>{
 
 }

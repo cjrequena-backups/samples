@@ -1,6 +1,5 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
-import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,32 +14,36 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
 
-@Configurable
 @Entity
-@Table(name = "Artist")
-public class Artist implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@Table(name = "MediaType")
+@Configurable
+public class MediaTypeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ArtistId")
-	private Integer artistId;
+	@Column(name = "MediaTypeId")
+	private Integer mediaTypeId;
 
 	@Column(name = "Name", length = 120)
 	private String name;
 
-	@OneToMany(mappedBy = "artistId")
-	private Set<Album> albums;
+	@OneToMany(mappedBy = "mediaTypeId")
+	private Set<TrackEntity> tracks;
 
-	public Set<Album> getAlbums() {
-		return albums;
+	public Integer getMediaTypeId() {
+		return this.mediaTypeId;
 	}
 
-	public void setAlbums(Set<Album> albums) {
-		this.albums = albums;
+	public void setMediaTypeId(Integer id) {
+		this.mediaTypeId = id;
+	}
+
+	public Set<TrackEntity> getTracks() {
+		return tracks;
+	}
+
+	public void setTracks(Set<TrackEntity> tracks) {
+		this.tracks = tracks;
 	}
 
 	public String getName() {
@@ -49,14 +52,6 @@ public class Artist implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getArtistId() {
-		return this.artistId;
-	}
-
-	public void setArtistId(Integer id) {
-		this.artistId = id;
 	}
 
 	public String toString() {

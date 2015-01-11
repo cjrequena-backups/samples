@@ -15,7 +15,7 @@ import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.architecture.exceptions.ECodeExceptions;
 import com.sample.model.dao.IGenreDAO;
-import com.sample.model.jpa.Genre;
+import com.sample.model.entity.GenreEntity;
 import com.sample.service.IGenreService;
 
 @Service
@@ -46,9 +46,9 @@ public class GenreService implements IGenreService, Serializable {
 
 	@Override
 	@Transactional
-	public void save(Genre object) throws BusinessExceptions {
+	public void save(GenreEntity object) throws BusinessExceptions {
 		try {
-			this.genreDAO.save(object);
+			this.genreDAO.persist(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -58,9 +58,9 @@ public class GenreService implements IGenreService, Serializable {
 
 	@Override
 	@Transactional
-	public void update(Genre object) throws BusinessExceptions {
+	public void update(GenreEntity object) throws BusinessExceptions {
 		try {
-			this.genreDAO.update(object);
+			this.genreDAO.merge(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -70,7 +70,7 @@ public class GenreService implements IGenreService, Serializable {
 
 	@Override
 	@Transactional
-	public void delete(Genre object) throws BusinessExceptions {
+	public void delete(GenreEntity object) throws BusinessExceptions {
 		try {
 			this.genreDAO.delete(object);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class GenreService implements IGenreService, Serializable {
 
 	@Override
 	@Transactional
-	public Genre findByPk(Integer pk) throws BusinessExceptions {
+	public GenreEntity findByPk(Integer pk) throws BusinessExceptions {
 		try {
 			return this.genreDAO.findByPk(pk);
 		} catch (Exception e) {
@@ -108,9 +108,9 @@ public class GenreService implements IGenreService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Genre> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
+	public List<GenreEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
 		try {
-			return new ArrayList<Genre>(this.genreDAO.findEntries(firstResult, maxResults));
+			return new ArrayList<GenreEntity>(this.genreDAO.findEntries(firstResult, maxResults));
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -120,9 +120,9 @@ public class GenreService implements IGenreService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Genre> findAll() throws BusinessExceptions {
+	public List<GenreEntity> findAll() throws BusinessExceptions {
 		try {
-			return new ArrayList<Genre>(this.genreDAO.findAll());
+			return new ArrayList<GenreEntity>(this.genreDAO.findAll());
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -132,7 +132,7 @@ public class GenreService implements IGenreService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Genre> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
+	public List<GenreEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
 		try {
 			return this.genreDAO.executeQueryFilter(filters, firstResult, maxResult);
 		} catch (Exception e) {

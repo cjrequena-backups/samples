@@ -1,5 +1,6 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,32 +12,45 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Configurable
 @Entity
-@Table(name = "Customer")
-public class Customer {
+@Table(name = "Employee")
+@Configurable
+public class EmployeeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CustomerId")
-	private Integer customerId;
-
-	@Column(name = "FirstName", length = 40)
-	@NotNull
-	private String firstName;
+	@Column(name = "EmployeeId")
+	private Integer employeeId;
 
 	@Column(name = "LastName", length = 20)
 	@NotNull
 	private String lastName;
 
-	@Column(name = "Company", length = 80)
-	private String company;
+	@Column(name = "FirstName", length = 20)
+	@NotNull
+	private String firstName;
+
+	@Column(name = "Title", length = 30)
+	private String title;
+
+	@Column(name = "BirthDate")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(style = "MM")
+	private Calendar birthDate;
+
+	@Column(name = "HireDate")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(style = "MM")
+	private Calendar hireDate;
 
 	@Column(name = "Address", length = 70)
 	private String address;
@@ -60,46 +74,48 @@ public class Customer {
 	private String fax;
 
 	@Column(name = "Email", length = 60)
-	@NotNull
 	private String email;
 
-	@OneToMany(mappedBy = "customerId")
-	private Set<Invoice> invoices;
+	@OneToMany(mappedBy = "supportRepId")
+	private Set<CustomerEntity> customers;
+
+	@OneToMany(mappedBy = "reportsTo")
+	private Set<EmployeeEntity> employees;
 
 	@ManyToOne
-	@JoinColumn(name = "SupportRepId", referencedColumnName = "EmployeeId")
-	private Employee supportRepId;
+	@JoinColumn(name = "ReportsTo", referencedColumnName = "EmployeeId", insertable = false, updatable = false)
+	private EmployeeEntity reportsTo;
 
-	public Integer getCustomerId() {
-		return this.customerId;
+	public Integer getEmployeeId() {
+		return this.employeeId;
 	}
 
-	public void setCustomerId(Integer id) {
-		this.customerId = id;
+	public void setEmployeeId(Integer id) {
+		this.employeeId = id;
 	}
 
-	public Set<Invoice> getInvoices() {
-		return invoices;
+	public Set<CustomerEntity> getCustomers() {
+		return customers;
 	}
 
-	public void setInvoices(Set<Invoice> invoices) {
-		this.invoices = invoices;
+	public void setCustomers(Set<CustomerEntity> customers) {
+		this.customers = customers;
 	}
 
-	public Employee getSupportRepId() {
-		return supportRepId;
+	public Set<EmployeeEntity> getEmployees() {
+		return employees;
 	}
 
-	public void setSupportRepId(Employee supportRepId) {
-		this.supportRepId = supportRepId;
+	public void setEmployees(Set<EmployeeEntity> employees) {
+		this.employees = employees;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public EmployeeEntity getReportsTo() {
+		return reportsTo;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setReportsTo(EmployeeEntity reportsTo) {
+		this.reportsTo = reportsTo;
 	}
 
 	public String getLastName() {
@@ -110,12 +126,36 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	public String getCompany() {
-		return company;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setCompany(String company) {
-		this.company = company;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Calendar getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Calendar birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Calendar getHireDate() {
+		return hireDate;
+	}
+
+	public void setHireDate(Calendar hireDate) {
+		this.hireDate = hireDate;
 	}
 
 	public String getAddress() {

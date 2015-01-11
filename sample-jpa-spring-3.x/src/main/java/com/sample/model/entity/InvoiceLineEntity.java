@@ -1,4 +1,4 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
 import java.math.BigDecimal;
 
@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 @Entity
 @Table(name = "InvoiceLine")
 @Configurable
-public class InvoiceLine {
+public class InvoiceLineEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,11 +36,11 @@ public class InvoiceLine {
 
 	@ManyToOne
 	@JoinColumn(name = "TrackId", referencedColumnName = "TrackId", nullable = false)
-	private Track trackId;
+	private TrackEntity trackId;
 
 	@ManyToOne
 	@JoinColumn(name = "InvoiceId", referencedColumnName = "InvoiceId", nullable = false)
-	private Invoice invoiceId;
+	private InvoiceEntity invoiceId;
 
 	public Integer getInvoiceLineId() {
 		return this.invoiceLineId;
@@ -50,19 +50,19 @@ public class InvoiceLine {
 		this.invoiceLineId = id;
 	}
 
-	public Track getTrackId() {
+	public TrackEntity getTrackId() {
 		return trackId;
 	}
 
-	public void setTrackId(Track trackId) {
+	public void setTrackId(TrackEntity trackId) {
 		this.trackId = trackId;
 	}
 
-	public Invoice getInvoiceId() {
+	public InvoiceEntity getInvoiceId() {
 		return invoiceId;
 	}
 
-	public void setInvoiceId(Invoice invoiceId) {
+	public void setInvoiceId(InvoiceEntity invoiceId) {
 		this.invoiceId = invoiceId;
 	}
 

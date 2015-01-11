@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.sample.architecture.dao.AbstractDAO;
 import com.sample.model.dao.IPlaylistDAO;
-import com.sample.model.jpa.Playlist;
+import com.sample.model.entity.PlaylistEntity;
 
 @Component("playlistDAO")
-public class PlaylistDAO extends AbstractDAO<Playlist, Integer> implements IPlaylistDAO, Serializable {
+public class PlaylistDAO extends AbstractDAO<PlaylistEntity, Integer> implements IPlaylistDAO, Serializable {
 
 	/**
 	 * 
@@ -21,10 +21,10 @@ public class PlaylistDAO extends AbstractDAO<Playlist, Integer> implements IPlay
 	private static final Logger logger = LoggerFactory.getLogger(PlaylistDAO.class);
 
 	protected PlaylistDAO() {
-		super(Playlist.class);
+		super(PlaylistEntity.class);
 	}
 
-	protected PlaylistDAO(Class<Playlist> targetClass) {
+	protected PlaylistDAO(Class<PlaylistEntity> targetClass) {
 		super(targetClass);
 	}
 

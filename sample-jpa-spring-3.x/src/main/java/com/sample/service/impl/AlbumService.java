@@ -15,7 +15,7 @@ import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.architecture.exceptions.ECodeExceptions;
 import com.sample.model.dao.IAlbumDAO;
-import com.sample.model.jpa.Album;
+import com.sample.model.entity.AlbumEntity;
 import com.sample.service.IAlbumService;
 
 @Service
@@ -46,9 +46,9 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional
-	public void save(Album object) throws BusinessExceptions {
+	public void save(AlbumEntity object) throws BusinessExceptions {
 		try {
-			this.albumDAO.save(object);
+			this.albumDAO.persist(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -58,9 +58,9 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional
-	public void update(Album object) throws BusinessExceptions {
+	public void update(AlbumEntity object) throws BusinessExceptions {
 		try {
-			this.albumDAO.update(object);
+			this.albumDAO.merge(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -70,7 +70,7 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional
-	public void delete(Album object) throws BusinessExceptions {
+	public void delete(AlbumEntity object) throws BusinessExceptions {
 		try {
 			this.albumDAO.delete(object);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional
-	public Album findByPk(Integer pk) throws BusinessExceptions {
+	public AlbumEntity findByPk(Integer pk) throws BusinessExceptions {
 		try {
 			return this.albumDAO.findByPk(pk);
 		} catch (Exception e) {
@@ -108,9 +108,9 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Album> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
+	public List<AlbumEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
 		try {
-			return new ArrayList<Album>(this.albumDAO.findEntries(firstResult, maxResults));
+			return new ArrayList<AlbumEntity>(this.albumDAO.findEntries(firstResult, maxResults));
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -120,9 +120,9 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Album> findAll() throws BusinessExceptions {
+	public List<AlbumEntity> findAll() throws BusinessExceptions {
 		try {
-			return new ArrayList<Album>(this.albumDAO.findAll());
+			return new ArrayList<AlbumEntity>(this.albumDAO.findAll());
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -132,7 +132,7 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Album> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
+	public List<AlbumEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
 		try {
 			return this.albumDAO.executeQueryFilter(filters, firstResult, maxResult);
 		} catch (Exception e) {

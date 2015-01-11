@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.jpa.Invoice;
+import com.sample.model.entity.InvoiceEntity;
 
 public interface IInvoiceService {
 	/**
@@ -19,21 +19,21 @@ public interface IInvoiceService {
 	 * 
 	 * @generated
 	 **/
-	public abstract void save(Invoice object) throws BusinessExceptions;
+	public abstract void save(InvoiceEntity object) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void update(Invoice obj) throws BusinessExceptions;
+	public abstract void update(InvoiceEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void delete(Invoice obj) throws BusinessExceptions;
+	public abstract void delete(InvoiceEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -47,26 +47,26 @@ public interface IInvoiceService {
 	 * 
 	 * @generated
 	 **/
-	public abstract Invoice findByPk(Integer pk) throws BusinessExceptions;
+	public abstract InvoiceEntity findByPk(Integer pk) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<Invoice> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
+	public List<InvoiceEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract List<Invoice> findAll() throws BusinessExceptions;
+	public abstract List<InvoiceEntity> findAll() throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<Invoice> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
+	public List<InvoiceEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
 }

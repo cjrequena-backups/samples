@@ -15,7 +15,7 @@ import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.architecture.exceptions.ECodeExceptions;
 import com.sample.model.dao.IPlaylistDAO;
-import com.sample.model.jpa.Playlist;
+import com.sample.model.entity.PlaylistEntity;
 import com.sample.service.IPlaylistService;
 
 @Service
@@ -46,9 +46,9 @@ public class PlaylistService implements IPlaylistService, Serializable {
 
 	@Override
 	@Transactional
-	public void save(Playlist object) throws BusinessExceptions {
+	public void save(PlaylistEntity object) throws BusinessExceptions {
 		try {
-			this.playlistDAO.save(object);
+			this.playlistDAO.persist(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -58,9 +58,9 @@ public class PlaylistService implements IPlaylistService, Serializable {
 
 	@Override
 	@Transactional
-	public void update(Playlist object) throws BusinessExceptions {
+	public void update(PlaylistEntity object) throws BusinessExceptions {
 		try {
-			this.playlistDAO.update(object);
+			this.playlistDAO.merge(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -70,7 +70,7 @@ public class PlaylistService implements IPlaylistService, Serializable {
 
 	@Override
 	@Transactional
-	public void delete(Playlist object) throws BusinessExceptions {
+	public void delete(PlaylistEntity object) throws BusinessExceptions {
 		try {
 			this.playlistDAO.delete(object);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class PlaylistService implements IPlaylistService, Serializable {
 
 	@Override
 	@Transactional
-	public Playlist findByPk(Integer pk) throws BusinessExceptions {
+	public PlaylistEntity findByPk(Integer pk) throws BusinessExceptions {
 		try {
 			return this.playlistDAO.findByPk(pk);
 		} catch (Exception e) {
@@ -108,9 +108,9 @@ public class PlaylistService implements IPlaylistService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Playlist> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
+	public List<PlaylistEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
 		try {
-			return new ArrayList<Playlist>(this.playlistDAO.findEntries(firstResult, maxResults));
+			return new ArrayList<PlaylistEntity>(this.playlistDAO.findEntries(firstResult, maxResults));
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -120,9 +120,9 @@ public class PlaylistService implements IPlaylistService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Playlist> findAll() throws BusinessExceptions {
+	public List<PlaylistEntity> findAll() throws BusinessExceptions {
 		try {
-			return new ArrayList<Playlist>(this.playlistDAO.findAll());
+			return new ArrayList<PlaylistEntity>(this.playlistDAO.findAll());
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -132,7 +132,7 @@ public class PlaylistService implements IPlaylistService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Playlist> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
+	public List<PlaylistEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
 		try {
 			return this.playlistDAO.executeQueryFilter(filters, firstResult, maxResult);
 		} catch (Exception e) {

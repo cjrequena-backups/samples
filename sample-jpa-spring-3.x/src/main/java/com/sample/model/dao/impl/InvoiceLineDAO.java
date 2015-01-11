@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.sample.architecture.dao.AbstractDAO;
 import com.sample.model.dao.IInvoiceLineDAO;
-import com.sample.model.jpa.InvoiceLine;
+import com.sample.model.entity.InvoiceLineEntity;
 
 @Component("invoiceLineDAO")
-public class InvoiceLineDAO extends AbstractDAO<InvoiceLine, Integer> implements IInvoiceLineDAO, Serializable {
+public class InvoiceLineDAO extends AbstractDAO<InvoiceLineEntity, Integer> implements IInvoiceLineDAO, Serializable {
 
 	/**
 	 * 
@@ -21,10 +21,10 @@ public class InvoiceLineDAO extends AbstractDAO<InvoiceLine, Integer> implements
 	private static final Logger logger = LoggerFactory.getLogger(InvoiceLineDAO.class);
 
 	protected InvoiceLineDAO() {
-		super(InvoiceLine.class);
+		super(InvoiceLineEntity.class);
 	}
 
-	protected InvoiceLineDAO(Class<InvoiceLine> targetClass) {
+	protected InvoiceLineDAO(Class<InvoiceLineEntity> targetClass) {
 		super(targetClass);
 	}
 

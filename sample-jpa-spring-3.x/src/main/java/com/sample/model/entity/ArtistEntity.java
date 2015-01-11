@@ -1,5 +1,6 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -7,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -16,26 +17,30 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 @Configurable
 @Entity
-@Table(name = "Playlist")
-public class Playlist {
+@Table(name = "Artist")
+public class ArtistEntity implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PlaylistId")
-	private Integer playlistId;
+	@Column(name = "ArtistId")
+	private Integer artistId;
 
 	@Column(name = "Name", length = 120)
 	private String name;
 
-	@ManyToMany(mappedBy = "playlists")
-	private Set<Track> tracks;
+	@OneToMany(mappedBy = "artistId")
+	private Set<AlbumEntity> albums;
 
-	public Set<Track> getTracks() {
-		return tracks;
+	public Set<AlbumEntity> getAlbums() {
+		return albums;
 	}
 
-	public void setTracks(Set<Track> tracks) {
-		this.tracks = tracks;
+	public void setAlbums(Set<AlbumEntity> albums) {
+		this.albums = albums;
 	}
 
 	public String getName() {
@@ -46,12 +51,12 @@ public class Playlist {
 		this.name = name;
 	}
 
-	public Integer getPlaylistId() {
-		return this.playlistId;
+	public Integer getArtistId() {
+		return this.artistId;
 	}
 
-	public void setPlaylistId(Integer id) {
-		this.playlistId = id;
+	public void setArtistId(Integer id) {
+		this.artistId = id;
 	}
 
 	public String toString() {

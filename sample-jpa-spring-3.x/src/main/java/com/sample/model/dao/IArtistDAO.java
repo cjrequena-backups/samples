@@ -1,8 +1,8 @@
 package com.sample.model.dao;
 
 import com.sample.architecture.dao.IDAO;
-import com.sample.model.jpa.Artist;
+import com.sample.model.entity.ArtistEntity;
 
-public interface IArtistDAO extends IDAO<Artist, Integer>{
+public interface IArtistDAO extends IDAO<ArtistEntity, Integer>{
 
 }

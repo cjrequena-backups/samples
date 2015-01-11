@@ -15,7 +15,7 @@ import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.architecture.exceptions.ECodeExceptions;
 import com.sample.model.dao.IInvoiceDAO;
-import com.sample.model.jpa.Invoice;
+import com.sample.model.entity.InvoiceEntity;
 import com.sample.service.IInvoiceService;
 
 @Service
@@ -46,9 +46,9 @@ public class InvoiceService implements IInvoiceService, Serializable {
 
 	@Override
 	@Transactional
-	public void save(Invoice object) throws BusinessExceptions {
+	public void save(InvoiceEntity object) throws BusinessExceptions {
 		try {
-			this.invoiceDAO.save(object);
+			this.invoiceDAO.persist(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -58,9 +58,9 @@ public class InvoiceService implements IInvoiceService, Serializable {
 
 	@Override
 	@Transactional
-	public void update(Invoice object) throws BusinessExceptions {
+	public void update(InvoiceEntity object) throws BusinessExceptions {
 		try {
-			this.invoiceDAO.update(object);
+			this.invoiceDAO.merge(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -70,7 +70,7 @@ public class InvoiceService implements IInvoiceService, Serializable {
 
 	@Override
 	@Transactional
-	public void delete(Invoice object) throws BusinessExceptions {
+	public void delete(InvoiceEntity object) throws BusinessExceptions {
 		try {
 			this.invoiceDAO.delete(object);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class InvoiceService implements IInvoiceService, Serializable {
 
 	@Override
 	@Transactional
-	public Invoice findByPk(Integer pk) throws BusinessExceptions {
+	public InvoiceEntity findByPk(Integer pk) throws BusinessExceptions {
 		try {
 			return this.invoiceDAO.findByPk(pk);
 		} catch (Exception e) {
@@ -108,9 +108,9 @@ public class InvoiceService implements IInvoiceService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Invoice> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
+	public List<InvoiceEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
 		try {
-			return new ArrayList<Invoice>(this.invoiceDAO.findEntries(firstResult, maxResults));
+			return new ArrayList<InvoiceEntity>(this.invoiceDAO.findEntries(firstResult, maxResults));
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -120,9 +120,9 @@ public class InvoiceService implements IInvoiceService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Invoice> findAll() throws BusinessExceptions {
+	public List<InvoiceEntity> findAll() throws BusinessExceptions {
 		try {
-			return new ArrayList<Invoice>(this.invoiceDAO.findAll());
+			return new ArrayList<InvoiceEntity>(this.invoiceDAO.findAll());
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -132,7 +132,7 @@ public class InvoiceService implements IInvoiceService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Invoice> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
+	public List<InvoiceEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
 		try {
 			return this.invoiceDAO.executeQueryFilter(filters, firstResult, maxResult);
 		} catch (Exception e) {

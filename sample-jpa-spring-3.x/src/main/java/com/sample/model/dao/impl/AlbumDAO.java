@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 import com.sample.architecture.dao.AbstractDAO;
 import com.sample.model.dao.IAlbumDAO;
-import com.sample.model.jpa.Album;
+import com.sample.model.entity.AlbumEntity;
 
 @Component("albumDAO")
-public class AlbumDAO extends AbstractDAO<Album, Integer> implements IAlbumDAO, Serializable {
+public class AlbumDAO extends AbstractDAO<AlbumEntity, Integer> implements IAlbumDAO, Serializable {
 
 	/**
 	 * 
@@ -17,10 +17,10 @@ public class AlbumDAO extends AbstractDAO<Album, Integer> implements IAlbumDAO, 
 	private static final long serialVersionUID = 1L;
 
 	protected AlbumDAO() {
-		super(Album.class);
+		super(AlbumEntity.class);
 	}
 
-	protected AlbumDAO(Class<Album> targetClass) {
+	protected AlbumDAO(Class<AlbumEntity> targetClass) {
 		super(targetClass);
 	}
 

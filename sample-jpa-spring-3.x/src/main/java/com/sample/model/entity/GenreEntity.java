@@ -1,4 +1,4 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
 import java.util.Set;
 
@@ -14,35 +14,27 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
 
-@Entity
-@Table(name = "MediaType")
 @Configurable
-public class MediaType {
+@Entity
+@Table(name = "Genre")
+public class GenreEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MediaTypeId")
-	private Integer mediaTypeId;
+	@Column(name = "GenreId")
+	private Integer genreId;
+
+	@OneToMany(mappedBy = "genreId")
+	private Set<TrackEntity> tracks;
 
 	@Column(name = "Name", length = 120)
 	private String name;
 
-	@OneToMany(mappedBy = "mediaTypeId")
-	private Set<Track> tracks;
-
-	public Integer getMediaTypeId() {
-		return this.mediaTypeId;
-	}
-
-	public void setMediaTypeId(Integer id) {
-		this.mediaTypeId = id;
-	}
-
-	public Set<Track> getTracks() {
+	public Set<TrackEntity> getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(Set<Track> tracks) {
+	public void setTracks(Set<TrackEntity> tracks) {
 		this.tracks = tracks;
 	}
 
@@ -52,6 +44,14 @@ public class MediaType {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getGenreId() {
+		return this.genreId;
+	}
+
+	public void setGenreId(Integer id) {
+		this.genreId = id;
 	}
 
 	public String toString() {

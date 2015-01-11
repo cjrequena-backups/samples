@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.jpa.Customer;
+import com.sample.model.entity.CustomerEntity;
 
 public interface ICustomerService {
 	/**
@@ -19,21 +19,21 @@ public interface ICustomerService {
 	 * 
 	 * @generated
 	 **/
-	public abstract void save(Customer object) throws BusinessExceptions;
+	public abstract void save(CustomerEntity object) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void update(Customer obj) throws BusinessExceptions;
+	public abstract void update(CustomerEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void delete(Customer obj) throws BusinessExceptions;
+	public abstract void delete(CustomerEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -47,26 +47,26 @@ public interface ICustomerService {
 	 * 
 	 * @generated
 	 **/
-	public abstract Customer findByPk(Integer pk) throws BusinessExceptions;
+	public abstract CustomerEntity findByPk(Integer pk) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<Customer> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
+	public List<CustomerEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract List<Customer> findAll() throws BusinessExceptions;
+	public abstract List<CustomerEntity> findAll() throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<Customer> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
+	public List<CustomerEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
 }

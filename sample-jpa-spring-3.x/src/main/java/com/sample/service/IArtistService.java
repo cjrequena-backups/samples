@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.jpa.Artist;
+import com.sample.model.entity.ArtistEntity;
 
 public interface IArtistService {
 	/**
@@ -19,21 +19,21 @@ public interface IArtistService {
 	 * 
 	 * @generated
 	 **/
-	public abstract void save(Artist object) throws BusinessExceptions;
+	public abstract void save(ArtistEntity object) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void update(Artist obj) throws BusinessExceptions;
+	public abstract void update(ArtistEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void delete(Artist obj) throws BusinessExceptions;
+	public abstract void delete(ArtistEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -47,26 +47,26 @@ public interface IArtistService {
 	 * 
 	 * @generated
 	 **/
-	public abstract Artist findByPk(Integer pk) throws BusinessExceptions;
+	public abstract ArtistEntity findByPk(Integer pk) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<Artist> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
+	public List<ArtistEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract List<Artist> findAll() throws BusinessExceptions;
+	public abstract List<ArtistEntity> findAll() throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<Artist> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
+	public List<ArtistEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
 }

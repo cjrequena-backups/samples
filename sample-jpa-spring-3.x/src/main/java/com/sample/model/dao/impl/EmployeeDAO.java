@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.sample.architecture.dao.AbstractDAO;
 import com.sample.model.dao.IEmployeeDAO;
-import com.sample.model.jpa.Employee;
+import com.sample.model.entity.EmployeeEntity;
 
 @Component("employeeDAO")
-public class EmployeeDAO extends AbstractDAO<Employee, Integer> implements IEmployeeDAO, Serializable {
+public class EmployeeDAO extends AbstractDAO<EmployeeEntity, Integer> implements IEmployeeDAO, Serializable {
 
 	/**
 	 * 
@@ -21,10 +21,10 @@ public class EmployeeDAO extends AbstractDAO<Employee, Integer> implements IEmpl
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeDAO.class);
 
 	protected EmployeeDAO() {
-		super(Employee.class);
+		super(EmployeeEntity.class);
 	}
 
-	protected EmployeeDAO(Class<Employee> targetClass) {
+	protected EmployeeDAO(Class<EmployeeEntity> targetClass) {
 		super(targetClass);
 	}
 

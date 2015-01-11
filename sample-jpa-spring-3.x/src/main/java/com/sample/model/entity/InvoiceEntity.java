@@ -1,4 +1,4 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -25,7 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Configurable
 @Entity
 @Table(name = "Invoice")
-public class Invoice {
+public class InvoiceEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,25 +58,25 @@ public class Invoice {
 	private BigDecimal total;
 
 	@OneToMany(mappedBy = "invoiceId")
-	private Set<InvoiceLine> invoiceLines;
+	private Set<InvoiceLineEntity> invoiceLines;
 
 	@ManyToOne
 	@JoinColumn(name = "CustomerId", referencedColumnName = "CustomerId", nullable = false)
-	private Customer customerId;
+	private CustomerEntity customerId;
 
-	public Set<InvoiceLine> getInvoiceLines() {
+	public Set<InvoiceLineEntity> getInvoiceLines() {
 		return invoiceLines;
 	}
 
-	public void setInvoiceLines(Set<InvoiceLine> invoiceLines) {
+	public void setInvoiceLines(Set<InvoiceLineEntity> invoiceLines) {
 		this.invoiceLines = invoiceLines;
 	}
 
-	public Customer getCustomerId() {
+	public CustomerEntity getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Customer customerId) {
+	public void setCustomerId(CustomerEntity customerId) {
 		this.customerId = customerId;
 	}
 

@@ -15,7 +15,7 @@ import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.architecture.exceptions.ECodeExceptions;
 import com.sample.model.dao.IEmployeeDAO;
-import com.sample.model.jpa.Employee;
+import com.sample.model.entity.EmployeeEntity;
 import com.sample.service.IEmployeeService;
 
 @Service
@@ -46,9 +46,9 @@ public class EmployeeService implements IEmployeeService, Serializable {
 
 	@Override
 	@Transactional
-	public void save(Employee object) throws BusinessExceptions {
+	public void save(EmployeeEntity object) throws BusinessExceptions {
 		try {
-			this.employeeDAO.save(object);
+			this.employeeDAO.persist(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -58,9 +58,9 @@ public class EmployeeService implements IEmployeeService, Serializable {
 
 	@Override
 	@Transactional
-	public void update(Employee object) throws BusinessExceptions {
+	public void update(EmployeeEntity object) throws BusinessExceptions {
 		try {
-			this.employeeDAO.update(object);
+			this.employeeDAO.merge(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -70,7 +70,7 @@ public class EmployeeService implements IEmployeeService, Serializable {
 
 	@Override
 	@Transactional
-	public void delete(Employee object) throws BusinessExceptions {
+	public void delete(EmployeeEntity object) throws BusinessExceptions {
 		try {
 			this.employeeDAO.delete(object);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class EmployeeService implements IEmployeeService, Serializable {
 
 	@Override
 	@Transactional
-	public Employee findByPk(Integer pk) throws BusinessExceptions {
+	public EmployeeEntity findByPk(Integer pk) throws BusinessExceptions {
 		try {
 			return this.employeeDAO.findByPk(pk);
 		} catch (Exception e) {
@@ -108,9 +108,9 @@ public class EmployeeService implements IEmployeeService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Employee> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
+	public List<EmployeeEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
 		try {
-			return new ArrayList<Employee>(this.employeeDAO.findEntries(firstResult, maxResults));
+			return new ArrayList<EmployeeEntity>(this.employeeDAO.findEntries(firstResult, maxResults));
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -120,9 +120,9 @@ public class EmployeeService implements IEmployeeService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Employee> findAll() throws BusinessExceptions {
+	public List<EmployeeEntity> findAll() throws BusinessExceptions {
 		try {
-			return new ArrayList<Employee>(this.employeeDAO.findAll());
+			return new ArrayList<EmployeeEntity>(this.employeeDAO.findAll());
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -132,7 +132,7 @@ public class EmployeeService implements IEmployeeService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Employee> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
+	public List<EmployeeEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
 		try {
 			return this.employeeDAO.executeQueryFilter(filters, firstResult, maxResult);
 		} catch (Exception e) {

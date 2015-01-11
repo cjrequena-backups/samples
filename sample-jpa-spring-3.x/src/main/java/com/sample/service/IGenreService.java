@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.jpa.Genre;
+import com.sample.model.entity.GenreEntity;
 
 public interface IGenreService {
 	/**
@@ -19,21 +19,21 @@ public interface IGenreService {
 	 * 
 	 * @generated
 	 **/
-	public abstract void save(Genre object) throws BusinessExceptions;
+	public abstract void save(GenreEntity object) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void update(Genre obj) throws BusinessExceptions;
+	public abstract void update(GenreEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void delete(Genre obj) throws BusinessExceptions;
+	public abstract void delete(GenreEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -47,26 +47,26 @@ public interface IGenreService {
 	 * 
 	 * @generated
 	 **/
-	public abstract Genre findByPk(Integer pk) throws BusinessExceptions;
+	public abstract GenreEntity findByPk(Integer pk) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<Genre> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
+	public List<GenreEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract List<Genre> findAll() throws BusinessExceptions;
+	public abstract List<GenreEntity> findAll() throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<Genre> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
+	public List<GenreEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
 }

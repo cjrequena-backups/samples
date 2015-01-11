@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.sample.architecture.dao.AbstractDAO;
 import com.sample.model.dao.ITrackDAO;
-import com.sample.model.jpa.Track;
+import com.sample.model.entity.TrackEntity;
 
 @Component("trackDAO")
-public class TrackDAO extends AbstractDAO<Track, Integer> implements ITrackDAO, Serializable {
+public class TrackDAO extends AbstractDAO<TrackEntity, Integer> implements ITrackDAO, Serializable {
 
 	/**
 	 * 
@@ -21,10 +21,10 @@ public class TrackDAO extends AbstractDAO<Track, Integer> implements ITrackDAO, 
 	private static final Logger logger = LoggerFactory.getLogger(TrackDAO.class);
 
 	protected TrackDAO() {
-		super(Track.class);
+		super(TrackEntity.class);
 	}
 
-	protected TrackDAO(Class<Track> targetClass) {
+	protected TrackDAO(Class<TrackEntity> targetClass) {
 		super(targetClass);
 	}
 

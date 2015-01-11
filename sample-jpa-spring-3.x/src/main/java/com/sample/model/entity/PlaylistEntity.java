@@ -1,4 +1,4 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
 import java.util.Set;
 
@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -16,25 +16,25 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 @Configurable
 @Entity
-@Table(name = "Genre")
-public class Genre {
+@Table(name = "Playlist")
+public class PlaylistEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "GenreId")
-	private Integer genreId;
-
-	@OneToMany(mappedBy = "genreId")
-	private Set<Track> tracks;
+	@Column(name = "PlaylistId")
+	private Integer playlistId;
 
 	@Column(name = "Name", length = 120)
 	private String name;
 
-	public Set<Track> getTracks() {
+	@ManyToMany(mappedBy = "playlists")
+	private Set<TrackEntity> tracks;
+
+	public Set<TrackEntity> getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(Set<Track> tracks) {
+	public void setTracks(Set<TrackEntity> tracks) {
 		this.tracks = tracks;
 	}
 
@@ -46,12 +46,12 @@ public class Genre {
 		this.name = name;
 	}
 
-	public Integer getGenreId() {
-		return this.genreId;
+	public Integer getPlaylistId() {
+		return this.playlistId;
 	}
 
-	public void setGenreId(Integer id) {
-		this.genreId = id;
+	public void setPlaylistId(Integer id) {
+		this.playlistId = id;
 	}
 
 	public String toString() {

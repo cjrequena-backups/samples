@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.sample.architecture.dao.AbstractDAO;
 import com.sample.model.dao.IMediaTypeDAO;
-import com.sample.model.jpa.MediaType;
+import com.sample.model.entity.MediaTypeEntity;
 
 @Component("mediaTypeDAO")
-public class MediaTypeDAO extends AbstractDAO<MediaType, Integer> implements IMediaTypeDAO, Serializable {
+public class MediaTypeDAO extends AbstractDAO<MediaTypeEntity, Integer> implements IMediaTypeDAO, Serializable {
 
 	/**
 	 * 
@@ -21,10 +21,10 @@ public class MediaTypeDAO extends AbstractDAO<MediaType, Integer> implements IMe
 	private static final Logger logger = LoggerFactory.getLogger(MediaTypeDAO.class);
 
 	protected MediaTypeDAO() {
-		super(MediaType.class);
+		super(MediaTypeEntity.class);
 	}
 
-	protected MediaTypeDAO(Class<MediaType> targetClass) {
+	protected MediaTypeDAO(Class<MediaTypeEntity> targetClass) {
 		super(targetClass);
 	}
 

@@ -1,8 +1,8 @@
 package com.sample.model.dao;
 
 import com.sample.architecture.dao.IDAO;
-import com.sample.model.jpa.Genre;
+import com.sample.model.entity.GenreEntity;
 
-public interface IGenreDAO extends IDAO<Genre, Integer>{
+public interface IGenreDAO extends IDAO<GenreEntity, Integer>{
 
 }

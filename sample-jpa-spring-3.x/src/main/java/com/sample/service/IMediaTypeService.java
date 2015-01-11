@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.jpa.MediaType;
+import com.sample.model.entity.MediaTypeEntity;
 
 public interface IMediaTypeService {
 	/**
@@ -19,21 +19,21 @@ public interface IMediaTypeService {
 	 * 
 	 * @generated
 	 **/
-	public abstract void save(MediaType object) throws BusinessExceptions;
+	public abstract void save(MediaTypeEntity object) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void update(MediaType obj) throws BusinessExceptions;
+	public abstract void update(MediaTypeEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void delete(MediaType obj) throws BusinessExceptions;
+	public abstract void delete(MediaTypeEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -47,26 +47,26 @@ public interface IMediaTypeService {
 	 * 
 	 * @generated
 	 **/
-	public abstract MediaType findByPk(Integer pk) throws BusinessExceptions;
+	public abstract MediaTypeEntity findByPk(Integer pk) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<MediaType> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
+	public List<MediaTypeEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract List<MediaType> findAll() throws BusinessExceptions;
+	public abstract List<MediaTypeEntity> findAll() throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<MediaType> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
+	public List<MediaTypeEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
 }

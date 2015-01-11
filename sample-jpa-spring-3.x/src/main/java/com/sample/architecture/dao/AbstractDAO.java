@@ -24,17 +24,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.dao.EmptyResultDataAccessException;
 
-
-
 /**
  * 
  * @author cjrequena
- *
- * @param <T>
+ * 
+ * @param <E>
  * @param <PK>
  */
 @Configurable
-public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
+public abstract class AbstractDAO<E, PK> implements IDAO<E, PK>, Serializable {
 
 	/**
 	 * 
@@ -46,19 +44,26 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	@PersistenceContext
 	transient EntityManager entityManager;
 
-	private final Class<T> targetClass;
+	private final Class<E> entityClass;
 
-	protected AbstractDAO(Class<T> targetClass) {
-		if (targetClass == null) {
+	protected AbstractDAO(Class<E> entityClass) {
+		if (entityClass == null) {
 			throw new IllegalArgumentException("<Null>");
 		}
 
-		this.targetClass = targetClass;
+		this.entityClass = entityClass;
+	}
+
+	public EntityManager entityManager() {
+		EntityManager em = entityManager;
+		if (em == null)
+			throw new IllegalStateException("Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
+		return em;
 	}
 
 	/**
-	 * get collection objects from process query with arry param values, in jpa params are ?1, ?9 etc example select c from entity c where
-	 * c.columname1 = ?1 and c.columname2 = ?2
+	 * get collection entitys from process query with arry param values, in jpa params are ?1, ?9 etc example select c
+	 * from entity c where c.columname1 = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
@@ -66,9 +71,9 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	public <D> Collection<D> executeQueryResults(Query query, Object... params) throws Exception {
 		StringBuffer queryTrace = new StringBuffer(query.toString());
 		int index = 1;
-		for (Object object : params) {
-			queryTrace.append("Param ").append(index).append(": ").append(object);
-			query.setParameter(index++, object);
+		for (Object entity : params) {
+			queryTrace.append("Param ").append(index).append(": ").append(entity);
+			query.setParameter(index++, entity);
 		}
 		logger.info("Query to execute: " + queryTrace.toString());
 		Object result = query.getResultList();
@@ -76,8 +81,8 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	}
 
 	/**
-	 * get object from process query with arry param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1 = ?1 and
-	 * c.columname2 = ?2
+	 * get entity from process query with arry param values, in jpa params are ?1, ?9 etc example select c from entity c
+	 * where c.columname1 = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
@@ -86,9 +91,9 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 		try {
 			StringBuffer queryTrace = new StringBuffer(query.toString());
 			int index = 1;
-			for (Object object : params) {
-				queryTrace.append("Param ").append(index).append(": ").append(object);
-				query.setParameter(index++, object);
+			for (Object entity : params) {
+				queryTrace.append("Param ").append(index).append(": ").append(entity);
+				query.setParameter(index++, entity);
 			}
 			logger.info("Query to execute: " + queryTrace.toString());
 			Object result = query.getSingleResult();
@@ -104,8 +109,8 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	}
 
 	/**
-	 * get collection objects from process query with Map param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1
-	 * = ?1 and c.columname2 = ?2
+	 * get collection entitys from process query with Map param values, in jpa params are ?1, ?9 etc example select c
+	 * from entity c where c.columname1 = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
@@ -122,8 +127,8 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	}
 
 	/**
-	 * get object from process query with Map param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1 = ?1 and
-	 * c.columname2 = ?2
+	 * get entity from process query with Map param values, in jpa params are ?1, ?9 etc example select c from entity c
+	 * where c.columname1 = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
@@ -149,8 +154,8 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	}
 
 	/**
-	 * get collection objects from process query with List param values, in jpa params are ?1, ?9 etc example select c from entity c where
-	 * c.columname1 = ?1 and c.columname2 = ?2
+	 * get collection entitys from process query with List param values, in jpa params are ?1, ?9 etc example select c
+	 * from entity c where c.columname1 = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
@@ -159,9 +164,9 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 		StringBuffer queryTrace = new StringBuffer(query.toString());
 		int index = 1;
 		for (Iterator<Object> iterator = params.iterator(); iterator.hasNext();) {
-			Object object = (Object) iterator.next();
-			queryTrace.append("Param ").append(index).append(": ").append(object);
-			query.setParameter(index++, object);
+			Object entity = (Object) iterator.next();
+			queryTrace.append("Param ").append(index).append(": ").append(entity);
+			query.setParameter(index++, entity);
 
 		}
 		logger.info("Query to execute: " + queryTrace.toString());
@@ -171,8 +176,8 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 	}
 
 	/**
-	 * get object from process query with List param values, in jpa params are ?1, ?9 etc example select c from entity c where c.columname1 = ?1 and
-	 * c.columname2 = ?2
+	 * get entity from process query with List param values, in jpa params are ?1, ?9 etc example select c from entity c
+	 * where c.columname1 = ?1 and c.columname2 = ?2
 	 * 
 	 * */
 	@SuppressWarnings("unchecked")
@@ -182,9 +187,9 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 			StringBuffer queryTrace = new StringBuffer(query.toString());
 			int index = 1;
 			for (Iterator<Object> iterator = params.iterator(); iterator.hasNext();) {
-				Object object = (Object) iterator.next();
-				queryTrace.append("Param ").append(index).append(": ").append(object);
-				query.setParameter(index++, object);
+				Object entity = (Object) iterator.next();
+				queryTrace.append("Param ").append(index).append(": ").append(entity);
+				query.setParameter(index++, entity);
 			}
 			logger.info("Query to execute: " + queryTrace.toString());
 			Object result = query.getSingleResult();
@@ -227,68 +232,73 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 
 	@Override
 	public int countAll() throws Exception {
-		return ((Number) this.entityManager.createQuery("SELECT COUNT(o) FROM " + this.targetClass.getSimpleName() + " o ", this.targetClass).getSingleResult()).intValue();
+		return ((Number) this.entityManager.createQuery("SELECT COUNT(o) FROM " + this.entityClass.getSimpleName() + " o ", this.entityClass).getSingleResult()).intValue();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<T> findEntries(int firstResult, int maxResults) throws Exception {
-		String strQuery = "SELECT o FROM " + this.targetClass.getSimpleName() + " o ";
-		Query query = this.entityManager.createQuery(strQuery, this.targetClass);
+	public Collection<E> findEntries(int firstResult, int maxResults) throws Exception {
+		String strQuery = "SELECT o FROM " + this.entityClass.getSimpleName() + " o ";
+		Query query = this.entityManager.createQuery(strQuery, this.entityClass);
 		query.setFirstResult(firstResult);
 		query.setMaxResults(maxResults);
 		return query.getResultList();
 	}
 
 	@Override
-	public Collection<T> findAll() throws Exception {
-		return this.entityManager.createQuery("SELECT o FROM " + this.targetClass.getSimpleName() + " o ", this.targetClass).getResultList();
+	public Collection<E> findAll() throws Exception {
+		return this.entityManager.createQuery("SELECT o FROM " + this.entityClass.getSimpleName() + " o ", this.entityClass).getResultList();
 	}
 
 	@Override
-	public T findByPk(PK pk) throws Exception {
-		return this.entityManager.find(this.targetClass, pk);
+	public E findByPk(PK pk) throws Exception {
+		return this.entityManager.find(this.entityClass, pk);
 	}
 
 	@Override
-	public T save(T object) throws Exception {
+	public E persist(E entity) throws Exception {
 		try {
-			this.entityManager.persist(object);
-			return object;
+			this.entityManager.persist(entity);
+			this.flush();
+			return entity;
 		} catch (Throwable e) {
+			logger.error(e.getMessage());
+			throw new Exception(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public E merge(E entity) throws Exception {
+		try {
+			entity =  this.entityManager.merge(entity);
+			return entity;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
 			throw new Exception(e.getMessage(), e);
 		}
 	}
 
 	@Override
 	public void deleteByPk(PK pk) throws Exception {
-		Object object = this.entityManager.find(this.targetClass, pk);
-		if (object == null) {
-			logger.info("Requested object not exists");
-			throw new Exception("Requested object not exists");
+		Object entity = this.entityManager.find(this.entityClass, pk);
+		if (entity == null) {
+			logger.info("Requested entity not exists");
+			throw new Exception("Requested entity not exists");
 		}
-		this.entityManager.remove(object);
+		this.entityManager.remove(entity);
 	}
 
 	@Override
-	public void delete(T object) throws Exception {
+	public void delete(E entity) throws Exception {
 		try {
-			this.entityManager.remove(object);
+			this.entityManager.remove(entity);
 		} catch (Throwable e) {
 			logger.error(e.getMessage());
 			throw new Exception(e.getMessage(), e);
 		}
 	}
 
-	@Override
-	public T update(T object) throws Exception {
-		try {
-			return this.entityManager.merge(object);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			throw new Exception(e.getMessage(), e);
-		}
-	}
+	
 
 	@Override
 	public void flush() throws Exception {
@@ -433,7 +443,7 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 			}
 		}
 
-		String queryString = "SELECT o FROM " + this.targetClass.getSimpleName() + " o ";
+		String queryString = "SELECT o FROM " + this.entityClass.getSimpleName() + " o ";
 		boolean isWithWhere = fullFilter != null && !fullFilter.trim().isEmpty();
 		if (isWithWhere) {
 			queryString += " WHERE " + fullFilter;
@@ -442,7 +452,7 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 
 		logger.debug("Query created: " + queryString);
 
-		Query query = this.entityManager.createQuery(queryString, this.targetClass);
+		Query query = this.entityManager.createQuery(queryString, this.entityClass);
 		if (isWithWhere) {
 			for (String key : internalParams.keySet()) {
 				query.setParameter(key.substring(1), internalParams.get(key));
@@ -454,11 +464,10 @@ public abstract class AbstractDAO<T, PK> implements IDAO<T, PK>, Serializable {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws Exception {
+	public List<E> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws Exception {
 		Query query = createQueryFilter(filters);
 		query.setFirstResult(firstResult);
 		query.setMaxResults(maxResult);
 		return query.getResultList();
 	}
-
 }

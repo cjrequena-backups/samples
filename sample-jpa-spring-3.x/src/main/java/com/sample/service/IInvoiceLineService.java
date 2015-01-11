@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.jpa.InvoiceLine;
+import com.sample.model.entity.InvoiceLineEntity;
 
 public interface IInvoiceLineService {
 	/**
@@ -19,21 +19,21 @@ public interface IInvoiceLineService {
 	 * 
 	 * @generated
 	 **/
-	public abstract void save(InvoiceLine object) throws BusinessExceptions;
+	public abstract void save(InvoiceLineEntity object) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void update(InvoiceLine obj) throws BusinessExceptions;
+	public abstract void update(InvoiceLineEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract void delete(InvoiceLine obj) throws BusinessExceptions;
+	public abstract void delete(InvoiceLineEntity obj) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -47,26 +47,26 @@ public interface IInvoiceLineService {
 	 * 
 	 * @generated
 	 **/
-	public abstract InvoiceLine findByPk(Integer pk) throws BusinessExceptions;
+	public abstract InvoiceLineEntity findByPk(Integer pk) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<InvoiceLine> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
+	public List<InvoiceLineEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public abstract List<InvoiceLine> findAll() throws BusinessExceptions;
+	public abstract List<InvoiceLineEntity> findAll() throws BusinessExceptions;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
 	 **/
-	public List<InvoiceLine> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
+	public List<InvoiceLineEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
 }

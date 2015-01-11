@@ -1,8 +1,8 @@
 package com.sample.model.dao;
 
 import com.sample.architecture.dao.IDAO;
-import com.sample.model.jpa.Playlist;
+import com.sample.model.entity.PlaylistEntity;
 
-public interface IPlaylistDAO extends IDAO<Playlist, Integer>{
+public interface IPlaylistDAO extends IDAO<PlaylistEntity, Integer>{
 
 }

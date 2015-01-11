@@ -15,7 +15,7 @@ import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.architecture.exceptions.ECodeExceptions;
 import com.sample.model.dao.IArtistDAO;
-import com.sample.model.jpa.Artist;
+import com.sample.model.entity.ArtistEntity;
 import com.sample.service.IArtistService;
 
 @Service
@@ -46,9 +46,9 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional
-	public void save(Artist object) throws BusinessExceptions {
+	public void save(ArtistEntity object) throws BusinessExceptions {
 		try {
-			this.artistDAO.save(object);
+			this.artistDAO.persist(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -58,9 +58,9 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional
-	public void update(Artist object) throws BusinessExceptions {
+	public void update(ArtistEntity object) throws BusinessExceptions {
 		try {
-			this.artistDAO.update(object);
+			this.artistDAO.merge(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -70,7 +70,7 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional
-	public void delete(Artist object) throws BusinessExceptions {
+	public void delete(ArtistEntity object) throws BusinessExceptions {
 		try {
 			this.artistDAO.delete(object);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional
-	public Artist findByPk(Integer pk) throws BusinessExceptions {
+	public ArtistEntity findByPk(Integer pk) throws BusinessExceptions {
 		try {
 			return this.artistDAO.findByPk(pk);
 		} catch (Exception e) {
@@ -108,9 +108,9 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Artist> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
+	public List<ArtistEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
 		try {
-			return new ArrayList<Artist>(this.artistDAO.findEntries(firstResult, maxResults));
+			return new ArrayList<ArtistEntity>(this.artistDAO.findEntries(firstResult, maxResults));
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -120,9 +120,9 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Artist> findAll() throws BusinessExceptions {
+	public List<ArtistEntity> findAll() throws BusinessExceptions {
 		try {
-			return new ArrayList<Artist>(this.artistDAO.findAll());
+			return new ArrayList<ArtistEntity>(this.artistDAO.findAll());
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -132,7 +132,7 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Artist> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
+	public List<ArtistEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
 		try {
 			return this.artistDAO.executeQueryFilter(filters, firstResult, maxResult);
 		} catch (Exception e) {

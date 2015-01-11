@@ -1,4 +1,4 @@
-package com.sample.model.jpa;
+package com.sample.model.entity;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 @Entity
 @Table(name = "Track")
 @Configurable
-public class Track {
+public class TrackEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,60 +50,60 @@ public class Track {
 
 	@ManyToMany
 	@JoinTable(name = "PlaylistTrack", joinColumns = { @JoinColumn(name = "TrackId", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "PlaylistId", nullable = false) })
-	private Set<Playlist> playlists;
+	private Set<PlaylistEntity> playlists;
 
 	@OneToMany(mappedBy = "trackId")
-	private Set<InvoiceLine> invoiceLines;
+	private Set<InvoiceLineEntity> invoiceLines;
 
 	@ManyToOne
 	@JoinColumn(name = "MediaTypeId", referencedColumnName = "MediaTypeId", nullable = false)
-	private MediaType mediaTypeId;
+	private MediaTypeEntity mediaTypeId;
 
 	@ManyToOne
 	@JoinColumn(name = "AlbumId", referencedColumnName = "AlbumId")
-	private Album albumId;
+	private AlbumEntity albumId;
 
 	@ManyToOne
 	@JoinColumn(name = "GenreId", referencedColumnName = "GenreId")
-	private Genre genreId;
+	private GenreEntity genreId;
 
-	public Set<Playlist> getPlaylists() {
+	public Set<PlaylistEntity> getPlaylists() {
 		return playlists;
 	}
 
-	public void setPlaylists(Set<Playlist> playlists) {
+	public void setPlaylists(Set<PlaylistEntity> playlists) {
 		this.playlists = playlists;
 	}
 
-	public Set<InvoiceLine> getInvoiceLines() {
+	public Set<InvoiceLineEntity> getInvoiceLines() {
 		return invoiceLines;
 	}
 
-	public void setInvoiceLines(Set<InvoiceLine> invoiceLines) {
+	public void setInvoiceLines(Set<InvoiceLineEntity> invoiceLines) {
 		this.invoiceLines = invoiceLines;
 	}
 
-	public MediaType getMediaTypeId() {
+	public MediaTypeEntity getMediaTypeId() {
 		return mediaTypeId;
 	}
 
-	public void setMediaTypeId(MediaType mediaTypeId) {
+	public void setMediaTypeId(MediaTypeEntity mediaTypeId) {
 		this.mediaTypeId = mediaTypeId;
 	}
 
-	public Album getAlbumId() {
+	public AlbumEntity getAlbumId() {
 		return albumId;
 	}
 
-	public void setAlbumId(Album albumId) {
+	public void setAlbumId(AlbumEntity albumId) {
 		this.albumId = albumId;
 	}
 
-	public Genre getGenreId() {
+	public GenreEntity getGenreId() {
 		return genreId;
 	}
 
-	public void setGenreId(Genre genreId) {
+	public void setGenreId(GenreEntity genreId) {
 		this.genreId = genreId;
 	}
 

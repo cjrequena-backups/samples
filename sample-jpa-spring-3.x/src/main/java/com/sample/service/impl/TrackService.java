@@ -15,7 +15,7 @@ import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.architecture.exceptions.ECodeExceptions;
 import com.sample.model.dao.ITrackDAO;
-import com.sample.model.jpa.Track;
+import com.sample.model.entity.TrackEntity;
 import com.sample.service.ITrackService;
 
 @Service
@@ -46,9 +46,9 @@ public class TrackService implements ITrackService, Serializable {
 
 	@Override
 	@Transactional
-	public void save(Track object) throws BusinessExceptions {
+	public void save(TrackEntity object) throws BusinessExceptions {
 		try {
-			this.trackDAO.save(object);
+			this.trackDAO.persist(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -58,9 +58,9 @@ public class TrackService implements ITrackService, Serializable {
 
 	@Override
 	@Transactional
-	public void update(Track object) throws BusinessExceptions {
+	public void update(TrackEntity object) throws BusinessExceptions {
 		try {
-			this.trackDAO.update(object);
+			this.trackDAO.merge(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -70,7 +70,7 @@ public class TrackService implements ITrackService, Serializable {
 
 	@Override
 	@Transactional
-	public void delete(Track object) throws BusinessExceptions {
+	public void delete(TrackEntity object) throws BusinessExceptions {
 		try {
 			this.trackDAO.delete(object);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class TrackService implements ITrackService, Serializable {
 
 	@Override
 	@Transactional
-	public Track findByPk(Integer pk) throws BusinessExceptions {
+	public TrackEntity findByPk(Integer pk) throws BusinessExceptions {
 		try {
 			return this.trackDAO.findByPk(pk);
 		} catch (Exception e) {
@@ -108,9 +108,9 @@ public class TrackService implements ITrackService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Track> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
+	public List<TrackEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
 		try {
-			return new ArrayList<Track>(this.trackDAO.findEntries(firstResult, maxResults));
+			return new ArrayList<TrackEntity>(this.trackDAO.findEntries(firstResult, maxResults));
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -120,9 +120,9 @@ public class TrackService implements ITrackService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Track> findAll() throws BusinessExceptions {
+	public List<TrackEntity> findAll() throws BusinessExceptions {
 		try {
-			return new ArrayList<Track>(this.trackDAO.findAll());
+			return new ArrayList<TrackEntity>(this.trackDAO.findAll());
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -132,7 +132,7 @@ public class TrackService implements ITrackService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Track> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
+	public List<TrackEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
 		try {
 			return this.trackDAO.executeQueryFilter(filters, firstResult, maxResult);
 		} catch (Exception e) {

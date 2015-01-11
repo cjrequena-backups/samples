@@ -15,7 +15,7 @@ import com.sample.architecture.dao.Filter;
 import com.sample.architecture.exceptions.BusinessExceptions;
 import com.sample.architecture.exceptions.ECodeExceptions;
 import com.sample.model.dao.ICustomerDAO;
-import com.sample.model.jpa.Customer;
+import com.sample.model.entity.CustomerEntity;
 import com.sample.service.ICustomerService;
 
 @Service
@@ -46,9 +46,9 @@ public class CustomerService implements ICustomerService, Serializable {
 
 	@Override
 	@Transactional
-	public void save(Customer object) throws BusinessExceptions {
+	public void save(CustomerEntity object) throws BusinessExceptions {
 		try {
-			this.customerDAO.save(object);
+			this.customerDAO.persist(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -58,9 +58,9 @@ public class CustomerService implements ICustomerService, Serializable {
 
 	@Override
 	@Transactional
-	public void update(Customer object) throws BusinessExceptions {
+	public void update(CustomerEntity object) throws BusinessExceptions {
 		try {
-			this.customerDAO.update(object);
+			this.customerDAO.merge(object);
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -70,7 +70,7 @@ public class CustomerService implements ICustomerService, Serializable {
 
 	@Override
 	@Transactional
-	public void delete(Customer object) throws BusinessExceptions {
+	public void delete(CustomerEntity object) throws BusinessExceptions {
 		try {
 			this.customerDAO.delete(object);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class CustomerService implements ICustomerService, Serializable {
 
 	@Override
 	@Transactional
-	public Customer findByPk(Integer pk) throws BusinessExceptions {
+	public CustomerEntity findByPk(Integer pk) throws BusinessExceptions {
 		try {
 			return this.customerDAO.findByPk(pk);
 		} catch (Exception e) {
@@ -108,9 +108,9 @@ public class CustomerService implements ICustomerService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Customer> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
+	public List<CustomerEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions {
 		try {
-			return new ArrayList<Customer>(this.customerDAO.findEntries(firstResult, maxResults));
+			return new ArrayList<CustomerEntity>(this.customerDAO.findEntries(firstResult, maxResults));
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -120,9 +120,9 @@ public class CustomerService implements ICustomerService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Customer> findAll() throws BusinessExceptions {
+	public List<CustomerEntity> findAll() throws BusinessExceptions {
 		try {
-			return new ArrayList<Customer>(this.customerDAO.findAll());
+			return new ArrayList<CustomerEntity>(this.customerDAO.findAll());
 		} catch (Exception e) {
 			// TODO ADD CODE EXCEPTION
 			throw new BusinessExceptions(ECodeExceptions.UNKNOWN_ERROR.getCode(), e);
@@ -132,7 +132,7 @@ public class CustomerService implements ICustomerService, Serializable {
 
 	@Override
 	@Transactional
-	public List<Customer> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
+	public List<CustomerEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions {
 		try {
 			return this.customerDAO.executeQueryFilter(filters, firstResult, maxResult);
 		} catch (Exception e) {
