@@ -1,60 +1,74 @@
 package com.sample.model.entity;
 
-import java.util.Set;
+import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import java.util.List;
+
+
+/**
+ * The persistent class for the Genre database table.
+ * 
+ */
 @Configurable
 @Entity
-@Table(name = "Genre")
-public class GenreEntity {
+@Table(name="Genre")
+@NamedQuery(name="GenreEntity.findAll", query="SELECT g FROM GenreEntity g")
+public class GenreEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "GenreId")
-	private Integer genreId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int genreId;
 
-	@OneToMany(mappedBy = "genreId")
-	private Set<TrackEntity> tracks;
-
-	@Column(name = "Name", length = 120)
 	private String name;
 
-	public Set<TrackEntity> getTracks() {
-		return tracks;
+	//bi-directional many-to-one association to TrackEntity
+	@OneToMany(mappedBy="genre")
+	private List<TrackEntity> tracks;
+
+	public GenreEntity() {
 	}
 
-	public void setTracks(Set<TrackEntity> tracks) {
-		this.tracks = tracks;
+	public int getGenreId() {
+		return this.genreId;
+	}
+
+	public void setGenreId(int genreId) {
+		this.genreId = genreId;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public Integer getGenreId() {
-		return this.genreId;
+	public List<TrackEntity> getTracks() {
+		return this.tracks;
 	}
 
-	public void setGenreId(Integer id) {
-		this.genreId = id;
+	public void setTracks(List<TrackEntity> tracks) {
+		this.tracks = tracks;
 	}
 
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	public TrackEntity addTrack(TrackEntity track) {
+		getTracks().add(track);
+		track.setGenre(this);
+
+		return track;
 	}
+
+	public TrackEntity removeTrack(TrackEntity track) {
+		getTracks().remove(track);
+		track.setGenre(null);
+
+		return track;
+	}
+
 }

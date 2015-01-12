@@ -1,35 +1,22 @@
-package com.sample.model.entity;
+package com.sample.vo;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
-
-import org.springframework.beans.factory.annotation.Configurable;
-
-import java.util.Date;
-
-
 /**
- * The persistent class for the employee database table.
+ * The persistent class for the customer database table.
  * 
  */
-@Configurable
-@Entity
-@Table(name="employee")
-@NamedQuery(name="EmployeeEntity.findAll", query="SELECT e FROM EmployeeEntity e")
-public class EmployeeEntity implements Serializable {
+
+public class CustomerVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int employeeId;
+	private int customerId;
 
 	private String address;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date birthDate;
-
 	private String city;
+
+	private String company;
 
 	private String country;
 
@@ -39,30 +26,25 @@ public class EmployeeEntity implements Serializable {
 
 	private String firstName;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date hireDate;
-
 	private String lastName;
 
 	private String phone;
 
 	private String postalCode;
 
-	private int reportsTo;
-
 	private String state;
 
-	private String title;
+	private int supportRepId;
 
-	public EmployeeEntity() {
+	public CustomerVO() {
 	}
 
-	public int getEmployeeId() {
-		return this.employeeId;
+	public int getCustomerId() {
+		return this.customerId;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getAddress() {
@@ -73,20 +55,20 @@ public class EmployeeEntity implements Serializable {
 		this.address = address;
 	}
 
-	public Date getBirthDate() {
-		return this.birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
 	public String getCity() {
 		return this.city;
 	}
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getCompany() {
+		return this.company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
 	public String getCountry() {
@@ -121,14 +103,6 @@ public class EmployeeEntity implements Serializable {
 		this.firstName = firstName;
 	}
 
-	public Date getHireDate() {
-		return this.hireDate;
-	}
-
-	public void setHireDate(Date hireDate) {
-		this.hireDate = hireDate;
-	}
-
 	public String getLastName() {
 		return this.lastName;
 	}
@@ -153,14 +127,6 @@ public class EmployeeEntity implements Serializable {
 		this.postalCode = postalCode;
 	}
 
-	public int getReportsTo() {
-		return this.reportsTo;
-	}
-
-	public void setReportsTo(int reportsTo) {
-		this.reportsTo = reportsTo;
-	}
-
 	public String getState() {
 		return this.state;
 	}
@@ -169,12 +135,12 @@ public class EmployeeEntity implements Serializable {
 		this.state = state;
 	}
 
-	public String getTitle() {
-		return this.title;
+	public int getSupportRepId() {
+		return this.supportRepId;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setSupportRepId(int supportRepId) {
+		this.supportRepId = supportRepId;
 	}
 
 }

@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.entity.ArtistEntity;
 import com.sample.service.IArtistService;
+import com.sample.vo.ArtistVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:META-INF/spring/applicationContext.xml")
@@ -19,11 +18,11 @@ public class ArtistTest {
 	
 	@Test
 	public void create() {
-		ArtistEntity artistEntity = new ArtistEntity();
-		artistEntity.setName("LTS2");
+		ArtistVO artist = new ArtistVO();
+		artist.setName("LTS4");
 		try {
-			this.artistService.save(artistEntity);
-		} catch (BusinessExceptions e) {
+			this.artistService.save(artist);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

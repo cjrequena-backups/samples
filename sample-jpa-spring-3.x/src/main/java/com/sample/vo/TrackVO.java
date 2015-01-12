@@ -1,27 +1,11 @@
-package com.sample.model.entity;
+package com.sample.vo;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import org.springframework.beans.factory.annotation.Configurable;
-
 import java.math.BigDecimal;
 
-
-/**
- * The persistent class for the track database table.
- * 
- */
-@Configurable
-@Entity
-@Table(name="track")
-@NamedQuery(name="TrackEntity.findAll", query="SELECT t FROM TrackEntity t")
-public class TrackEntity implements Serializable {
+public class TrackVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int trackId;
 
 	private int albumId;
@@ -36,17 +20,11 @@ public class TrackEntity implements Serializable {
 
 	private BigDecimal unitPrice;
 
-	//bi-directional many-to-one association to GenreEntity
-	@ManyToOne
-	@JoinColumn(name="GenreId")
-	private GenreEntity genre;
+	private GenreVO genre;
 
-	//bi-directional many-to-one association to MediaTypeEntity
-	@ManyToOne
-	@JoinColumn(name="MediaTypeId")
-	private MediaTypeEntity mediaType;
+	private MediaTypeVO mediaType;
 
-	public TrackEntity() {
+	public TrackVO() {
 	}
 
 	public int getTrackId() {
@@ -105,19 +83,19 @@ public class TrackEntity implements Serializable {
 		this.unitPrice = unitPrice;
 	}
 
-	public GenreEntity getGenre() {
+	public GenreVO getGenre() {
 		return this.genre;
 	}
 
-	public void setGenre(GenreEntity genre) {
+	public void setGenre(GenreVO genre) {
 		this.genre = genre;
 	}
 
-	public MediaTypeEntity getMediaType() {
+	public MediaTypeVO getMediaType() {
 		return this.mediaType;
 	}
 
-	public void setMediaType(MediaTypeEntity mediaType) {
+	public void setMediaType(MediaTypeVO mediaType) {
 		this.mediaType = mediaType;
 	}
 

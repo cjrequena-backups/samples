@@ -1,28 +1,15 @@
-package com.sample.model.entity;
+package com.sample.vo;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import org.springframework.beans.factory.annotation.Configurable;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
 
-/**
- * The persistent class for the invoice database table.
- * 
- */
-@Configurable
-@Entity
-@Table(name="invoice")
-@NamedQuery(name="InvoiceEntity.findAll", query="SELECT i FROM InvoiceEntity i")
-public class InvoiceEntity implements Serializable {
+
+public class InvoiceVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private int invoiceId;
 
 	private String billingAddress;
@@ -37,12 +24,11 @@ public class InvoiceEntity implements Serializable {
 
 	private int customerId;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date invoiceDate;
 
 	private BigDecimal total;
 
-	public InvoiceEntity() {
+	public InvoiceVO() {
 	}
 
 	public int getInvoiceId() {

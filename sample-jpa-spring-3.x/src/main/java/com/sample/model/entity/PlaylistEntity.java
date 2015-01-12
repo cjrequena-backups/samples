@@ -1,60 +1,74 @@
 package com.sample.model.entity;
 
-import java.util.Set;
+import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import java.util.List;
+
+
+/**
+ * The persistent class for the Playlist database table.
+ * 
+ */
 @Configurable
 @Entity
-@Table(name = "Playlist")
-public class PlaylistEntity {
+@Table(name="Playlist")
+@NamedQuery(name="PlaylistEntity.findAll", query="SELECT p FROM PlaylistEntity p")
+public class PlaylistEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PlaylistId")
-	private Integer playlistId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int playlistId;
 
-	@Column(name = "Name", length = 120)
 	private String name;
 
-	@ManyToMany(mappedBy = "playlists")
-	private Set<TrackEntity> tracks;
+	//bi-directional many-to-one association to PlaylisttrackEntity
+	@OneToMany(mappedBy="playlist")
+	private List<PlaylisttrackEntity> playlisttracks;
 
-	public Set<TrackEntity> getTracks() {
-		return tracks;
+	public PlaylistEntity() {
 	}
 
-	public void setTracks(Set<TrackEntity> tracks) {
-		this.tracks = tracks;
+	public int getPlaylistId() {
+		return this.playlistId;
+	}
+
+	public void setPlaylistId(int playlistId) {
+		this.playlistId = playlistId;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public Integer getPlaylistId() {
-		return this.playlistId;
+	public List<PlaylisttrackEntity> getPlaylisttracks() {
+		return this.playlisttracks;
 	}
 
-	public void setPlaylistId(Integer id) {
-		this.playlistId = id;
+	public void setPlaylisttracks(List<PlaylisttrackEntity> playlisttracks) {
+		this.playlisttracks = playlisttracks;
 	}
 
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	public PlaylisttrackEntity addPlaylisttrack(PlaylisttrackEntity playlisttrack) {
+		getPlaylisttracks().add(playlisttrack);
+		playlisttrack.setPlaylist(this);
+
+		return playlisttrack;
 	}
+
+	public PlaylisttrackEntity removePlaylisttrack(PlaylisttrackEntity playlisttrack) {
+		getPlaylisttracks().remove(playlisttrack);
+		playlisttrack.setPlaylist(null);
+
+		return playlisttrack;
+	}
+
 }

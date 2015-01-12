@@ -3,70 +3,26 @@ package com.sample.service;
 import java.util.List;
 
 import com.sample.architecture.dao.Filter;
-import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.entity.AlbumEntity;
+import com.sample.vo.AlbumVO;
 
 public interface IAlbumService {
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract long countAll() throws BusinessExceptions;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract void save(AlbumEntity object) throws BusinessExceptions;
+	public long countAll() throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract void update(AlbumEntity obj) throws BusinessExceptions;
+	public AlbumVO save(AlbumVO vo) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract void delete(AlbumEntity obj) throws BusinessExceptions;
+	public AlbumVO update(AlbumVO vo) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public void deleteByPk(Integer pk) throws BusinessExceptions;
+	public void delete(AlbumVO vo) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract AlbumEntity findByPk(Integer pk) throws BusinessExceptions;
+	public void deleteByPk(Integer pk) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public List<AlbumEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
+	public AlbumVO findByPk(Integer pk) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract List<AlbumEntity> findAll() throws BusinessExceptions;
+	public List<AlbumVO> findEntries(int firstResult, int maxResults) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public List<AlbumEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
+	public List<AlbumVO> findAll() throws Exception;
+
+	public List<AlbumVO> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws Exception;
+
 }

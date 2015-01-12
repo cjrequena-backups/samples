@@ -1,32 +1,17 @@
-package com.sample.model.entity;
+package com.sample.vo;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import org.springframework.beans.factory.annotation.Configurable;
-
 import java.util.Date;
 
 
-/**
- * The persistent class for the employee database table.
- * 
- */
-@Configurable
-@Entity
-@Table(name="employee")
-@NamedQuery(name="EmployeeEntity.findAll", query="SELECT e FROM EmployeeEntity e")
-public class EmployeeEntity implements Serializable {
+
+public class EmployeeVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int employeeId;
+		private int employeeId;
 
 	private String address;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date birthDate;
 
 	private String city;
@@ -39,7 +24,6 @@ public class EmployeeEntity implements Serializable {
 
 	private String firstName;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date hireDate;
 
 	private String lastName;
@@ -54,7 +38,7 @@ public class EmployeeEntity implements Serializable {
 
 	private String title;
 
-	public EmployeeEntity() {
+	public EmployeeVO() {
 	}
 
 	public int getEmployeeId() {

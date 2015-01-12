@@ -3,70 +3,26 @@ package com.sample.service;
 import java.util.List;
 
 import com.sample.architecture.dao.Filter;
-import com.sample.architecture.exceptions.BusinessExceptions;
-import com.sample.model.entity.ArtistEntity;
+import com.sample.vo.ArtistVO;
 
 public interface IArtistService {
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract long countAll() throws BusinessExceptions;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract void save(ArtistEntity object) throws BusinessExceptions;
+	public long countAll() throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract void update(ArtistEntity obj) throws BusinessExceptions;
+	public ArtistVO save(ArtistVO vo) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract void delete(ArtistEntity obj) throws BusinessExceptions;
+	public ArtistVO update(ArtistVO vo) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public void deleteByPk(Integer pk) throws BusinessExceptions;
+	public void delete(ArtistVO vo) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract ArtistEntity findByPk(Integer pk) throws BusinessExceptions;
+	public void deleteByPk(Integer pk) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public List<ArtistEntity> findEntries(int firstResult, int maxResults) throws BusinessExceptions;
+	public ArtistVO findByPk(Integer pk) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public abstract List<ArtistEntity> findAll() throws BusinessExceptions;
+	public List<ArtistVO> findEntries(int firstResult, int maxResults) throws Exception;
 
-	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
-	 **/
-	public List<ArtistEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws BusinessExceptions;
+	public List<ArtistVO> findAll() throws Exception;
+
+	public List<ArtistVO> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws Exception;
+
 }

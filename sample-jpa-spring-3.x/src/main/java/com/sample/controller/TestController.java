@@ -30,16 +30,15 @@ public class TestController implements Serializable {
 
 	@RequestMapping(value="/test.html", method = RequestMethod.GET)
 	public String test() {
-		try {
-			List<AlbumEntity> list = this.albumService.findAll();
-			for (Iterator<AlbumEntity> iterator = list.iterator(); iterator.hasNext();) {
-				AlbumEntity albumEntity = (AlbumEntity) iterator.next();
-				System.out.println(albumEntity.getTitle());
-			}
-		} catch (BusinessExceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			List<AlbumEntity> list = this.albumService.findAll();
+//			for (Iterator<AlbumEntity> iterator = list.iterator(); iterator.hasNext();) {
+//				AlbumEntity albumEntity = (AlbumEntity) iterator.next();
+//				System.out.println(albumEntity.getTitle());
+//			}
+//		} catch (BusinessExceptions e) {
+//			e.printStackTrace();
+//		}
 		return "login";
 	}
 

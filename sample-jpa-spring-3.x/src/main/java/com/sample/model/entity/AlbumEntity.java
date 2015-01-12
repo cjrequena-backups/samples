@@ -1,82 +1,59 @@
 package com.sample.model.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Configurable;
 
+
+/**
+ * The persistent class for the album database table.
+ * 
+ */
 @Configurable
 @Entity
-@Table(name = "Album")
+@Table(name="album")
+@NamedQuery(name="AlbumEntity.findAll", query="SELECT a FROM AlbumEntity a")
 public class AlbumEntity implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "AlbumId")
-	private Integer albumId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int albumId;
 
-	@Column(name = "Title", length = 160)
-	@NotNull
 	private String title;
 
+	//bi-directional many-to-one association to ArtistEntity
 	@ManyToOne
-	@JoinColumn(name = "ArtistId", referencedColumnName = "ArtistId", nullable = false)
-	private ArtistEntity artistId;
+	@JoinColumn(name="ArtistId")
+	private ArtistEntity artist;
 
-	@OneToMany(mappedBy = "albumId")
-	private Set<TrackEntity> tracks;
-
-	public Set<TrackEntity> getTracks() {
-		return tracks;
+	public AlbumEntity() {
 	}
 
-	public void setTracks(Set<TrackEntity> tracks) {
-		this.tracks = tracks;
+	public int getAlbumId() {
+		return this.albumId;
 	}
 
-	public ArtistEntity getArtistId() {
-		return artistId;
-	}
-
-	public void setArtistId(ArtistEntity artistId) {
-		this.artistId = artistId;
+	public void setAlbumId(int albumId) {
+		this.albumId = albumId;
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	public ArtistEntity getArtist() {
+		return this.artist;
 	}
 
-	public Integer getAlbumId() {
-		return this.albumId;
+	public void setArtist(ArtistEntity artist) {
+		this.artist = artist;
 	}
 
-	public void setAlbumId(Integer id) {
-		this.albumId = id;
-	}
 }
