@@ -2,7 +2,7 @@
  *
  *
  */
-package com.sample.architecture.mapping;
+package com.sample.mapping;
 
 import java.util.ArrayList;
 import java.util.Collection;

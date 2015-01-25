@@ -12,11 +12,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sample.architecture.dao.Filter;
-import com.sample.architecture.mapping.Mapper;
 import com.sample.model.dao.IAlbumDAO;
 import com.sample.model.entity.AlbumEntity;
 import com.sample.service.IAlbumService;
-import com.sample.vo.AlbumVO;
 
 /**
  * 
@@ -34,7 +32,6 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(AlbumService.class);
 	
-	private Mapper<AlbumEntity, AlbumVO> mapper = new Mapper<AlbumEntity, AlbumVO>(AlbumEntity.class, AlbumVO.class);
 
 
 	@Autowired
@@ -48,38 +45,33 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public AlbumVO save(AlbumVO vo) throws Exception {
-		AlbumEntity entity = this.albumDAO.findByPk(vo.getAlbumId());
-		if (entity != null) {
+	public AlbumEntity save(AlbumEntity entity) throws Exception {
+		AlbumEntity entityAux = this.albumDAO.findByPk(entity.getAlbumId());
+		if (entityAux != null) {
 			logger.info("already.exists");
 			throw new IllegalStateException("already.exists");
 		}
-		entity = new AlbumEntity();
-		mapper.mapVOToEntity(vo, entity);
+		
 		AlbumEntity entitySaved = this.albumDAO.merge(entity);
-		return mapper.mapEntityToVO(entitySaved);
+		return entitySaved;
 
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public AlbumVO update(AlbumVO vo) throws Exception {
-		AlbumEntity entity = this.albumDAO.findByPk(vo.getAlbumId());
-		if (entity == null) {
+	public AlbumEntity update(AlbumEntity entity) throws Exception {
+		AlbumEntity entityAux = this.albumDAO.findByPk(entity.getAlbumId());
+		if (entityAux == null) {
 			logger.info("does.not.exists");
 			throw new IllegalStateException("does.not.exists");
 		}
-		entity = new AlbumEntity();
-		mapper.mapVOToEntity(vo, entity);
 		AlbumEntity entityUpdated = this.albumDAO.merge(entity);
-		return mapper.mapEntityToVO(entityUpdated);
+		return entityUpdated;
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void delete(AlbumVO vo) throws Exception {
-		AlbumEntity entity = new AlbumEntity();
-		this.mapper.mapVOToEntity(vo, entity);
+	public void delete(AlbumEntity entity) throws Exception {
 		this.albumDAO.delete(entity);
 	}
 
@@ -91,45 +83,29 @@ public class AlbumService implements IAlbumService, Serializable {
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-	public AlbumVO findByPk(Integer pk) throws Exception {
+	public AlbumEntity findByPk(Integer pk) throws Exception {
 		AlbumEntity entity = this.albumDAO.findByPk(pk);
-		AlbumVO vo = this.mapper.mapEntityToVO(entity);
-		return vo;
+		return entity;
 	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-	public List<AlbumVO> findEntries(int firstResult, int maxResults) throws Exception {
-		Iterable<AlbumEntity> entities = this.albumDAO.findEntries(firstResult, maxResults);
-		List<AlbumVO> vos = new ArrayList<AlbumVO>();
-		for (AlbumEntity entity : entities) {
-			vos.add(mapper.mapEntityToVO(entity));
-		}
-		return vos;
+	public List<AlbumEntity> findEntries(int firstResult, int maxResults) throws Exception {
+		List<AlbumEntity> entities = new ArrayList<AlbumEntity>(this.albumDAO.findEntries(firstResult, maxResults));
+		return entities;
 	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-	public List<AlbumVO> findAll() throws Exception {
-		Iterable<AlbumEntity> entities = this.albumDAO.findAll();
-		List<AlbumVO> vos = new ArrayList<AlbumVO>();
-		for (AlbumEntity entity : entities) {
-			vos.add(mapper.mapEntityToVO(entity));
-		}
-		return vos;
+	public List<AlbumEntity> findAll() throws Exception {
+		List<AlbumEntity> entities = new ArrayList<AlbumEntity>(this.albumDAO.findAll());
+		return entities;
 	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-	public List<AlbumVO> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws Exception {
+	public List<AlbumEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws Exception {
 		List<AlbumEntity> entities = this.albumDAO.executeQueryFilter(filters, firstResult, maxResult);
-		List<AlbumVO> vos = new ArrayList<AlbumVO>();
-		for (AlbumEntity entity : entities) {
-			vos.add(mapper.mapEntityToVO(entity));
-		}
-		return vos;
+		return entities;
 	}
-
-	
-
 }

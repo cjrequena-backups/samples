@@ -12,11 +12,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sample.architecture.dao.Filter;
-import com.sample.architecture.mapping.Mapper;
 import com.sample.model.dao.IArtistDAO;
 import com.sample.model.entity.ArtistEntity;
 import com.sample.service.IArtistService;
-import com.sample.vo.ArtistVO;
 
 /**
  * 
@@ -34,7 +32,6 @@ public class ArtistService implements IArtistService, Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArtistService.class);
 	
-	private Mapper<ArtistEntity, ArtistVO> mapper = new Mapper<ArtistEntity, ArtistVO>(ArtistEntity.class, ArtistVO.class);
 
 
 	@Autowired
@@ -48,38 +45,33 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public ArtistVO save(ArtistVO vo) throws Exception {
-		ArtistEntity entity = this.artistDAO.findByPk(vo.getArtistId());
-		if (entity != null) {
+	public ArtistEntity save(ArtistEntity entity) throws Exception {
+		ArtistEntity entityAux = this.artistDAO.findByPk(entity.getArtistId());
+		if (entityAux != null) {
 			logger.info("already.exists");
 			throw new IllegalStateException("already.exists");
 		}
-		entity = new ArtistEntity();
-		mapper.mapVOToEntity(vo, entity);
+		
 		ArtistEntity entitySaved = this.artistDAO.merge(entity);
-		return mapper.mapEntityToVO(entitySaved);
+		return entitySaved;
 
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public ArtistVO update(ArtistVO vo) throws Exception {
-		ArtistEntity entity = this.artistDAO.findByPk(vo.getArtistId());
-		if (entity == null) {
+	public ArtistEntity update(ArtistEntity entity) throws Exception {
+		ArtistEntity entityAux = this.artistDAO.findByPk(entity.getArtistId());
+		if (entityAux == null) {
 			logger.info("does.not.exists");
 			throw new IllegalStateException("does.not.exists");
 		}
-		entity = new ArtistEntity();
-		mapper.mapVOToEntity(vo, entity);
 		ArtistEntity entityUpdated = this.artistDAO.merge(entity);
-		return mapper.mapEntityToVO(entityUpdated);
+		return entityUpdated;
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void delete(ArtistVO vo) throws Exception {
-		ArtistEntity entity = new ArtistEntity();
-		this.mapper.mapVOToEntity(vo, entity);
+	public void delete(ArtistEntity entity) throws Exception {
 		this.artistDAO.delete(entity);
 	}
 
@@ -91,45 +83,29 @@ public class ArtistService implements IArtistService, Serializable {
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-	public ArtistVO findByPk(Integer pk) throws Exception {
+	public ArtistEntity findByPk(Integer pk) throws Exception {
 		ArtistEntity entity = this.artistDAO.findByPk(pk);
-		ArtistVO vo = this.mapper.mapEntityToVO(entity);
-		return vo;
+		return entity;
 	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-	public List<ArtistVO> findEntries(int firstResult, int maxResults) throws Exception {
-		Iterable<ArtistEntity> entities = this.artistDAO.findEntries(firstResult, maxResults);
-		List<ArtistVO> vos = new ArrayList<ArtistVO>();
-		for (ArtistEntity entity : entities) {
-			vos.add(mapper.mapEntityToVO(entity));
-		}
-		return vos;
+	public List<ArtistEntity> findEntries(int firstResult, int maxResults) throws Exception {
+		List<ArtistEntity> entities = new ArrayList<ArtistEntity>(this.artistDAO.findEntries(firstResult, maxResults));
+		return entities;
 	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-	public List<ArtistVO> findAll() throws Exception {
-		Iterable<ArtistEntity> entities = this.artistDAO.findAll();
-		List<ArtistVO> vos = new ArrayList<ArtistVO>();
-		for (ArtistEntity entity : entities) {
-			vos.add(mapper.mapEntityToVO(entity));
-		}
-		return vos;
+	public List<ArtistEntity> findAll() throws Exception {
+		List<ArtistEntity> entities = new ArrayList<ArtistEntity>(this.artistDAO.findAll());
+		return entities;
 	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-	public List<ArtistVO> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws Exception {
+	public List<ArtistEntity> executeQueryFilter(List<Filter> filters, int firstResult, int maxResult) throws Exception {
 		List<ArtistEntity> entities = this.artistDAO.executeQueryFilter(filters, firstResult, maxResult);
-		List<ArtistVO> vos = new ArrayList<ArtistVO>();
-		for (ArtistEntity entity : entities) {
-			vos.add(mapper.mapEntityToVO(entity));
-		}
-		return vos;
+		return entities;
 	}
-
-	
-
 }
