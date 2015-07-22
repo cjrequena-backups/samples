@@ -26,7 +26,8 @@ public class TicTacToe {
 	 */
 	public void run() {
 		try {
-			File file = new File("input1.txt");
+			
+			File file = new File(ClassLoader.getSystemResource("input1.txt").getFile());
 			List<String> lines = Files.readAllLines(Paths.get(file.getAbsolutePath()), Charset.defaultCharset());
 			int numTestCases = Integer.valueOf(lines.get(0));
 			int nextPlayerLine = -1;
