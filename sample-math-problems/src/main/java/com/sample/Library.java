@@ -1,8 +1,8 @@
-package com.sample.euler.solutions;
+package com.sample;
 
 import java.math.BigInteger;
 
-final class Library {
+public final class Library {
 
 	// Returns the reverse of the given string.
 	public static String reverse(String s) {

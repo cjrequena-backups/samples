@@ -1,17 +1,18 @@
 package com.sample.math.solutions;
 
-//A non-empty zero-indexed array A consisting of N integers is given. A slice
-//of that array is a pair of integers (P, Q) such that 0 <= P <= Q < N.
-//Integer P is called the beginning of the slice; integer Q is called the end
-//of the slice. The number Q - P + 1 is called the size of the slice. A slice
-//(P, Q) of array A is called ascending if A[P] < A[P+1] < ... A[Q-1] < A[Q].
-//Write a function:
-//
-//class AscendingSlice { public int ascendingSlice(int[] A); }
-//
-//that, given a zero-indexed array A consisting of N integers, returns the 
-//beginning of any ascending slice of A of maximal size.
+/*---------------------------------------------------------------------------
+ a non-empty zero-indexed array a consisting of n integers is given. a slice
+ of that array is a pair of integers (p, q) such that 0 <= p <= q < n.
+ integer p is called the beginning of the slice; integer q is called the end
+ of the slice. the number q - p + 1 is called the size of the slice. a slice
+ (p, q) of array a is called ascending if a[p] < a[p+1] < ... a[q-1] < a[q].
+ write a function:
 
+ class ascendingslice { public int ascendingslice(int[] a); }
+
+ that, given a zero-indexed array a consisting of n integers, returns the 
+ beginning of any ascending slice of a of maximal size.
+ ------------------------------------------------------------------------------*/
 class AscendingSlice {
 
 	public static void main(String[] args) {
@@ -46,6 +47,6 @@ class AscendingSlice {
 
 		System.out.println("Slice (" + start + "," + end + ")");
 		System.out.println("Slice size " + (end - start + 1));
-		return start; 
+		return start;
 	}
 }
