@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /*---------------------------------------------------------------------------------------------------------
  Write a function:
- class Solution { public int solution(int[] A); } 
+ class CountElementsIntoArrayInt { public int solution(int[] A); } 
  that, given a non-empty zero-indexed array A of N integers, returns the minimum value from array A:
  min{ A[i] : 0 ≤ i < N }
  For example, given:
