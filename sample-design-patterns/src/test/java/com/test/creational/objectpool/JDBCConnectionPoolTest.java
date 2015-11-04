@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.design.patterns.creational.objectpool.JDBCConnectionPool;
@@ -20,23 +21,43 @@ import com.design.patterns.creational.objectpool.JDBCConnectionPool;
  */
 public class JDBCConnectionPoolTest {
 
+	Connection connection;
+	JDBCConnectionPool pool;
+
+	@Before
+	public void setup() {
+		
+		try {
+			pool = JDBCConnectionPool.getInstance();
+			connection = pool.checkOut();
+			Statement statement = connection.createStatement();
+			statement.execute("CREATE TABLE sample (id INTEGER PRIMARY KEY, firstName VARCHAR(50), lastName VARCHAR(50), email  VARCHAR(50));");
+			statement.execute("INSERT INTO sample VALUES (1, 'Carlos','Requena', 'crequena@hotelbeds.com');");
+			pool.release(connection);
+		} catch (SQLException e) {
+			//e.printStackTrace();
+		}
+	}
+
 	@Test
 	public void jdbcConnectionPoolTest() {
 		// Create the ConnectionPool:
-		JDBCConnectionPool pool = JDBCConnectionPool.getInstance();
+		pool = JDBCConnectionPool.getInstance();
 
 		for (int i = 0; i <= 10; i++) {
 			// Get a connection:
-			Connection con = pool.checkOut();
+			connection = pool.checkOut();
 			try {
-				Statement statement = con.createStatement();
+				Statement statement = connection.createStatement();
 				// execute create SQL stetement
-				ResultSet rs = statement.executeQuery("SELECT * FROM Album");
+				ResultSet rs = statement.executeQuery("SELECT * FROM sample");
 
 				while (rs.next()) {
-					Integer id = rs.getInt("AlbumId");
-					String title = rs.getString("Title");
-					System.out.println("ID " + id + " TITLE " + title);
+					Integer id = rs.getInt("id");
+					String firstName = rs.getString("firstName");
+					String lastName = rs.getString("lastName");
+					String email = rs.getString("email");
+					System.out.println("email " + email);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -44,7 +65,7 @@ public class JDBCConnectionPoolTest {
 			}
 
 			// Return the connection:
-			pool.checkIn(con);
+			pool.release(connection);
 		}
 	}
 

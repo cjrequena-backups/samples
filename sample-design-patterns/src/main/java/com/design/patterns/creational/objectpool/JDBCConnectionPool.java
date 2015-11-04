@@ -10,17 +10,16 @@ public class JDBCConnectionPool extends ObjectPool<Connection> {
 
 	private JDBCConnectionPool() {
 		super();
-		this.driver = "com.mysql.jdbc.Driver";
-		this.dsn = "jdbc:mysql://localhost:3306/Chinook";
-		this.usr = "root";
-		this.pwd = "root";
+		this.driver = "org.h2.Driver";
+		this.dsn = "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE";
+		this.usr = "sa";
+		this.pwd = "";
 		
 		try {
 			Class.forName(driver).newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	private static class JDBCConnectionPoolHolder {

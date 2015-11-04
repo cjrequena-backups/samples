@@ -28,9 +28,9 @@ public abstract class ObjectPool<T> {
 		long now = System.currentTimeMillis();
 		T t;
 		if (unlocked.size() > 0) {
-			Enumeration<T> e = unlocked.keys();
-			while (e.hasMoreElements()) {
-				t = e.nextElement();
+			Enumeration<T> enumUnlocked = unlocked.keys();
+			while (enumUnlocked.hasMoreElements()) {
+				t = enumUnlocked.nextElement();
 				if ((now - unlocked.get(t)) > expirationTime) {
 					// object has expired
 					unlocked.remove(t);
@@ -56,7 +56,7 @@ public abstract class ObjectPool<T> {
 		return (t);
 	}
 
-	public synchronized void checkIn(T t) {
+	public synchronized void release(T t) {
 		locked.remove(t);
 		unlocked.put(t, System.currentTimeMillis());
 	}

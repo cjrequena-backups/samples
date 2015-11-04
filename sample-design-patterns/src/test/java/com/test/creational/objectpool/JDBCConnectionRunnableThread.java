@@ -23,16 +23,15 @@ public class JDBCConnectionRunnableThread implements Runnable {
 
 			for (int i = 0; i <= 10; i++) {
 				// Get a connection:
-				Connection con = pool.checkOut();
+				Connection connection = pool.checkOut();
 				try {
-					Statement statement = con.createStatement();
+					Statement statement = connection.createStatement();
 					// execute create SQL stetement
-					ResultSet rs = statement.executeQuery("SELECT * FROM Album");
+					ResultSet rs = statement.executeQuery("SELECT * FROM sample");
 
 					while (rs.next()) {
-						Integer id = rs.getInt("AlbumId");
-						String title = rs.getString("Title");
-						System.out.println("ID " + id + " TITLE " + title);
+						Integer id = rs.getInt("id");
+						System.out.println("ID " + id);
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -40,9 +39,9 @@ public class JDBCConnectionRunnableThread implements Runnable {
 				}
 
 				// Return the connection:
-				pool.checkIn(con);
+				pool.release(connection);
 			}
-			Thread.sleep(100);
+			Thread.sleep(1000000000);
 		} catch (InterruptedException iex) {
 			System.out.println("Exception in thread: " + iex.getMessage());
 		}
