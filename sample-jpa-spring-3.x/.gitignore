@@ -1,7 +1,0 @@
-target
-bin
-/bin
-*.class
-*.settings
-*.project
-*.classpath
